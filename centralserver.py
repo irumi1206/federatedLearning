@@ -21,7 +21,7 @@ class CentralServer:
 
             for i in range(self.args.centralserverepoch):
 
-                # validate the model before training
+                # validate the model before training and log it to overall training log file
                 logging.info(f"\n{'-'*100}\n")
                 accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.args.testdataloader, self.args)
                 logging.info(f"Central server round {i+1}, loss : {lossbefore:.2f}, accuracy :{(100*accuracybefore):.2f}%")
@@ -49,15 +49,18 @@ class CentralServer:
                 self.model.load_state_dict(modelstatedict)
                 timepast += max([cluster.calculate_training_time() for cluster in self.clusterlist])
 
-                # validate the model after training
+                # validate the model after training and log it to overall training log file
                 accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.args.testdataloader, self.args)
                 logging.info(f"Central server round {i+1}, loss : {lossafter:.2f}, accuracy :{(100*accuracyafter):.2f}%")
                 logging.info(f"Time past: {timepast}msec")
                 logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
+
+                # log the result of before and after the aggregation information to each cluster level log files
                 for cluster in self.clusterlist:
-                    self.args.loggers[cluster.clusterid].info(f"Aggregated to central server at round {i+1} with accuracy {(100*accuracyafter):.2f}%")
-                    self.args.loggers[cluster.clusterid].info(f"Loss : {lossafter}")
-                    self.args.loggers[cluster.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
+                    clusterid = cluster.clusterid
+                    self.args.loggers[clusterid].info(f"Aggregation to central server completed at central server round {i+1}, loss : {lossafter:.2f}, accuracy : {(100*accuracyafter):.2f}%")
+                    self.args.loggers[clusterid].info(f"Accuracy per label before aggregation : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
+                    self.args.loggers[clusterid].info(f"Accuracy per label after aggregation : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
                 
                 
         else:
@@ -89,7 +92,7 @@ class CentralServer:
             for epoch in range(self.args.centralserverepoch):
                 for clusterind in range(self.args.clusternum):
 
-                    # validate the model before training
+                    # validate the model before training and log it to overall training log file
                     logging.info(f"\n{'-'*100}\n")
                     accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.args.testdataloader, self.args)
                     logging.info(f"Central server round {timestamp+1}, loss : {lossbefore:.2f}, accuracy :{(100*accuracybefore):.2f}%")
@@ -105,7 +108,7 @@ class CentralServer:
 
                     # calculate the staleness based function
                     alpha = self.args.interasyncalpha
-                    staleness = timestamp - timestampforcluster[clusterid]
+                    staleness = timestamp - timestampforcluster[clusterid] -1
                     stalenessfunction = 1/(1+staleness)
                     alphatime = alpha * stalenessfunction
                     logging.info(f"{' '*42}Staleness : {staleness}")
@@ -127,9 +130,9 @@ class CentralServer:
                     logging.info(f"Central server round {timestamp+1}, loss : {lossafter:.2f}, accuracy :{(100*accuracyafter):.2f}%")
                     logging.info(f"Time past : {timepast}msec")
                     logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
-                    self.args.loggers[clusterid].info(f"Aggregated to central server at round {timestamp+1} with staleness of {staleness}, aggregated accuracy of {(100*accuracyafter):.2f}%,")
-                    self.args.loggers[clusterid].info(f"Loss : {lossafter}")
-                    self.args.loggers[clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
+                    self.args.loggers[clusterid].info(f"Aggregation to central server completed at central server round {timestamp+1}, loss : {lossafter:.2f} , accuracy : {(100*accuracyafter):.2f}%, stalenes : {staleness}")
+                    self.args.loggers[clusterid].info(f"Accuracy per label before aggregation : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
+                    self.args.loggers[clusterid].info(f"Accuracy per label after aggregation : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
 
                     # update the timestamp
                     timestamp += 1

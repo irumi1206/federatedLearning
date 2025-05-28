@@ -62,8 +62,8 @@ class Cluster:
             self.args.loggers[self.clusterid].info(f"{'-'*53}\n")
             self.args.loggers[self.clusterid].info(f"Central server round {roundnumber+1} started")
             self.args.loggers[self.clusterid].info(f"Model sent from central server with {timepast}msec communication time, with loss :{lossbefore:.2f}, accuracy : {(100*accuracybefore):.2f}%")
-            self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}\n")
-            self.args.loggers[self.clusterid].info(f"The model is from round {modelroundnumber+1} from central server, staleness is {roundnumber-modelroundnumber}")
+            self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
+            self.args.loggers[self.clusterid].info(f"The model is from round {modelroundnumber+1} from central server, staleness is {roundnumber-modelroundnumber-1}\n")
             logging.info(f"{' '*53}-> Cluster {self.clusterid}, loss : {lossbefore:.2f}, accuracy {(100*accuracybefore):.2f}%, model from round {modelroundnumber+1}")
             logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
 
