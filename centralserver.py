@@ -17,15 +17,18 @@ class CentralServer:
 
         timepast = 0
 
+        # validate the model before training and log it to overall training log file
+        logging.info(f"\n{'-'*100}\n")
+        accuracyinitial, lossinitial, accuracyperlabelinitial = validate_model_detailed(self.model, self.args.testdataloader, self.args)
+        logging.info(f"Central server round 1, loss : {lossinitial:.2f}, accuracy :{(100*accuracyinitial):.2f}%")
+        logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelinitial.items()]}")
+
         if self.args.interclusteringtype == "sync":
 
             for i in range(self.args.centralserverepoch):
 
-                # validate the model before training and log it to overall training log file
-                logging.info(f"\n{'-'*100}\n")
+                # before round begins, save the infromation of the global model
                 accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.args.testdataloader, self.args)
-                logging.info(f"Central server round {i+1}, loss : {lossbefore:.2f}, accuracy :{(100*accuracybefore):.2f}%")
-                logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
                 
                 # load the model to the clusters
                 for cluster in self.clusterlist:
@@ -58,9 +61,11 @@ class CentralServer:
                 # log the result of before and after the aggregation information to each cluster level log files
                 for cluster in self.clusterlist:
                     clusterid = cluster.clusterid
+                    self.args.loggers[clusterid].info(f"Before aggregation, loss : {lossbefore:.2f}, accuracy : {(100*accuracybefore):.2f}%")
+                    self.args.loggers[clusterid].info(f"Before aggregation, accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
                     self.args.loggers[clusterid].info(f"Aggregation to central server completed at central server round {i+1}, loss : {lossafter:.2f}, accuracy : {(100*accuracyafter):.2f}%")
-                    self.args.loggers[clusterid].info(f"Accuracy per label before aggregation : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
                     self.args.loggers[clusterid].info(f"Accuracy per label after aggregation : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
+                
                 
                 
         else:
@@ -79,6 +84,7 @@ class CentralServer:
                 timepast = timetoexecute
                 clustertimequeue.put((timetoexecute+clustertime,clustertime,clusterid))
                 clustertoexecute.append((clusterid,timepast))
+            timepast = 0
 
             # timestamp for each client and initialize each client's model
             # timstamp records the rouncd of which the models is loaded from central server after aggregation. For the very first aggregation, the timestamp is set to -1
@@ -92,11 +98,8 @@ class CentralServer:
             for epoch in range(self.args.centralserverepoch):
                 for clusterind in range(self.args.clusternum):
 
-                    # validate the model before training and log it to overall training log file
-                    logging.info(f"\n{'-'*100}\n")
+                    # before round begins, save the infromation of the global model
                     accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.args.testdataloader, self.args)
-                    logging.info(f"Central server round {timestamp+1}, loss : {lossbefore:.2f}, accuracy :{(100*accuracybefore):.2f}%")
-                    logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
 
                     # get cluster id and timepast to execute
                     clusterid, timepast = clustertoexecute[self.args.clusternum*epoch+clusterind]
@@ -130,8 +133,9 @@ class CentralServer:
                     logging.info(f"Central server round {timestamp+1}, loss : {lossafter:.2f}, accuracy :{(100*accuracyafter):.2f}%")
                     logging.info(f"Time past : {timepast}msec")
                     logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
-                    self.args.loggers[clusterid].info(f"Aggregation to central server completed at central server round {timestamp+1}, loss : {lossafter:.2f} , accuracy : {(100*accuracyafter):.2f}%, stalenes : {staleness}")
-                    self.args.loggers[clusterid].info(f"Accuracy per label before aggregation : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
+                    self.args.loggers[clusterid].info(f"Before aggregation, loss : {lossbefore:.2f}, accuracy : {(100*accuracybefore):.2f}%")
+                    self.args.loggers[clusterid].info(f"Before aggregation, accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
+                    self.args.loggers[clusterid].info(f"Aggregation to central server completed at central server round {i+1}, loss : {lossafter:.2f}, accuracy: {(100*accuracyafter):.2f}%, staleness : {staleness}")
                     self.args.loggers[clusterid].info(f"Accuracy per label after aggregation : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
 
                     # update the timestamp

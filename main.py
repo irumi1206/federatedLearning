@@ -27,6 +27,16 @@ def setting(args):
         format="%(message)s"
     )
 
+    # define list to keep track of accuracy and loss for central server and each cluster
+    args.centralservertimepast = []
+    args.centralserveraccuracy = []
+    args.centralserverloss =[]
+    args.centralserverround = []
+    args.clustertimpast = [[] for _ in range(args.clusternum)]
+    args.clusteraccuracy = [[] for _ in range(args.clusternum)]
+    args.clusterloss = [[] for _ in range(args.clusternum)]
+    args.clusterround = [[] for _ in range(args.clusternum)]
+
     # Set multiprocessing
     mp.set_start_method("spawn", force=True)
     

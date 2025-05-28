@@ -78,7 +78,7 @@ def split_onelabeldominant(dataset, args):
         _, label = dataset[i]
         labeltoindices[label].append(i)
     labellist = [label for label in labeltoindices.keys()]
-    if len(labellist) > args.clientnum : raise NotImplemented("too small clients")
+    if len(labellist) > args.clientnum : raise NotImplementedError("too small clients")
     rng = np.random.default_rng(args.randomseed+4)
 
     # compute client number per label, fair distribution, labels with few get less clients

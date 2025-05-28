@@ -4,6 +4,8 @@ import logging
 from utils import validate_model, get_model, validate_model_detailed
 from torch.multiprocessing import Process, Queue
 from queue import PriorityQueue
+import queue as q
+
 def train_single_client(client,queue):
     client.local_train(queue)
 
@@ -155,7 +157,7 @@ class Cluster:
                     
                     # local trainng the client
                     client = self.clientlist[clientid]
-                    queue = Queue()
+                    queue = q.Queue()
                     client.local_train(queue)
 
                     # calulate the staleness and log device
@@ -163,6 +165,8 @@ class Cluster:
                     staleness = timestamp - timestampforclient[clientid]
                     stalenessfunction = 1/(1+staleness)
                     alphatime = alpha * stalenessfunction
+                    if queue.empty():
+                        print("client queue empty")
                     while not queue.empty():
                         logging.info(queue.get()+f", staleness :{staleness}")
 
