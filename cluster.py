@@ -103,7 +103,7 @@ class Cluster:
                 timeperepoch = max(client.calculate_training_time() for client in self.clientlist)
                 timepast += timeperepoch
 
-                # validate the model after training
+                # validate the model after training and log it to overall training log
                 accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
                 logging.info(f"{' '*53}Cluster {self.clusterid}, round {i+1}, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}% <-")
                 logging.info(f"{' '*53}Time past : {timepast}msec")
@@ -135,16 +135,23 @@ class Cluster:
             timestamp = 0 
             timestampforclient = [timestamp] * len(self.clientlist)
             
+            # validate the model before training
+            accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.testdataloader, self.args)
+            self.args.loggers[self.clusterid].info(f"{'-'*53}\n")
+            self.args.loggers[self.clusterid].info(f"Central server round {roundnumber+1} started")
+            self.args.loggers[self.clusterid].info(f"Model sent from central server with {timepast}msec communication time, with loss :{lossbefore:.2f}, accuracy : {(100*accuracybefore):.2f}%")
+            self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
+            self.args.loggers[self.clusterid].info(f"The model is from round {modelroundnumber+1} from central server, staleness is {roundnumber-modelroundnumber-1}\n")
+            logging.info(f"{' '*53}-> Cluster {self.clusterid}, loss : {lossbefore:.2f}, accuracy {(100*accuracybefore):.2f}%, model from round {modelroundnumber+1}")
+            logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
+
+
             # train the clients in the order of the sequence
-            for epoch in range(self.clusterepoch):
+            for epoch in range(self.clusterepoch):    
                 for clientind in range(self.clustersize):
                     
                     # get client id and timepast to execute
                     clientid, timepast = clienttoexecute[self.clustersize*epoch+clientind]
-                    
-                    # validate the model before training
-                    accuracybefore, _ = validate_model(self.model, self.testdataloader, self.args)
-                    logging.info(f"{' '*53}-> Cluster {self.clusterid}, round {timestamp+1}, accuracy {(100*accuracybefore):.2f}%")
                     
                     # local trainng the client
                     client = self.clientlist[clientid]
@@ -166,12 +173,16 @@ class Cluster:
                         modelstatedict[key] = alphatime * client.model.state_dict()[key] + (1-alphatime) * self.model.state_dict()[key]
                     self.model.load_state_dict(modelstatedict)
 
-                    # validate the model after training
-                    accuracyafter, _, accuracyperlabel = validate_model_detailed(self.model, self.testdataloader, self.args)
+                    # validate the model after training and log it to overall training log
+                    accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
                     logging.info(f"{' '*53}Cluster {self.clusterid}, round {timestamp+1}, accuracy {(100*accuracyafter):.2f}% <-")
                     logging.info(f"{' '*53}Time past : {timepast}msec")
-                    logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabel.items()]}")
+                    logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
 
+                    # log the information to cluster level logger
+                    self.args.loggers[self.clusterid].info(f"Cluster round {timestamp+1} completed, aggregated model from client {clientid}, time past : {timepast}msec, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}%")
+                    self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
+                    
                     # update the timestamp
                     timestamp += 1
 
