@@ -7,22 +7,22 @@ def partition_system(args):
     # Systen configuration
     networkvariance = 0.0
     devcievaricnae = 0.0
-    basecomputationtime =0.1 # base time per epoch
-    basecommunicationtime = 0.05 # base time per model transfer
+    basecomputationtime =0.02 # base time per epoch
+    basecommunicationtime = 0.1 # base time per model transfer
 
     # Device capability category
     devicecpapbility={
         'high': 100,
-        'medium': 200,
-        'low': 400
+        'medium': 100,
+        'low': 100
     }
     devicedistribution = [0.2, 0.5, 0.3]
 
     # Network condition category
     networkcondition={
         'high': 100,
-        'medium': 200,
-        'low': 400
+        'medium': 100,
+        'low': 100
     }
     networkdistribution = [0.3, 0.4, 0.3]
 

@@ -141,15 +141,15 @@ class CentralServer:
                     logging.info(f"Central server round {timestamp+1}, loss : {lossafter:.2f}, accuracy :{(100*accuracyafter):.2f}%")
                     logging.info(f"Time past : {timepast}msec")
                     logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
-                    self.args.centralservertimepast.append(timepast)
-                    self.args.centralserverround.append(timestamp+1)
-                    self.args.centralserveraccuracy.append(accuracyafter)
-                    self.args.centralserverloss.append(lossafter)
                     self.args.loggers[clusterid].info(f"Before aggregation, loss : {lossbefore:.2f}, accuracy : {(100*accuracybefore):.2f}%")
                     self.args.loggers[clusterid].info(f"Before aggregation, accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
                     self.args.loggers[clusterid].info(f"Aggregation to central server completed at central server round {i+1}, loss : {lossafter:.2f}, accuracy: {(100*accuracyafter):.2f}%, staleness : {staleness}")
                     self.args.loggers[clusterid].info(f"Accuracy per label after aggregation : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
-
                     # update the timestamp
                     timestamp += 1
+                
+                self.args.centralservertimepast.append(timepast)
+                self.args.centralserverround.append(timestamp)
+                self.args.centralserveraccuracy.append(accuracyafter)
+                self.args.centralserverloss.append(lossafter)
 

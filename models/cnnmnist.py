@@ -1,8 +1,8 @@
 import torch.nn as nn
 
-class CNN(nn.Module):
+class CNNMnist(nn.Module):
     def __init__(self):
-        super(CNN, self).__init__()
+        super(CNNMnist, self).__init__()
         self.conv = nn.Sequential(
             nn.Conv2d(1, 10, kernel_size=5),
             nn.ReLU(),
@@ -24,4 +24,4 @@ class CNN(nn.Module):
         return x
 
 def get_model():
-    return CNN()
+    return CNNMnist()

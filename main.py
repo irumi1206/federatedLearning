@@ -4,6 +4,8 @@ from datetime import datetime
 import torch.multiprocessing as mp
 import os
 import matplotlib.pyplot as plt
+from collections import defaultdict
+import json
 
 from client import Client
 from cluster import Cluster
@@ -33,7 +35,7 @@ def setting(args):
     args.centralserveraccuracy = []
     args.centralserverloss =[]
     args.centralserverround = []
-    args.clustertimpast = [[] for _ in range(args.clusternum)]
+    args.clustertimepast = [[] for _ in range(args.clusternum)]
     args.clusteraccuracy = [[] for _ in range(args.clusternum)]
     args.clusterloss = [[] for _ in range(args.clusternum)]
     args.clusterround = [[] for _ in range(args.clusternum)]
@@ -143,6 +145,21 @@ def logcluster(centralserver, args):
         clusterlogger.info(f"Divergence : jsd {divergence['jsd']:.4f}, tvd {divergence['tvd']:.4f}")
         clusterlogger.info("")
 
+# Save graph data
+def savegraph(args):
+
+    with open(f"{args.timestamp}/args.json",'w') as f:
+        graphdata = defaultdict(list)
+        graphdata["centralservertimepast"] = args.centralservertimepast
+        graphdata["centralserveraccuracy"] = args.centralserveraccuracy
+        graphdata["centralserverloss"] = args.centralserverloss
+        graphdata["centralserverround"] = args.centralserverround
+        graphdata["clustertimepast"] = args.clustertimepast
+        graphdata["clusteraccuracy"] = args.clusteraccuracy
+        graphdata["clusterloss"] = args.clusterloss
+        graphdata["clusterround"] = args.clusterround
+        json.dump(graphdata,f)
+
 # Draw graph for evaluation
 def drawgraph(args):
     fig, axs = plt.subplots(2, 2, figsize = (12, 6))
@@ -185,18 +202,18 @@ if __name__ == "__main__":
 
     # Define arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-clusternum", type = int, default = 3)
-    parser.add_argument("-clustersize", type = int, default = 4)
-    parser.add_argument("-clientnum", type = int, default = 12)
-    parser.add_argument("-centralserverepoch", type = int, default = 2)
+    parser.add_argument("-clusternum", type = int, default = 10)
+    parser.add_argument("-clustersize", type = int, default = 10)
+    parser.add_argument("-clientnum", type = int, default = 100)
+    parser.add_argument("-centralserverepoch", type = int, default = 300)
     parser.add_argument("-clusterepoch", type = int, default = 3)
-    parser.add_argument("-localepoch", type = int, default = 3)
+    parser.add_argument("-localepoch", type = int, default = 5)
     parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
     parser.add_argument("-interasyncalpha", type = float, default = 0.6)
-    parser.add_argument("-modelname", type = str, choices = ["cnn"], default = "cnn")
-    parser.add_argument("-datasetname", type = str, choices = ["mnist"], default = "mnist")
+    parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10"], default = "cnnmnist")
+    parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10"], default = "mnist")
     parser.add_argument("-optimizername", type = str, default = "sgd")
     parser.add_argument("-learningrate", type = float, default = 0.01)
     parser.add_argument("-batchsize", type = int, default =32)
@@ -240,5 +257,9 @@ if __name__ == "__main__":
     # training process
     centralserver.central_train()
 
+    # save graph file
+    savegraph(args)
+
+
     # draw graph of loass and accuracy with time and round for centralserver and clusters
-    drawgraph(args)
+    # drawgraph(args)

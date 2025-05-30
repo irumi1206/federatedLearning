@@ -13,7 +13,11 @@ from collections import defaultdict
 # Return model object based on the model name
 def get_model(modelname):
 
-    if modelname == "cnn":
+    if modelname == "cnnmnist":
+        module = importlib.import_module(f"models.{modelname}")
+        return module.get_model()
+    
+    elif modelname == "cnncifar10":
         module = importlib.import_module(f"models.{modelname}")
         return module.get_model()
 
@@ -34,8 +38,13 @@ def get_test_dataloader(datasetname):
 
     if datasetname == "mnist":
 
-        transform = transforms.ToTensor()
-        testdataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+        testdataset = datasets.MNIST(root='./data', train=False, download=True, transform=transforms.ToTensor())
+        testdataloader = DataLoader(testdataset, batch_size=128, shuffle=False)
+        return testdataloader
+    
+    elif datasetname == "cifar10":
+
+        testdataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transforms.ToTensor())
         testdataloader = DataLoader(testdataset, batch_size=128, shuffle=False)
         return testdataloader
 
