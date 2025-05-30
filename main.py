@@ -3,6 +3,7 @@ import logging
 from datetime import datetime
 import torch.multiprocessing as mp
 import os
+import matplotlib.pyplot as plt
 
 from client import Client
 from cluster import Cluster
@@ -142,6 +143,43 @@ def logcluster(centralserver, args):
         clusterlogger.info(f"Divergence : jsd {divergence['jsd']:.4f}, tvd {divergence['tvd']:.4f}")
         clusterlogger.info("")
 
+# Draw graph for evaluation
+def drawgraph(args):
+    fig, axs = plt.subplots(2, 2, figsize = (12, 6))
+
+    # graph 1
+    axs[0].plot(args.centralservertimepast, args.centralserveraccuracy, label = "accuracy by time")
+    axs[0].set_title("accuracy by time")
+    axs[0].set_xlabel("time(msec)")
+    axs[0].set_ylabel("accuracy(%)")
+    axs[0].grid(False)
+
+    # graph 2
+    axs[1].plot(args.centralserverround, args.centralserveraccuracy, label = "accuracy by round")
+    axs[1].set_title("accuracy by round")
+    axs[1].set_xlabel("round")
+    axs[1].set_ylabel("accuracy(%)")
+    axs[1].grid(False)
+
+    # graph 3
+    axs[2].plot(args.centralservertimepast, args.centralserverloss, label = "loss by time")
+    axs[2].set_title("loss by time")
+    axs[2].set_xlabel("time(msec)")
+    axs[2].set_ylabel("loss")
+    axs[2].grid(False)
+
+    # graph 4
+    axs[3].plot(args.centralserverround, args.centralserverloss, label = "loss by round")
+    axs[3].set_title("loss by round")
+    axs[3].set_xlabel("round")
+    axs[3].set_ylabel("loss")
+    axs[3].grid(False)
+    
+
+    plt.tight_layout()
+    plt.savefig(f"{args.timestamp}/centralserver.png")
+    plt.show()
+
 # Main function
 if __name__ == "__main__":
 
@@ -150,11 +188,11 @@ if __name__ == "__main__":
     parser.add_argument("-clusternum", type = int, default = 3)
     parser.add_argument("-clustersize", type = int, default = 4)
     parser.add_argument("-clientnum", type = int, default = 12)
-    parser.add_argument("-centralserverepoch", type = int, default = 10)
+    parser.add_argument("-centralserverepoch", type = int, default = 2)
     parser.add_argument("-clusterepoch", type = int, default = 3)
     parser.add_argument("-localepoch", type = int, default = 3)
     parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
-    parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "async")
+    parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
     parser.add_argument("-interasyncalpha", type = float, default = 0.6)
     parser.add_argument("-modelname", type = str, choices = ["cnn"], default = "cnn")
@@ -201,3 +239,6 @@ if __name__ == "__main__":
 
     # training process
     centralserver.central_train()
+
+    # draw graph of loass and accuracy with time and round for centralserver and clusters
+    drawgraph(args)

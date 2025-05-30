@@ -22,6 +22,10 @@ class CentralServer:
         accuracyinitial, lossinitial, accuracyperlabelinitial = validate_model_detailed(self.model, self.args.testdataloader, self.args)
         logging.info(f"Central server round 1, loss : {lossinitial:.2f}, accuracy :{(100*accuracyinitial):.2f}%")
         logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelinitial.items()]}")
+        self.args.centralservertimepast.append(timepast)
+        self.args.centralserverround.append(0)
+        self.args.centralserveraccuracy.append(accuracyinitial)
+        self.args.centralserverloss.append(lossinitial)
 
         if self.args.interclusteringtype == "sync":
 
@@ -57,6 +61,10 @@ class CentralServer:
                 logging.info(f"Central server round {i+1}, loss : {lossafter:.2f}, accuracy :{(100*accuracyafter):.2f}%")
                 logging.info(f"Time past: {timepast}msec")
                 logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
+                self.args.centralservertimepast.append(timepast)
+                self.args.centralserverround.append(i+1)
+                self.args.centralserveraccuracy.append(accuracyafter)
+                self.args.centralserverloss.append(lossafter)
 
                 # log the result of before and after the aggregation information to each cluster level log files
                 for cluster in self.clusterlist:
@@ -133,6 +141,10 @@ class CentralServer:
                     logging.info(f"Central server round {timestamp+1}, loss : {lossafter:.2f}, accuracy :{(100*accuracyafter):.2f}%")
                     logging.info(f"Time past : {timepast}msec")
                     logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
+                    self.args.centralservertimepast.append(timepast)
+                    self.args.centralserverround.append(timestamp+1)
+                    self.args.centralserveraccuracy.append(accuracyafter)
+                    self.args.centralserverloss.append(lossafter)
                     self.args.loggers[clusterid].info(f"Before aggregation, loss : {lossbefore:.2f}, accuracy : {(100*accuracybefore):.2f}%")
                     self.args.loggers[clusterid].info(f"Before aggregation, accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
                     self.args.loggers[clusterid].info(f"Aggregation to central server completed at central server round {i+1}, loss : {lossafter:.2f}, accuracy: {(100*accuracyafter):.2f}%, staleness : {staleness}")
