@@ -5,6 +5,7 @@ from utils import validate_model, get_model, validate_model_detailed
 from torch.multiprocessing import Process, Queue
 from queue import PriorityQueue
 import queue as q
+import numpy as np
 
 def train_single_client(client,queue):
     client.local_train(queue)

@@ -1,4 +1,7 @@
 import torch.nn as nn
+import torch
+import numpy as np
+import random
 from utils import validate_model, get_model, get_optimizer
 
 # Class for client, local device
@@ -25,6 +28,15 @@ class Client:
 
     # logging is done by passing the queue due to the possibility of multi processing the clients in case of sync 
     def local_train(self,queue):
+
+        seed = self.args.randomseed + self.uniqueid
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
 
         # reset optimizer
         self.optimizer = get_optimizer(self.model, self.args.optimizername, self.args.learningrate)

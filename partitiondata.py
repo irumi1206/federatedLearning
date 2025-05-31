@@ -3,16 +3,26 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader, Subset
 from collections import defaultdict
+import os
+import random
 
 # Return list of dataloader splited based on the setting also save data distribution for each client and global data distribution(args.labelpercentageperclient, args.labelpercentageforglobaldistribution)
 def partition_data(args):
 
     # fix randomness
-    torch.manual_seed(args.randomseed)
-    torch.cuda.manual_seed(args.randomseed+1)
-    torch.cuda.manual_seed_all(args.randomseed+2)
-    np.random.seed(args.randomseed+3)
+    seed = args.randomseed  # or set a constant for testing
+
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"  # For CUDA deterministic ops (if needed)
+
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.use_deterministic_algorithms(True)  # PyTorch 1.8+
 
     # return dataset based on the dataset name
     if args.datasetname == "mnist":
@@ -199,4 +209,9 @@ def split_dirichletdistribution(dataset, args):
         dataloaderlist.append(loader)
 
     return dataloaderlist
+
+def train_single_client(client, queue):
+    torch.manual_seed(client.uniqueid + client.args.randomseed)
+    np.random.seed(client.uniqueid + client.args.randomseed)
+    # ... rest of code ...
 
