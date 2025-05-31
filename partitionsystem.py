@@ -33,13 +33,18 @@ def partition_system(args):
     # Assign communication and computation time to each cluster and client
     for i in range(args.clusternum):
         networkmultiplier = rng.choice(list(networkcondition.values()), p=networkdistribution) * (1 + rng.uniform(-networkvariance, networkvariance))
-        clustercommunicationtimelist.append(int(basecommunicationtime * networkmultiplier))
+        # clustercommunicationtimelist.append(int(basecommunicationtime * networkmultiplier))
+        clustercommunicationtimelist.append(int(networkmultiplier))
     
     for i in range(args.clientnum):
         networkmultiplier = rng.choice(list(networkcondition.values()), p=networkdistribution) * (1 + rng.uniform(-networkvariance, networkvariance))
         computationmultiplier = rng.choice(list(devicecpapbility.values()), p=devicedistribution) * (1 + rng.uniform(-devcievaricnae, devcievaricnae))
-        clientcommunicationtimelist.append(int(basecommunicationtime * networkmultiplier))
-        clientcomputationtimelist.append(int(basecomputationtime * computationmultiplier))
+        # clientcommunicationtimelist.append(int(basecommunicationtime * networkmultiplier))
+        # clientcomputationtimelist.append(int(basecomputationtime * computationmultiplier))
+        clientcommunicationtimelist.append(int(networkmultiplier))
+        #clientcomputationtimelist.append(int(computationmultiplier))
+
+    clientcommunicationtimelist = [100,100,100,100,100,200,200,200,200,200,300,300,300,300,300,400,400,400,400,400,500,500,500,500,500]
 
     # Error checking the partition is done in correct number
     if len(clientcommunicationtimelist) != args.clientnum or len(clientcomputationtimelist) != args.clientnum or len(clustercommunicationtimelist) != args.clusternum:

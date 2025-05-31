@@ -16,15 +16,22 @@ for filename in args.filenamelist:
 
 fig, axes = plt.subplots(1,2,figsize=(12,5))
 
+round =20
+
 for name, data in dataforeachfile:
-    axes[0].plot(data["centralservertimepast"], data["centralserveraccuracy"],label=name, marker='o')
+    axes[0].plot(data["centralservertimepast"][:round], data["centralserveraccuracy"][:round],label=name, marker='o')
 axes[0].set_title("Accuracy per Time")
 axes[0].set_xlabel("Time(msec)")
 axes[0].set_ylabel("Accuracy(%)")
 axes[0].legend()
 
 for name, data in dataforeachfile:
-    axes[1].plot(data["centralserverround"], data["centralserveraccuracy"],label=name,marker='s')
+    # if name == "0530_191836" or name == "0530_191838":
+    #     axes[1].plot([i/5 for i in data["centralserverround"][:round]], data["centralserveraccuracy"][:round],label=name,marker='s')
+    # else:
+
+
+    axes[1].plot(data["centralserverround"][:round], data["centralserveraccuracy"][:round],label=name,marker='s')
 axes[1].set_title("Accuracy per round")
 axes[1].set_xlabel("Round")
 axes[1].set_ylabel("Accuracy(%)")

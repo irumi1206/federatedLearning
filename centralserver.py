@@ -149,7 +149,7 @@ class CentralServer:
                     timestamp += 1
                 
                 self.args.centralservertimepast.append(timepast)
-                self.args.centralserverround.append(timestamp)
+                self.args.centralserverround.append(epoch+1)
                 self.args.centralserveraccuracy.append(accuracyafter)
                 self.args.centralserverloss.append(lossafter)
 
