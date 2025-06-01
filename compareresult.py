@@ -16,10 +16,10 @@ for filename in args.filenamelist:
 
 fig, axes = plt.subplots(1,2,figsize=(12,5))
 
-round =20
+round=10
 
 for name, data in dataforeachfile:
-    axes[0].plot(data["centralservertimepast"][:round], data["centralserveraccuracy"][:round],label=name, marker='o')
+    axes[0].plot(data["centralservertimepast"][:round], data["centralserveraccuracy"][:round],label=name)
 axes[0].set_title("Accuracy per Time")
 axes[0].set_xlabel("Time(msec)")
 axes[0].set_ylabel("Accuracy(%)")
@@ -31,7 +31,7 @@ for name, data in dataforeachfile:
     # else:
 
 
-    axes[1].plot(data["centralserverround"][:round], data["centralserveraccuracy"][:round],label=name,marker='s')
+    axes[1].plot(data["centralserverround"][:round], data["centralserveraccuracy"][:round],label=name)
 axes[1].set_title("Accuracy per round")
 axes[1].set_xlabel("Round")
 axes[1].set_ylabel("Accuracy(%)")

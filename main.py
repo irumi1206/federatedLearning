@@ -207,7 +207,7 @@ if __name__ == "__main__":
     parser.add_argument("-clientnum", type = int, default = 25)
     parser.add_argument("-centralserverepoch", type = int, default = 50)
     parser.add_argument("-clusterepoch", type = int, default = 5)
-    parser.add_argument("-localepoch", type = int, default = 5)
+    parser.add_argument("-localepoch", type = int, default = 3)
     parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
