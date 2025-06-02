@@ -1,0 +1,16 @@
+-----------------------------------------------------
+
+Central server round 1 started
+Model sent from central server with 0msec communication time, with loss :2.31, accuracy : 9.71%
+Accuracy per label : ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.40%', '4:2.10%', '5:94.60%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+The model is from round 0 from central server, staleness is 0
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 15700msec, loss : 2.30, accuracy 11.50%
+Accuracy per label : ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.10%', '5:0.20%', '6:99.20%', '7:0.00%', '8:8.60%', '9:6.90%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 31400msec, loss : 2.28, accuracy 15.87%
+Accuracy per label : ['0:0.00%', '1:0.20%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.50%', '6:74.10%', '7:2.10%', '8:81.20%', '9:0.60%']
+
+Cluster round 3 completed, aggregated models from all the clients, time past : 47100msec, loss : 2.27, accuracy 16.88%
+Accuracy per label : ['0:0.00%', '1:0.90%', '2:0.00%', '3:0.00%', '4:0.00%', '5:2.10%', '6:73.30%', '7:11.00%', '8:80.60%', '9:0.90%']
+

@@ -62,7 +62,7 @@ def create_clientlist(clientdataloaderlist, clientcommunicationtimelist, clientc
 
     # Create clients, -1 for the clusterid  before clustering
     for i in range(args.clientnum):
-        client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, args)
+        client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, -1,args)
         clientlist.append(client)
     
     return clientlist
@@ -99,7 +99,7 @@ def logclient(clientlist, args):
     for i in range(args.clientnum):
         clientdataloader = clientlist[i].dataloader
         clientlogger.info(f"Client {i} with {len(clientdataloader.dataset)} data")
-        clientlogger.info(f"Communication time : {clientlist[i].communicationtime}, Computation time per epoch : {clientlist[i].computationtime}, Training time : {clientlist[i].calculate_training_time()}")
+        clientlogger.info(f"Communication time : {clientlist[i].communicationtime}, Computation time per batch : {clientlist[i].computationtimeperbatch}, Training time : {clientlist[i].calculate_training_time()}")
         percentstring = ""
         for label in args.labellist:
             percentstring += f"{label} : {(args.labelpercentageperclient[i][label]*100):.2f}%  "
@@ -166,19 +166,19 @@ if __name__ == "__main__":
 
     # Define arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-clusternum", type = int, default = 10)
+    parser.add_argument("-clusternum", type = int, default = 1)
     parser.add_argument("-clustersize", type = int, default = 10)
-    parser.add_argument("-clientnum", type = int, default = 100)
-    parser.add_argument("-centralserverepoch", type = int, default = 100)
-    parser.add_argument("-clusterepoch", type = int, default = 2)
+    parser.add_argument("-clientnum", type = int, default = 10)
+    parser.add_argument("-centralserverepoch", type = int, default = 1)
+    parser.add_argument("-clusterepoch", type = int, default = 100)
     parser.add_argument("-localepoch", type = int, default = 5)
     parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
-    parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10"], default = "cnnmnist")
-    parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10"], default = "mnist")
-    parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="iid")
-    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbycustom"], default = "clusterbycustom")
-    parser.add_argument("-systemheterogeneity", type = str)
+    parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10"], default = "cnncifar10")
+    parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10"], default = "cifar10")
+    parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="onelabeldominant")
+    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "custom")
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "custom"], default = "clusterbyclientorder")
     parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
     parser.add_argument("-interasyncalpha", type = float, default = 0.6)
     parser.add_argument("-optimizername", type = str, default = "sgd")
@@ -201,13 +201,14 @@ if __name__ == "__main__":
     # set communication and system time for each cluster and client
     # split the data and distribute to each clients as a list. and also save the data distribution for each client in args.labelpercentageperclient, and global data distribution in args.labelpercentageforglobaldistribution
     # create list of clients
-    clustercommunicationtimelist, clientcommunicationtimelist, clientcomputationtimelist = partition_system(args)
+    clientcommunicationtimelist, clientcomputationtimelist = partition_system(args)
     clientdataloaderlist = partition_data(args)
     clientlist = create_clientlist(clientdataloaderlist, clientcommunicationtimelist, clientcomputationtimelist, args)
 
-    # clustering
-
-    centralserver = clusterclients(clientlist, clustercommunicationtimelist, args)
+    # clustering 
+    # set cluster's communication time with central server,clustering epoch
+    # set client's clusterid, clientid, local epoch
+    centralserver = clusterclients(clientlist, args)
 
     # log experiment setting(args)
     # log client information

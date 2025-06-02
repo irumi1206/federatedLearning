@@ -1,6 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
+# About 33MB
 class CNNCifar10(nn.Module):
     def __init__(self):
         super().__init__()

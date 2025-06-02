@@ -1,5 +1,6 @@
 import torch.nn as nn
 
+# About 1MB
 class CNNMnist(nn.Module):
     def __init__(self):
         super(CNNMnist, self).__init__()
