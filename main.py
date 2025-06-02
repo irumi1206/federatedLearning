@@ -166,9 +166,9 @@ if __name__ == "__main__":
 
     # Define arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("-clusternum", type = int, default = 5)
-    parser.add_argument("-clustersize", type = int, default = 5)
-    parser.add_argument("-clientnum", type = int, default = 25)
+    parser.add_argument("-clusternum", type = int, default = 10)
+    parser.add_argument("-clustersize", type = int, default = 10)
+    parser.add_argument("-clientnum", type = int, default = 100)
     parser.add_argument("-centralserverepoch", type = int, default = 100)
     parser.add_argument("-clusterepoch", type = int, default = 2)
     parser.add_argument("-localepoch", type = int, default = 5)
@@ -177,7 +177,7 @@ if __name__ == "__main__":
     parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10"], default = "cnnmnist")
     parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10"], default = "mnist")
     parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="iid")
-    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbysimilarlabel", "clusterbysimilarsystem"], default = "clusterbyclientorder")
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbycustom"], default = "clusterbycustom")
     parser.add_argument("-systemheterogeneity", type = str)
     parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
     parser.add_argument("-interasyncalpha", type = float, default = 0.6)

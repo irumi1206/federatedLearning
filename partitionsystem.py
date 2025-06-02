@@ -42,9 +42,9 @@ def partition_system(args):
         # clientcommunicationtimelist.append(int(basecommunicationtime * networkmultiplier))
         # clientcomputationtimelist.append(int(basecomputationtime * computationmultiplier))
         clientcommunicationtimelist.append(int(networkmultiplier))
-        #clientcomputationtimelist.append(int(computationmultiplier))
+        clientcomputationtimelist.append(int(computationmultiplier))
 
-    clientcomputationtimelist = [100,200,300,400,500,100,200,300,400,500,100,200,300,400,500,100,200,300,400,500,100,200,300,400,500]
+    #clientcomputationtimelist = [100,200,300,400,500,100,200,300,400,500,100,200,300,400,500,100,200,300,400,500,100,200,300,400,500]
 
     # Error checking the partition is done in correct number
     if len(clientcommunicationtimelist) != args.clientnum or len(clientcomputationtimelist) != args.clientnum or len(clustercommunicationtimelist) != args.clusternum:

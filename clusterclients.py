@@ -7,10 +7,18 @@ def clusterclients(clientlist, clustercommunicationtimelist, args):
     clusteredclientlist = [[]for _ in range(args.clusternum)]
 
     # clustering
-    for clusterind in range(args.clusternum):
-        for clientind in range(args.clustersize):
-            clusteredclientlist[clusterind].append(clientlist[clusterind*args.clustersize + clientind])
-    
+    if args.clusteringtype == "clusterbypartitionorder":
+        for clusterind in range(args.clusternum):
+            for clientind in range(args.clustersize):
+                clusteredclientlist[clusterind].append(clientlist[clusterind*args.clustersize + clientind])
+    elif args.clusteringtype == "clusterbycustom":
+        for clusterind in range(args.clusternum):
+            for clientind in range(args.clustersize):
+                clusteredclientlist[clusterind].append(clientlist[clientind*args.clustersize + clusterind])
+    else:
+        raise ValueError("wrong clustering type")
+
+
     # organizing central server and clusters
     tempclusterlist = []
     for clusterind in range(args.clusternum):
@@ -27,39 +35,4 @@ def clusterclients(clientlist, clustercommunicationtimelist, args):
 
     return centralserver
 
-
-    centralserver = CentralServer(args,[
-        Cluster(i,clustercommunicationtimelist[i],args,[clientlist[i*args.clustersize+j] 
-            for j in range(args.clustersize)
-        ])
-        for i in range(args.clusternum) 
-    ])
-
-    return centralserver
-
-
-    # clustering
-    clusterlist =[[] for _ in range(args.clusternum)]
-    
-    for clusterind in range(args.clusternum):
-        for clientind in range(args.clustersize):
-            clusterlist[clusterind].append(clientlist[clusterind*args.clustersize+clientind])
-    
-    # organise cluster and central server
-    centralserver = CentralServer(args,[])
-
-    for clusterind in range(args.clusternum):
-
-        cluster = Cluster(clusterind, clustercommunicationlist[clusterind], args, [])
-
-        for clientind in range(args.clustersize):
-
-            client = clusterlist[clusterind][clientind]
-            client.clientid = clientind
-            client.clusterid = clusterind
-            cluster.clientlist.append(client)
-
-        centralserver.clusterlist.append(cluster)
-
-    return centralserver
         
