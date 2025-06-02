@@ -20,19 +20,12 @@ round = 100
 
 for name, data in dataforeachfile:
     axes[0].plot(data["centralservertimepast"][:round], data["centralserveraccuracy"][:round],label=name)
-    axes[0].plot(data["centralservertimepast"][:round], data["centralserveraccuracy"][:round],label=name)
 axes[0].set_title("Accuracy per Time")
 axes[0].set_xlabel("Time(msec)")
 axes[0].set_ylabel("Accuracy(%)")
 axes[0].legend()
 
 for name, data in dataforeachfile:
-    # if name == "0530_191836" or name == "0530_191838":
-    #     axes[1].plot([i/5 for i in data["centralserverround"][:round]], data["centralserveraccuracy"][:round],label=name,marker='s')
-    # else:
-
-
-    axes[1].plot(data["centralserverround"][:round], data["centralserveraccuracy"][:round],label=name)
     axes[1].plot(data["centralserverround"][:round], data["centralserveraccuracy"][:round],label=name)
 axes[1].set_title("Accuracy per round")
 axes[1].set_xlabel("Round")

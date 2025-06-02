@@ -1,0 +1,1800 @@
+-----------------------------------------------------
+
+Central server round 6 started
+Model sent from central server with 100msec communication time, with loss :2.30, accuracy : 11.91%
+Accuracy per label : ['0:52.04%', '1:3.26%', '2:0.00%', '3:63.76%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+The model is from round 0 from central server, staleness is 5
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 2.28, accuracy 24.74%
+Accuracy per label : ['0:81.53%', '1:65.73%', '2:0.00%', '3:91.98%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 2.25, accuracy 31.09%
+Accuracy per label : ['0:85.41%', '1:77.44%', '2:2.71%', '3:98.22%', '4:0.00%', '5:0.00%', '6:0.00%', '7:33.27%', '8:3.18%', '9:0.00%']
+
+Before aggregation, loss : 2.26, accuracy : 22.44%
+Before aggregation, accuracy per label : ['0:47.55%', '1:67.14%', '2:1.07%', '3:98.91%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.62%', '9:0.00%']
+Aggregation to central server completed at central server round 1000, loss : 2.26, accuracy: 23.09%, staleness : 5
+Accuracy per label after aggregation : ['0:52.14%', '1:68.81%', '2:1.07%', '3:98.81%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.82%', '9:0.00%']
+
+-----------------------------------------------------
+
+Central server round 16 started
+Model sent from central server with 100msec communication time, with loss :2.26, accuracy : 23.09%
+Accuracy per label : ['0:52.14%', '1:68.81%', '2:1.07%', '3:98.81%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.82%', '9:0.00%']
+The model is from round 6 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 2.18, accuracy 44.36%
+Accuracy per label : ['0:95.41%', '1:84.14%', '2:31.88%', '3:78.32%', '4:3.36%', '5:0.78%', '6:17.95%', '7:93.77%', '8:25.05%', '9:0.59%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 1.86, accuracy 67.47%
+Accuracy per label : ['0:98.57%', '1:94.36%', '2:62.79%', '3:65.45%', '4:54.38%', '5:18.16%', '6:71.92%', '7:88.23%', '8:65.30%', '9:46.88%']
+
+Before aggregation, loss : 2.20, accuracy : 37.12%
+Before aggregation, accuracy per label : ['0:87.04%', '1:83.88%', '2:28.59%', '3:98.51%', '4:1.12%', '5:0.00%', '6:18.16%', '7:22.96%', '8:19.71%', '9:0.40%']
+Aggregation to central server completed at central server round 1000, loss : 2.19, accuracy: 41.80%, staleness : 9
+Accuracy per label after aggregation : ['0:89.49%', '1:85.11%', '2:34.11%', '3:98.32%', '4:3.46%', '5:0.34%', '6:26.72%', '7:38.91%', '8:29.36%', '9:1.29%']
+
+-----------------------------------------------------
+
+Central server round 26 started
+Model sent from central server with 100msec communication time, with loss :2.19, accuracy : 41.80%
+Accuracy per label : ['0:89.49%', '1:85.11%', '2:34.11%', '3:98.32%', '4:3.46%', '5:0.34%', '6:26.72%', '7:38.91%', '8:29.36%', '9:1.29%']
+The model is from round 16 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 1.89, accuracy 66.25%
+Accuracy per label : ['0:98.57%', '1:94.36%', '2:64.05%', '3:66.53%', '4:54.18%', '5:13.90%', '6:71.92%', '7:87.84%', '8:62.94%', '9:39.05%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.99, accuracy 78.09%
+Accuracy per label : ['0:95.31%', '1:95.86%', '2:80.33%', '3:84.26%', '4:72.71%', '5:51.68%', '6:80.17%', '7:83.17%', '8:62.11%', '9:69.77%']
+
+Before aggregation, loss : 1.99, accuracy : 64.95%
+Before aggregation, accuracy per label : ['0:96.02%', '1:91.89%', '2:65.41%', '3:92.08%', '4:37.27%', '5:5.27%', '6:75.78%', '7:89.98%', '8:66.12%', '9:19.62%']
+Aggregation to central server completed at central server round 1000, loss : 1.95, accuracy: 66.42%, staleness : 9
+Accuracy per label after aggregation : ['0:96.02%', '1:91.72%', '2:68.31%', '3:91.19%', '4:40.02%', '5:8.52%', '6:77.45%', '7:90.18%', '8:67.56%', '9:23.59%']
+
+-----------------------------------------------------
+
+Central server round 36 started
+Model sent from central server with 100msec communication time, with loss :1.95, accuracy : 66.42%
+Accuracy per label : ['0:96.02%', '1:91.72%', '2:68.31%', '3:91.19%', '4:40.02%', '5:8.52%', '6:77.45%', '7:90.18%', '8:67.56%', '9:23.59%']
+The model is from round 26 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 1.04, accuracy 77.97%
+Accuracy per label : ['0:95.41%', '1:96.12%', '2:80.62%', '3:83.86%', '4:73.42%', '5:49.89%', '6:80.69%', '7:83.37%', '8:62.94%', '9:67.69%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.61, accuracy 83.19%
+Accuracy per label : ['0:96.02%', '1:95.24%', '2:85.85%', '3:87.92%', '4:77.90%', '5:69.06%', '6:83.61%', '7:84.82%', '8:70.12%', '9:77.90%']
+
+Before aggregation, loss : 1.43, accuracy : 77.65%
+Before aggregation, accuracy per label : ['0:95.92%', '1:93.04%', '2:79.26%', '3:88.81%', '4:57.54%', '5:39.13%', '6:85.18%', '7:89.69%', '8:75.46%', '9:66.11%']
+Aggregation to central server completed at central server round 1000, loss : 1.37, accuracy: 78.35%, staleness : 9
+Accuracy per label after aggregation : ['0:96.02%', '1:93.30%', '2:79.55%', '3:88.51%', '4:58.66%', '5:41.59%', '6:85.28%', '7:89.49%', '8:75.26%', '9:69.67%']
+
+-----------------------------------------------------
+
+Central server round 46 started
+Model sent from central server with 100msec communication time, with loss :1.37, accuracy : 78.35%
+Accuracy per label : ['0:96.02%', '1:93.30%', '2:79.55%', '3:88.51%', '4:58.66%', '5:41.59%', '6:85.28%', '7:89.49%', '8:75.26%', '9:69.67%']
+The model is from round 36 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.66, accuracy 82.71%
+Accuracy per label : ['0:95.92%', '1:95.42%', '2:85.56%', '3:88.02%', '4:76.88%', '5:66.70%', '6:84.03%', '7:84.44%', '8:69.92%', '9:76.51%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.50, accuracy 85.73%
+Accuracy per label : ['0:97.14%', '1:95.68%', '2:87.40%', '3:88.71%', '4:82.59%', '5:73.65%', '6:86.01%', '7:86.28%', '8:75.46%', '9:81.57%']
+
+Before aggregation, loss : 0.91, accuracy : 82.76%
+Before aggregation, accuracy per label : ['0:95.92%', '1:94.36%', '2:83.33%', '3:89.11%', '4:68.74%', '5:60.65%', '6:87.58%', '7:88.04%', '8:78.95%', '9:76.91%']
+Aggregation to central server completed at central server round 1000, loss : 0.87, accuracy: 83.09%, staleness : 9
+Accuracy per label after aggregation : ['0:96.12%', '1:94.54%', '2:84.01%', '3:89.21%', '4:69.55%', '5:62.00%', '6:87.27%', '7:87.94%', '8:78.85%', '9:77.50%']
+
+-----------------------------------------------------
+
+Central server round 56 started
+Model sent from central server with 100msec communication time, with loss :0.87, accuracy : 83.09%
+Accuracy per label : ['0:96.12%', '1:94.54%', '2:84.01%', '3:89.21%', '4:69.55%', '5:62.00%', '6:87.27%', '7:87.94%', '8:78.85%', '9:77.50%']
+The model is from round 46 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.54, accuracy 85.43%
+Accuracy per label : ['0:97.04%', '1:95.77%', '2:87.21%', '3:88.51%', '4:81.57%', '5:72.87%', '6:86.33%', '7:85.70%', '8:75.67%', '9:80.77%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.45, accuracy 87.11%
+Accuracy per label : ['0:97.76%', '1:95.86%', '2:87.89%', '3:88.91%', '4:85.23%', '5:76.35%', '6:86.33%', '7:87.16%', '8:79.06%', '9:84.14%']
+
+Before aggregation, loss : 0.64, accuracy : 85.38%
+Before aggregation, accuracy per label : ['0:96.33%', '1:95.07%', '2:86.14%', '3:89.11%', '4:74.95%', '5:71.75%', '6:88.41%', '7:87.35%', '8:80.70%', '9:81.17%']
+Aggregation to central server completed at central server round 1000, loss : 0.62, accuracy: 85.51%, staleness : 9
+Accuracy per label after aggregation : ['0:96.63%', '1:95.15%', '2:86.24%', '3:89.01%', '4:75.97%', '5:71.97%', '6:88.10%', '7:87.35%', '8:80.49%', '9:81.37%']
+
+-----------------------------------------------------
+
+Central server round 66 started
+Model sent from central server with 100msec communication time, with loss :0.62, accuracy : 85.51%
+Accuracy per label : ['0:96.63%', '1:95.15%', '2:86.24%', '3:89.01%', '4:75.97%', '5:71.97%', '6:88.10%', '7:87.35%', '8:80.49%', '9:81.37%']
+The model is from round 56 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.47, accuracy 86.84%
+Accuracy per label : ['0:97.65%', '1:95.86%', '2:87.89%', '3:88.81%', '4:84.32%', '5:75.67%', '6:86.64%', '7:86.58%', '8:78.64%', '9:83.85%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.41, accuracy 88.17%
+Accuracy per label : ['0:97.96%', '1:95.95%', '2:88.37%', '3:89.60%', '4:86.46%', '5:78.48%', '6:88.10%', '7:87.84%', '8:81.31%', '9:85.53%']
+
+Before aggregation, loss : 0.51, accuracy : 86.88%
+Before aggregation, accuracy per label : ['0:96.84%', '1:95.51%', '2:87.02%', '3:88.32%', '4:81.36%', '5:76.35%', '6:89.67%', '7:87.35%', '8:81.72%', '9:82.46%']
+Aggregation to central server completed at central server round 1000, loss : 0.50, accuracy: 87.01%, staleness : 9
+Accuracy per label after aggregation : ['0:96.94%', '1:95.51%', '2:87.11%', '3:88.32%', '4:81.98%', '5:76.68%', '6:89.56%', '7:87.26%', '8:81.83%', '9:82.76%']
+
+-----------------------------------------------------
+
+Central server round 76 started
+Model sent from central server with 100msec communication time, with loss :0.50, accuracy : 87.01%
+Accuracy per label : ['0:96.94%', '1:95.51%', '2:87.11%', '3:88.32%', '4:81.98%', '5:76.68%', '6:89.56%', '7:87.26%', '8:81.83%', '9:82.76%']
+The model is from round 66 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.42, accuracy 88.03%
+Accuracy per label : ['0:97.76%', '1:95.95%', '2:88.28%', '3:89.11%', '4:86.46%', '5:78.25%', '6:88.20%', '7:87.74%', '8:81.11%', '9:85.33%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.38, accuracy 88.91%
+Accuracy per label : ['0:98.06%', '1:96.04%', '2:88.66%', '3:90.30%', '4:87.68%', '5:80.16%', '6:89.04%', '7:88.23%', '8:82.65%', '9:86.42%']
+
+Before aggregation, loss : 0.44, accuracy : 88.05%
+Before aggregation, accuracy per label : ['0:97.24%', '1:95.68%', '2:87.98%', '3:88.32%', '4:84.01%', '5:79.71%', '6:90.50%', '7:87.55%', '8:83.78%', '9:83.94%']
+Aggregation to central server completed at central server round 1000, loss : 0.44, accuracy: 88.11%, staleness : 9
+Accuracy per label after aggregation : ['0:97.35%', '1:95.68%', '2:88.18%', '3:88.32%', '4:84.11%', '5:79.71%', '6:90.40%', '7:87.55%', '8:83.88%', '9:84.14%']
+
+-----------------------------------------------------
+
+Central server round 86 started
+Model sent from central server with 100msec communication time, with loss :0.44, accuracy : 88.11%
+Accuracy per label : ['0:97.35%', '1:95.68%', '2:88.18%', '3:88.32%', '4:84.11%', '5:79.71%', '6:90.40%', '7:87.55%', '8:83.88%', '9:84.14%']
+The model is from round 76 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.39, accuracy 88.90%
+Accuracy per label : ['0:98.06%', '1:96.04%', '2:88.76%', '3:90.10%', '4:87.47%', '5:80.27%', '6:89.25%', '7:88.33%', '8:82.55%', '9:86.32%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.35, accuracy 89.46%
+Accuracy per label : ['0:98.37%', '1:96.30%', '2:88.57%', '3:90.79%', '4:88.49%', '5:81.39%', '6:89.98%', '7:88.52%', '8:83.78%', '9:86.72%']
+
+Before aggregation, loss : 0.40, accuracy : 88.88%
+Before aggregation, accuracy per label : ['0:97.55%', '1:95.86%', '2:88.37%', '3:88.61%', '4:86.05%', '5:81.84%', '6:90.92%', '7:88.04%', '8:85.01%', '9:85.03%']
+Aggregation to central server completed at central server round 1000, loss : 0.39, accuracy: 88.92%, staleness : 9
+Accuracy per label after aggregation : ['0:97.55%', '1:95.86%', '2:88.37%', '3:88.71%', '4:86.25%', '5:81.84%', '6:90.81%', '7:88.04%', '8:85.11%', '9:85.13%']
+
+-----------------------------------------------------
+
+Central server round 96 started
+Model sent from central server with 100msec communication time, with loss :0.39, accuracy : 88.92%
+Accuracy per label : ['0:97.55%', '1:95.86%', '2:88.37%', '3:88.71%', '4:86.25%', '5:81.84%', '6:90.81%', '7:88.04%', '8:85.11%', '9:85.13%']
+The model is from round 86 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.36, accuracy 89.46%
+Accuracy per label : ['0:98.16%', '1:96.30%', '2:88.76%', '3:90.79%', '4:88.80%', '5:81.05%', '6:90.19%', '7:88.42%', '8:83.78%', '9:86.62%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.33, accuracy 90.06%
+Accuracy per label : ['0:98.47%', '1:96.65%', '2:88.86%', '3:91.19%', '4:89.00%', '5:83.30%', '6:91.02%', '7:88.81%', '8:84.60%', '9:87.22%']
+
+Before aggregation, loss : 0.37, accuracy : 89.49%
+Before aggregation, accuracy per label : ['0:97.45%', '1:96.21%', '2:88.76%', '3:89.41%', '4:87.17%', '5:83.07%', '6:91.44%', '7:88.42%', '8:85.73%', '9:85.83%']
+Aggregation to central server completed at central server round 1000, loss : 0.36, accuracy: 89.52%, staleness : 9
+Accuracy per label after aggregation : ['0:97.55%', '1:96.21%', '2:88.76%', '3:89.41%', '4:87.27%', '5:83.18%', '6:91.44%', '7:88.42%', '8:85.73%', '9:85.83%']
+
+-----------------------------------------------------
+
+Central server round 106 started
+Model sent from central server with 100msec communication time, with loss :0.36, accuracy : 89.52%
+Accuracy per label : ['0:97.55%', '1:96.21%', '2:88.76%', '3:89.41%', '4:87.27%', '5:83.18%', '6:91.44%', '7:88.42%', '8:85.73%', '9:85.83%']
+The model is from round 96 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.34, accuracy 89.97%
+Accuracy per label : ['0:98.47%', '1:96.56%', '2:88.76%', '3:90.69%', '4:88.90%', '5:82.85%', '6:91.02%', '7:88.91%', '8:84.80%', '9:87.22%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.32, accuracy 90.61%
+Accuracy per label : ['0:98.67%', '1:96.92%', '2:89.24%', '3:91.19%', '4:89.82%', '5:84.19%', '6:91.96%', '7:89.01%', '8:85.73%', '9:88.01%']
+
+Before aggregation, loss : 0.34, accuracy : 89.95%
+Before aggregation, accuracy per label : ['0:97.45%', '1:96.65%', '2:89.15%', '3:89.70%', '4:88.19%', '5:84.19%', '6:91.65%', '7:88.72%', '8:86.34%', '9:86.12%']
+Aggregation to central server completed at central server round 1000, loss : 0.34, accuracy: 90.01%, staleness : 9
+Accuracy per label after aggregation : ['0:97.55%', '1:96.74%', '2:89.24%', '3:89.90%', '4:88.09%', '5:84.30%', '6:91.75%', '7:88.72%', '8:86.34%', '9:86.12%']
+
+-----------------------------------------------------
+
+Central server round 116 started
+Model sent from central server with 100msec communication time, with loss :0.34, accuracy : 90.01%
+Accuracy per label : ['0:97.55%', '1:96.74%', '2:89.24%', '3:89.90%', '4:88.09%', '5:84.30%', '6:91.75%', '7:88.72%', '8:86.34%', '9:86.12%']
+The model is from round 106 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.32, accuracy 90.55%
+Accuracy per label : ['0:98.57%', '1:96.92%', '2:89.15%', '3:91.29%', '4:90.02%', '5:83.86%', '6:92.07%', '7:89.30%', '8:85.42%', '9:87.51%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.30, accuracy 91.08%
+Accuracy per label : ['0:98.78%', '1:97.36%', '2:89.44%', '3:91.78%', '4:90.12%', '5:85.09%', '6:92.38%', '7:89.79%', '8:86.45%', '9:88.31%']
+
+Before aggregation, loss : 0.32, accuracy : 90.51%
+Before aggregation, accuracy per label : ['0:97.45%', '1:97.09%', '2:89.44%', '3:90.20%', '4:88.70%', '5:85.76%', '6:92.48%', '7:89.01%', '8:86.96%', '9:86.82%']
+Aggregation to central server completed at central server round 1000, loss : 0.32, accuracy: 90.59%, staleness : 9
+Accuracy per label after aggregation : ['0:97.65%', '1:97.09%', '2:89.44%', '3:90.40%', '4:88.80%', '5:85.54%', '6:92.69%', '7:89.01%', '8:87.06%', '9:87.02%']
+
+-----------------------------------------------------
+
+Central server round 126 started
+Model sent from central server with 100msec communication time, with loss :0.32, accuracy : 90.59%
+Accuracy per label : ['0:97.65%', '1:97.09%', '2:89.44%', '3:90.40%', '4:88.80%', '5:85.54%', '6:92.69%', '7:89.01%', '8:87.06%', '9:87.02%']
+The model is from round 116 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.30, accuracy 91.05%
+Accuracy per label : ['0:98.67%', '1:97.27%', '2:89.53%', '3:91.78%', '4:90.12%', '5:85.09%', '6:92.38%', '7:89.79%', '8:86.34%', '9:88.21%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.29, accuracy 91.50%
+Accuracy per label : ['0:98.88%', '1:97.44%', '2:90.12%', '3:91.98%', '4:91.14%', '5:85.87%', '6:92.38%', '7:90.47%', '8:86.76%', '9:88.70%']
+
+Before aggregation, loss : 0.30, accuracy : 90.98%
+Before aggregation, accuracy per label : ['0:97.96%', '1:97.27%', '2:89.34%', '3:90.59%', '4:89.21%', '5:86.88%', '6:92.90%', '7:89.30%', '8:87.47%', '9:87.81%']
+Aggregation to central server completed at central server round 1000, loss : 0.30, accuracy: 91.03%, staleness : 9
+Accuracy per label after aggregation : ['0:97.96%', '1:97.36%', '2:89.44%', '3:90.69%', '4:89.31%', '5:86.88%', '6:92.90%', '7:89.30%', '8:87.47%', '9:87.91%']
+
+-----------------------------------------------------
+
+Central server round 136 started
+Model sent from central server with 100msec communication time, with loss :0.30, accuracy : 91.03%
+Accuracy per label : ['0:97.96%', '1:97.36%', '2:89.44%', '3:90.69%', '4:89.31%', '5:86.88%', '6:92.90%', '7:89.30%', '8:87.47%', '9:87.91%']
+The model is from round 126 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.29, accuracy 91.41%
+Accuracy per label : ['0:98.88%', '1:97.53%', '2:89.73%', '3:92.08%', '4:91.04%', '5:85.43%', '6:92.69%', '7:90.18%', '8:86.65%', '9:88.60%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.27, accuracy 91.76%
+Accuracy per label : ['0:98.98%', '1:97.62%', '2:90.31%', '3:92.28%', '4:91.55%', '5:86.32%', '6:92.48%', '7:90.95%', '8:87.06%', '9:88.80%']
+
+Before aggregation, loss : 0.29, accuracy : 91.38%
+Before aggregation, accuracy per label : ['0:97.96%', '1:97.53%', '2:89.63%', '3:90.79%', '4:89.92%', '5:87.67%', '6:93.32%', '7:89.88%', '8:87.99%', '9:88.11%']
+Aggregation to central server completed at central server round 1000, loss : 0.29, accuracy: 91.39%, staleness : 9
+Accuracy per label after aggregation : ['0:98.06%', '1:97.53%', '2:89.63%', '3:90.79%', '4:89.92%', '5:87.56%', '6:93.32%', '7:89.88%', '8:87.99%', '9:88.21%']
+
+-----------------------------------------------------
+
+Central server round 146 started
+Model sent from central server with 100msec communication time, with loss :0.29, accuracy : 91.39%
+Accuracy per label : ['0:98.06%', '1:97.53%', '2:89.63%', '3:90.79%', '4:89.92%', '5:87.56%', '6:93.32%', '7:89.88%', '8:87.99%', '9:88.21%']
+The model is from round 136 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.27, accuracy 91.78%
+Accuracy per label : ['0:98.88%', '1:97.62%', '2:90.02%', '3:92.57%', '4:91.85%', '5:86.21%', '6:92.59%', '7:90.66%', '8:87.27%', '9:88.90%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.26, accuracy 91.96%
+Accuracy per label : ['0:98.78%', '1:97.62%', '2:90.41%', '3:92.57%', '4:92.06%', '5:86.55%', '6:92.80%', '7:90.95%', '8:87.58%', '9:89.10%']
+
+Before aggregation, loss : 0.27, accuracy : 91.77%
+Before aggregation, accuracy per label : ['0:97.96%', '1:97.80%', '2:89.83%', '3:91.39%', '4:90.43%', '5:87.78%', '6:93.84%', '7:90.47%', '8:88.50%', '9:88.70%']
+Aggregation to central server completed at central server round 1000, loss : 0.27, accuracy: 91.79%, staleness : 9
+Accuracy per label after aggregation : ['0:97.96%', '1:97.71%', '2:89.83%', '3:91.39%', '4:90.53%', '5:87.78%', '6:93.74%', '7:90.56%', '8:88.71%', '9:88.70%']
+
+-----------------------------------------------------
+
+Central server round 156 started
+Model sent from central server with 100msec communication time, with loss :0.27, accuracy : 91.79%
+Accuracy per label : ['0:97.96%', '1:97.71%', '2:89.83%', '3:91.39%', '4:90.53%', '5:87.78%', '6:93.74%', '7:90.56%', '8:88.71%', '9:88.70%']
+The model is from round 146 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.26, accuracy 91.99%
+Accuracy per label : ['0:98.78%', '1:97.62%', '2:90.21%', '3:92.67%', '4:92.26%', '5:86.32%', '6:93.11%', '7:90.86%', '8:87.89%', '9:89.00%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.25, accuracy 92.33%
+Accuracy per label : ['0:98.67%', '1:97.80%', '2:90.31%', '3:92.87%', '4:92.26%', '5:87.78%', '6:93.32%', '7:91.34%', '8:88.09%', '9:89.79%']
+
+Before aggregation, loss : 0.26, accuracy : 92.08%
+Before aggregation, accuracy per label : ['0:98.16%', '1:97.71%', '2:90.12%', '3:91.49%', '4:90.84%', '5:88.57%', '6:93.84%', '7:90.86%', '8:89.22%', '9:89.10%']
+Aggregation to central server completed at central server round 1000, loss : 0.26, accuracy: 92.13%, staleness : 9
+Accuracy per label after aggregation : ['0:98.37%', '1:97.71%', '2:90.31%', '3:91.68%', '4:90.94%', '5:88.34%', '6:93.84%', '7:90.86%', '8:89.12%', '9:89.20%']
+
+-----------------------------------------------------
+
+Central server round 166 started
+Model sent from central server with 100msec communication time, with loss :0.26, accuracy : 92.13%
+Accuracy per label : ['0:98.37%', '1:97.71%', '2:90.31%', '3:91.68%', '4:90.94%', '5:88.34%', '6:93.84%', '7:90.86%', '8:89.12%', '9:89.20%']
+The model is from round 156 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.25, accuracy 92.38%
+Accuracy per label : ['0:98.78%', '1:97.80%', '2:90.50%', '3:93.07%', '4:92.67%', '5:87.22%', '6:93.42%', '7:91.34%', '8:88.40%', '9:89.49%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.24, accuracy 92.66%
+Accuracy per label : ['0:98.67%', '1:97.80%', '2:90.89%', '3:93.17%', '4:92.67%', '5:88.57%', '6:93.42%', '7:91.93%', '8:88.50%', '9:89.99%']
+
+Before aggregation, loss : 0.25, accuracy : 92.48%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.71%', '2:90.79%', '3:91.98%', '4:91.45%', '5:89.46%', '6:93.95%', '7:90.95%', '8:89.63%', '9:89.59%']
+Aggregation to central server completed at central server round 1000, loss : 0.25, accuracy: 92.51%, staleness : 9
+Accuracy per label after aggregation : ['0:98.57%', '1:97.71%', '2:90.79%', '3:92.08%', '4:91.55%', '5:89.46%', '6:94.05%', '7:90.95%', '8:89.53%', '9:89.59%']
+
+-----------------------------------------------------
+
+Central server round 176 started
+Model sent from central server with 100msec communication time, with loss :0.25, accuracy : 92.51%
+Accuracy per label : ['0:98.57%', '1:97.71%', '2:90.79%', '3:92.08%', '4:91.55%', '5:89.46%', '6:94.05%', '7:90.95%', '8:89.53%', '9:89.59%']
+The model is from round 166 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.24, accuracy 92.63%
+Accuracy per label : ['0:98.67%', '1:97.89%', '2:90.70%', '3:93.07%', '4:92.67%', '5:88.34%', '6:93.63%', '7:91.83%', '8:88.60%', '9:89.89%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.23, accuracy 93.00%
+Accuracy per label : ['0:98.67%', '1:97.80%', '2:91.38%', '3:93.47%', '4:93.38%', '5:89.35%', '6:93.74%', '7:92.02%', '8:88.91%', '9:90.39%']
+
+Before aggregation, loss : 0.24, accuracy : 92.80%
+Before aggregation, accuracy per label : ['0:98.57%', '1:97.71%', '2:90.99%', '3:92.48%', '4:91.75%', '5:90.25%', '6:94.26%', '7:91.44%', '8:89.73%', '9:90.09%']
+Aggregation to central server completed at central server round 1000, loss : 0.24, accuracy: 92.83%, staleness : 9
+Accuracy per label after aggregation : ['0:98.57%', '1:97.71%', '2:90.99%', '3:92.67%', '4:91.85%', '5:90.25%', '6:94.15%', '7:91.44%', '8:89.73%', '9:90.19%']
+
+-----------------------------------------------------
+
+Central server round 186 started
+Model sent from central server with 100msec communication time, with loss :0.24, accuracy : 92.83%
+Accuracy per label : ['0:98.57%', '1:97.71%', '2:90.99%', '3:92.67%', '4:91.85%', '5:90.25%', '6:94.15%', '7:91.44%', '8:89.73%', '9:90.19%']
+The model is from round 176 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.23, accuracy 92.92%
+Accuracy per label : ['0:98.67%', '1:97.80%', '2:91.18%', '3:93.37%', '4:93.08%', '5:88.79%', '6:93.74%', '7:92.12%', '8:89.12%', '9:90.39%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.22, accuracy 93.31%
+Accuracy per label : ['0:98.67%', '1:97.80%', '2:91.67%', '3:94.06%', '4:93.79%', '5:89.91%', '6:94.05%', '7:92.41%', '8:89.32%', '9:90.58%']
+
+Before aggregation, loss : 0.23, accuracy : 93.05%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.80%', '2:91.38%', '3:92.97%', '4:92.06%', '5:91.03%', '6:94.36%', '7:91.83%', '8:89.63%', '9:90.29%']
+Aggregation to central server completed at central server round 1000, loss : 0.23, accuracy: 93.12%, staleness : 9
+Accuracy per label after aggregation : ['0:98.57%', '1:97.80%', '2:91.47%', '3:93.07%', '4:92.16%', '5:91.03%', '6:94.36%', '7:91.83%', '8:89.84%', '9:90.39%']
+
+-----------------------------------------------------
+
+Central server round 196 started
+Model sent from central server with 100msec communication time, with loss :0.23, accuracy : 93.12%
+Accuracy per label : ['0:98.57%', '1:97.80%', '2:91.47%', '3:93.07%', '4:92.16%', '5:91.03%', '6:94.36%', '7:91.83%', '8:89.84%', '9:90.39%']
+The model is from round 186 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.22, accuracy 93.36%
+Accuracy per label : ['0:98.67%', '1:97.80%', '2:91.96%', '3:93.86%', '4:93.58%', '5:89.91%', '6:94.15%', '7:92.51%', '8:89.43%', '9:90.88%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.21, accuracy 93.54%
+Accuracy per label : ['0:98.67%', '1:97.71%', '2:92.34%', '3:94.26%', '4:93.79%', '5:90.58%', '6:94.36%', '7:92.51%', '8:89.63%', '9:90.78%']
+
+Before aggregation, loss : 0.22, accuracy : 93.35%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.80%', '2:91.96%', '3:93.17%', '4:92.26%', '5:91.59%', '6:94.68%', '7:92.22%', '8:90.14%', '9:90.58%']
+Aggregation to central server completed at central server round 1000, loss : 0.22, accuracy: 93.35%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.80%', '2:91.96%', '3:93.27%', '4:92.36%', '5:91.59%', '6:94.57%', '7:92.22%', '8:90.14%', '9:90.49%']
+
+-----------------------------------------------------
+
+Central server round 206 started
+Model sent from central server with 100msec communication time, with loss :0.22, accuracy : 93.35%
+Accuracy per label : ['0:98.47%', '1:97.80%', '2:91.96%', '3:93.27%', '4:92.36%', '5:91.59%', '6:94.57%', '7:92.22%', '8:90.14%', '9:90.49%']
+The model is from round 196 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.21, accuracy 93.62%
+Accuracy per label : ['0:98.67%', '1:97.80%', '2:92.44%', '3:94.26%', '4:93.99%', '5:90.36%', '6:94.68%', '7:92.61%', '8:89.73%', '9:90.88%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.20, accuracy 93.83%
+Accuracy per label : ['0:98.78%', '1:97.80%', '2:92.83%', '3:94.55%', '4:94.09%', '5:90.70%', '6:94.89%', '7:92.70%', '8:89.94%', '9:91.28%']
+
+Before aggregation, loss : 0.21, accuracy : 93.59%
+Before aggregation, accuracy per label : ['0:98.37%', '1:97.80%', '2:92.25%', '3:93.37%', '4:92.67%', '5:92.04%', '6:94.99%', '7:92.22%', '8:90.35%', '9:91.28%']
+Aggregation to central server completed at central server round 1000, loss : 0.21, accuracy: 93.63%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.80%', '2:92.25%', '3:93.47%', '4:92.77%', '5:91.93%', '6:94.99%', '7:92.32%', '8:90.35%', '9:91.38%']
+
+-----------------------------------------------------
+
+Central server round 216 started
+Model sent from central server with 100msec communication time, with loss :0.21, accuracy : 93.63%
+Accuracy per label : ['0:98.47%', '1:97.80%', '2:92.25%', '3:93.47%', '4:92.77%', '5:91.93%', '6:94.99%', '7:92.32%', '8:90.35%', '9:91.38%']
+The model is from round 206 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.20, accuracy 93.83%
+Accuracy per label : ['0:98.67%', '1:97.71%', '2:92.64%', '3:94.36%', '4:94.30%', '5:90.47%', '6:94.99%', '7:92.80%', '8:90.04%', '9:91.58%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.20, accuracy 94.07%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:93.22%', '3:94.65%', '4:94.09%', '5:90.81%', '6:95.20%', '7:93.09%', '8:90.25%', '9:91.97%']
+
+Before aggregation, loss : 0.20, accuracy : 93.76%
+Before aggregation, accuracy per label : ['0:98.37%', '1:97.71%', '2:92.05%', '3:93.47%', '4:92.97%', '5:92.49%', '6:95.09%', '7:92.70%', '8:90.66%', '9:91.58%']
+Aggregation to central server completed at central server round 1000, loss : 0.20, accuracy: 93.79%, staleness : 9
+Accuracy per label after aggregation : ['0:98.37%', '1:97.71%', '2:92.05%', '3:93.56%', '4:93.08%', '5:92.38%', '6:95.09%', '7:92.80%', '8:90.76%', '9:91.58%']
+
+-----------------------------------------------------
+
+Central server round 226 started
+Model sent from central server with 100msec communication time, with loss :0.20, accuracy : 93.79%
+Accuracy per label : ['0:98.37%', '1:97.71%', '2:92.05%', '3:93.56%', '4:93.08%', '5:92.38%', '6:95.09%', '7:92.80%', '8:90.76%', '9:91.58%']
+The model is from round 216 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.20, accuracy 94.08%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:92.83%', '3:94.46%', '4:94.50%', '5:90.81%', '6:95.20%', '7:93.09%', '8:90.35%', '9:92.17%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.19, accuracy 94.29%
+Accuracy per label : ['0:98.98%', '1:97.89%', '2:93.60%', '3:94.95%', '4:94.30%', '5:91.03%', '6:95.51%', '7:93.29%', '8:90.25%', '9:92.37%']
+
+Before aggregation, loss : 0.19, accuracy : 94.07%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.80%', '2:92.54%', '3:93.86%', '4:93.28%', '5:92.60%', '6:95.41%', '7:93.19%', '8:91.07%', '9:91.97%']
+Aggregation to central server completed at central server round 1000, loss : 0.19, accuracy: 94.11%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.80%', '2:92.83%', '3:93.86%', '4:93.38%', '5:92.49%', '6:95.62%', '7:93.19%', '8:90.97%', '9:91.97%']
+
+-----------------------------------------------------
+
+Central server round 236 started
+Model sent from central server with 100msec communication time, with loss :0.19, accuracy : 94.11%
+Accuracy per label : ['0:98.47%', '1:97.80%', '2:92.83%', '3:93.86%', '4:93.38%', '5:92.49%', '6:95.62%', '7:93.19%', '8:90.97%', '9:91.97%']
+The model is from round 226 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.19, accuracy 94.26%
+Accuracy per label : ['0:98.88%', '1:97.89%', '2:93.41%', '3:94.85%', '4:94.40%', '5:91.14%', '6:95.30%', '7:93.29%', '8:90.25%', '9:92.47%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.18, accuracy 94.48%
+Accuracy per label : ['0:98.98%', '1:97.80%', '2:93.80%', '3:95.05%', '4:94.60%', '5:91.93%', '6:95.62%', '7:93.39%', '8:90.66%', '9:92.37%']
+
+Before aggregation, loss : 0.19, accuracy : 94.27%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.80%', '2:92.93%', '3:94.06%', '4:93.79%', '5:92.83%', '6:95.72%', '7:93.09%', '8:91.38%', '9:92.17%']
+Aggregation to central server completed at central server round 1000, loss : 0.19, accuracy: 94.28%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.80%', '2:93.02%', '3:94.16%', '4:93.79%', '5:92.83%', '6:95.72%', '7:93.09%', '8:91.27%', '9:92.17%']
+
+-----------------------------------------------------
+
+Central server round 246 started
+Model sent from central server with 100msec communication time, with loss :0.19, accuracy : 94.28%
+Accuracy per label : ['0:98.47%', '1:97.80%', '2:93.02%', '3:94.16%', '4:93.79%', '5:92.83%', '6:95.72%', '7:93.09%', '8:91.27%', '9:92.17%']
+The model is from round 236 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.18, accuracy 94.44%
+Accuracy per label : ['0:98.88%', '1:97.89%', '2:93.60%', '3:95.15%', '4:94.70%', '5:91.26%', '6:95.62%', '7:93.39%', '8:90.66%', '9:92.57%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.18, accuracy 94.62%
+Accuracy per label : ['0:98.98%', '1:97.80%', '2:93.90%', '3:95.45%', '4:94.81%', '5:92.15%', '6:95.82%', '7:93.39%', '8:90.97%', '9:92.37%']
+
+Before aggregation, loss : 0.18, accuracy : 94.43%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.80%', '2:93.31%', '3:94.46%', '4:94.09%', '5:93.05%', '6:95.62%', '7:93.29%', '8:91.38%', '9:92.37%']
+Aggregation to central server completed at central server round 1000, loss : 0.18, accuracy: 94.46%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.80%', '2:93.41%', '3:94.46%', '4:94.20%', '5:93.05%', '6:95.72%', '7:93.29%', '8:91.38%', '9:92.37%']
+
+-----------------------------------------------------
+
+Central server round 256 started
+Model sent from central server with 100msec communication time, with loss :0.18, accuracy : 94.46%
+Accuracy per label : ['0:98.47%', '1:97.80%', '2:93.41%', '3:94.46%', '4:94.20%', '5:93.05%', '6:95.72%', '7:93.29%', '8:91.38%', '9:92.37%']
+The model is from round 246 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.18, accuracy 94.61%
+Accuracy per label : ['0:98.98%', '1:97.71%', '2:93.90%', '3:95.25%', '4:94.81%', '5:91.82%', '6:95.82%', '7:93.48%', '8:91.17%', '9:92.57%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.17, accuracy 94.73%
+Accuracy per label : ['0:98.88%', '1:97.71%', '2:94.09%', '3:95.45%', '4:94.91%', '5:92.26%', '6:95.82%', '7:93.68%', '8:91.27%', '9:92.67%']
+
+Before aggregation, loss : 0.18, accuracy : 94.60%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.80%', '2:93.41%', '3:94.55%', '4:94.20%', '5:93.61%', '6:96.14%', '7:93.39%', '8:91.48%', '9:92.57%']
+Aggregation to central server completed at central server round 1000, loss : 0.18, accuracy: 94.63%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.80%', '2:93.60%', '3:94.55%', '4:94.40%', '5:93.50%', '6:96.03%', '7:93.48%', '8:91.48%', '9:92.57%']
+
+-----------------------------------------------------
+
+Central server round 266 started
+Model sent from central server with 100msec communication time, with loss :0.18, accuracy : 94.63%
+Accuracy per label : ['0:98.47%', '1:97.80%', '2:93.60%', '3:94.55%', '4:94.40%', '5:93.50%', '6:96.03%', '7:93.48%', '8:91.48%', '9:92.57%']
+The model is from round 256 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.17, accuracy 94.77%
+Accuracy per label : ['0:98.88%', '1:97.71%', '2:93.99%', '3:95.54%', '4:94.91%', '5:92.26%', '6:95.93%', '7:93.87%', '8:91.48%', '9:92.57%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.17, accuracy 94.89%
+Accuracy per label : ['0:98.88%', '1:97.71%', '2:94.38%', '3:95.64%', '4:95.11%', '5:92.49%', '6:95.93%', '7:93.77%', '8:91.48%', '9:92.96%']
+
+Before aggregation, loss : 0.17, accuracy : 94.77%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.71%', '2:93.99%', '3:94.55%', '4:94.40%', '5:93.83%', '6:96.03%', '7:93.77%', '8:91.68%', '9:92.86%']
+Aggregation to central server completed at central server round 1000, loss : 0.17, accuracy: 94.80%, staleness : 9
+Accuracy per label after aggregation : ['0:98.57%', '1:97.71%', '2:93.99%', '3:94.65%', '4:94.50%', '5:93.72%', '6:96.24%', '7:93.77%', '8:91.68%', '9:92.77%']
+
+-----------------------------------------------------
+
+Central server round 276 started
+Model sent from central server with 100msec communication time, with loss :0.17, accuracy : 94.80%
+Accuracy per label : ['0:98.57%', '1:97.71%', '2:93.99%', '3:94.65%', '4:94.50%', '5:93.72%', '6:96.24%', '7:93.77%', '8:91.68%', '9:92.77%']
+The model is from round 266 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.17, accuracy 94.88%
+Accuracy per label : ['0:98.88%', '1:97.71%', '2:94.09%', '3:95.45%', '4:95.21%', '5:92.60%', '6:96.14%', '7:93.97%', '8:91.48%', '9:92.77%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.16, accuracy 94.95%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:94.38%', '3:95.54%', '4:95.11%', '5:92.60%', '6:96.24%', '7:93.77%', '8:91.58%', '9:93.06%']
+
+Before aggregation, loss : 0.16, accuracy : 94.91%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.62%', '2:93.99%', '3:94.75%', '4:94.60%', '5:93.95%', '6:96.24%', '7:93.97%', '8:91.99%', '9:93.16%']
+Aggregation to central server completed at central server round 1000, loss : 0.16, accuracy: 94.92%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.62%', '2:94.09%', '3:94.85%', '4:94.60%', '5:93.95%', '6:96.24%', '7:93.97%', '8:91.89%', '9:93.16%']
+
+-----------------------------------------------------
+
+Central server round 286 started
+Model sent from central server with 100msec communication time, with loss :0.16, accuracy : 94.92%
+Accuracy per label : ['0:98.47%', '1:97.62%', '2:94.09%', '3:94.85%', '4:94.60%', '5:93.95%', '6:96.24%', '7:93.97%', '8:91.89%', '9:93.16%']
+The model is from round 276 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.16, accuracy 94.97%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:94.19%', '3:95.54%', '4:95.32%', '5:92.71%', '6:96.14%', '7:94.07%', '8:91.48%', '9:93.06%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.16, accuracy 95.10%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:94.28%', '3:95.64%', '4:95.11%', '5:93.16%', '6:96.24%', '7:94.46%', '8:91.68%', '9:93.26%']
+
+Before aggregation, loss : 0.16, accuracy : 95.07%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.71%', '2:94.38%', '3:94.85%', '4:94.60%', '5:94.62%', '6:96.35%', '7:94.07%', '8:92.09%', '9:93.26%']
+Aggregation to central server completed at central server round 1000, loss : 0.16, accuracy: 95.05%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.71%', '2:94.19%', '3:94.95%', '4:94.60%', '5:94.39%', '6:96.35%', '7:94.07%', '8:92.09%', '9:93.36%']
+
+-----------------------------------------------------
+
+Central server round 296 started
+Model sent from central server with 100msec communication time, with loss :0.16, accuracy : 95.05%
+Accuracy per label : ['0:98.47%', '1:97.71%', '2:94.19%', '3:94.95%', '4:94.60%', '5:94.39%', '6:96.35%', '7:94.07%', '8:92.09%', '9:93.36%']
+The model is from round 286 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.16, accuracy 95.06%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:94.28%', '3:95.54%', '4:95.32%', '5:92.83%', '6:96.24%', '7:94.55%', '8:91.48%', '9:93.16%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.15, accuracy 95.19%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:94.57%', '3:95.64%', '4:95.32%', '5:93.16%', '6:96.14%', '7:94.55%', '8:91.89%', '9:93.46%']
+
+Before aggregation, loss : 0.16, accuracy : 95.17%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.71%', '2:94.48%', '3:94.95%', '4:94.60%', '5:94.73%', '6:96.35%', '7:94.16%', '8:92.40%', '9:93.56%']
+Aggregation to central server completed at central server round 1000, loss : 0.16, accuracy: 95.18%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.71%', '2:94.57%', '3:95.25%', '4:94.60%', '5:94.62%', '6:96.35%', '7:94.16%', '8:92.20%', '9:93.56%']
+
+-----------------------------------------------------
+
+Central server round 306 started
+Model sent from central server with 100msec communication time, with loss :0.16, accuracy : 95.18%
+Accuracy per label : ['0:98.47%', '1:97.71%', '2:94.57%', '3:95.25%', '4:94.60%', '5:94.62%', '6:96.35%', '7:94.16%', '8:92.20%', '9:93.56%']
+The model is from round 296 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.15, accuracy 95.18%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:94.38%', '3:95.84%', '4:95.21%', '5:93.27%', '6:96.24%', '7:94.65%', '8:91.79%', '9:93.26%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.15, accuracy 95.32%
+Accuracy per label : ['0:98.98%', '1:97.80%', '2:94.86%', '3:95.74%', '4:95.42%', '5:93.16%', '6:96.14%', '7:94.65%', '8:92.20%', '9:93.76%']
+
+Before aggregation, loss : 0.15, accuracy : 95.31%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.71%', '2:94.77%', '3:95.05%', '4:94.81%', '5:95.07%', '6:96.56%', '7:94.36%', '8:92.40%', '9:93.66%']
+Aggregation to central server completed at central server round 1000, loss : 0.15, accuracy: 95.33%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.71%', '2:94.77%', '3:95.25%', '4:94.91%', '5:94.96%', '6:96.56%', '7:94.36%', '8:92.40%', '9:93.66%']
+
+-----------------------------------------------------
+
+Central server round 316 started
+Model sent from central server with 100msec communication time, with loss :0.15, accuracy : 95.33%
+Accuracy per label : ['0:98.47%', '1:97.71%', '2:94.77%', '3:95.25%', '4:94.91%', '5:94.96%', '6:96.56%', '7:94.36%', '8:92.40%', '9:93.66%']
+The model is from round 306 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.15, accuracy 95.32%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:94.86%', '3:95.74%', '4:95.42%', '5:93.50%', '6:96.35%', '7:94.75%', '8:91.89%', '9:93.56%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.15, accuracy 95.43%
+Accuracy per label : ['0:98.98%', '1:97.80%', '2:94.96%', '3:95.84%', '4:95.52%', '5:93.39%', '6:96.35%', '7:94.65%', '8:92.30%', '9:94.05%']
+
+Before aggregation, loss : 0.15, accuracy : 95.41%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.71%', '2:94.96%', '3:95.25%', '4:94.91%', '5:95.18%', '6:96.56%', '7:94.46%', '8:92.51%', '9:93.86%']
+Aggregation to central server completed at central server round 1000, loss : 0.15, accuracy: 95.45%, staleness : 9
+Accuracy per label after aggregation : ['0:98.47%', '1:97.80%', '2:94.96%', '3:95.45%', '4:94.91%', '5:95.18%', '6:96.56%', '7:94.55%', '8:92.51%', '9:93.86%']
+
+-----------------------------------------------------
+
+Central server round 326 started
+Model sent from central server with 100msec communication time, with loss :0.15, accuracy : 95.45%
+Accuracy per label : ['0:98.47%', '1:97.80%', '2:94.96%', '3:95.45%', '4:94.91%', '5:95.18%', '6:96.56%', '7:94.55%', '8:92.51%', '9:93.86%']
+The model is from round 316 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.15, accuracy 95.41%
+Accuracy per label : ['0:98.98%', '1:97.80%', '2:94.96%', '3:95.74%', '4:95.42%', '5:93.50%', '6:96.45%', '7:94.75%', '8:91.99%', '9:94.05%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.14, accuracy 95.49%
+Accuracy per label : ['0:98.98%', '1:97.80%', '2:94.96%', '3:95.94%', '4:95.52%', '5:93.50%', '6:96.35%', '7:94.65%', '8:92.51%', '9:94.25%']
+
+Before aggregation, loss : 0.14, accuracy : 95.51%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.80%', '2:95.16%', '3:95.45%', '4:94.91%', '5:95.18%', '6:96.56%', '7:94.55%', '8:92.81%', '9:93.95%']
+Aggregation to central server completed at central server round 1000, loss : 0.14, accuracy: 95.52%, staleness : 9
+Accuracy per label after aggregation : ['0:98.57%', '1:97.80%', '2:95.06%', '3:95.45%', '4:94.91%', '5:95.29%', '6:96.56%', '7:94.55%', '8:92.81%', '9:93.95%']
+
+-----------------------------------------------------
+
+Central server round 336 started
+Model sent from central server with 100msec communication time, with loss :0.14, accuracy : 95.52%
+Accuracy per label : ['0:98.57%', '1:97.80%', '2:95.06%', '3:95.45%', '4:94.91%', '5:95.29%', '6:96.56%', '7:94.55%', '8:92.81%', '9:93.95%']
+The model is from round 326 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.14, accuracy 95.45%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:94.96%', '3:95.84%', '4:95.42%', '5:93.61%', '6:96.45%', '7:94.75%', '8:92.09%', '9:94.25%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.14, accuracy 95.61%
+Accuracy per label : ['0:98.98%', '1:97.89%', '2:95.25%', '3:95.94%', '4:95.52%', '5:93.61%', '6:96.35%', '7:94.84%', '8:92.81%', '9:94.45%']
+
+Before aggregation, loss : 0.14, accuracy : 95.60%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.80%', '2:95.35%', '3:95.45%', '4:95.01%', '5:95.40%', '6:96.56%', '7:94.65%', '8:93.12%', '9:93.95%']
+Aggregation to central server completed at central server round 1000, loss : 0.14, accuracy: 95.62%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:97.80%', '2:95.25%', '3:95.54%', '4:95.01%', '5:95.40%', '6:96.56%', '7:94.65%', '8:93.02%', '9:94.05%']
+
+-----------------------------------------------------
+
+Central server round 346 started
+Model sent from central server with 100msec communication time, with loss :0.14, accuracy : 95.62%
+Accuracy per label : ['0:98.67%', '1:97.80%', '2:95.25%', '3:95.54%', '4:95.01%', '5:95.40%', '6:96.56%', '7:94.65%', '8:93.02%', '9:94.05%']
+The model is from round 336 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.14, accuracy 95.48%
+Accuracy per label : ['0:98.88%', '1:97.80%', '2:95.06%', '3:95.84%', '4:95.42%', '5:93.61%', '6:96.45%', '7:94.75%', '8:92.30%', '9:94.25%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.14, accuracy 95.63%
+Accuracy per label : ['0:98.88%', '1:97.89%', '2:95.25%', '3:95.94%', '4:95.62%', '5:93.83%', '6:96.35%', '7:94.84%', '8:92.81%', '9:94.45%']
+
+Before aggregation, loss : 0.14, accuracy : 95.67%
+Before aggregation, accuracy per label : ['0:98.47%', '1:97.80%', '2:95.35%', '3:95.45%', '4:95.01%', '5:95.40%', '6:96.56%', '7:94.75%', '8:93.43%', '9:94.25%']
+Aggregation to central server completed at central server round 1000, loss : 0.14, accuracy: 95.71%, staleness : 9
+Accuracy per label after aggregation : ['0:98.57%', '1:97.80%', '2:95.35%', '3:95.54%', '4:95.21%', '5:95.40%', '6:96.56%', '7:94.75%', '8:93.43%', '9:94.25%']
+
+-----------------------------------------------------
+
+Central server round 356 started
+Model sent from central server with 100msec communication time, with loss :0.14, accuracy : 95.71%
+Accuracy per label : ['0:98.57%', '1:97.80%', '2:95.35%', '3:95.54%', '4:95.21%', '5:95.40%', '6:96.56%', '7:94.75%', '8:93.43%', '9:94.25%']
+The model is from round 346 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.14, accuracy 95.59%
+Accuracy per label : ['0:98.88%', '1:97.89%', '2:95.25%', '3:95.94%', '4:95.52%', '5:93.83%', '6:96.45%', '7:94.94%', '8:92.40%', '9:94.35%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.13, accuracy 95.67%
+Accuracy per label : ['0:98.88%', '1:97.89%', '2:95.64%', '3:96.14%', '4:95.42%', '5:93.95%', '6:96.35%', '7:94.75%', '8:92.81%', '9:94.45%']
+
+Before aggregation, loss : 0.13, accuracy : 95.77%
+Before aggregation, accuracy per label : ['0:98.57%', '1:97.89%', '2:95.45%', '3:95.45%', '4:95.32%', '5:95.40%', '6:96.66%', '7:94.75%', '8:93.63%', '9:94.35%']
+Aggregation to central server completed at central server round 1000, loss : 0.13, accuracy: 95.79%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:97.89%', '2:95.45%', '3:95.54%', '4:95.42%', '5:95.40%', '6:96.56%', '7:94.75%', '8:93.63%', '9:94.35%']
+
+-----------------------------------------------------
+
+Central server round 366 started
+Model sent from central server with 100msec communication time, with loss :0.13, accuracy : 95.79%
+Accuracy per label : ['0:98.67%', '1:97.89%', '2:95.45%', '3:95.54%', '4:95.42%', '5:95.40%', '6:96.56%', '7:94.75%', '8:93.63%', '9:94.35%']
+The model is from round 356 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.13, accuracy 95.67%
+Accuracy per label : ['0:98.88%', '1:97.89%', '2:95.54%', '3:95.94%', '4:95.52%', '5:94.39%', '6:96.45%', '7:94.84%', '8:92.40%', '9:94.45%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.13, accuracy 95.76%
+Accuracy per label : ['0:98.98%', '1:97.89%', '2:95.64%', '3:96.34%', '4:95.42%', '5:94.39%', '6:96.45%', '7:94.84%', '8:92.81%', '9:94.45%']
+
+Before aggregation, loss : 0.13, accuracy : 95.82%
+Before aggregation, accuracy per label : ['0:98.67%', '1:97.89%', '2:95.45%', '3:95.54%', '4:95.42%', '5:95.40%', '6:96.66%', '7:94.75%', '8:93.74%', '9:94.45%']
+Aggregation to central server completed at central server round 1000, loss : 0.13, accuracy: 95.84%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:97.89%', '2:95.64%', '3:95.54%', '4:95.42%', '5:95.40%', '6:96.66%', '7:94.75%', '8:93.74%', '9:94.45%']
+
+-----------------------------------------------------
+
+Central server round 376 started
+Model sent from central server with 100msec communication time, with loss :0.13, accuracy : 95.84%
+Accuracy per label : ['0:98.67%', '1:97.89%', '2:95.64%', '3:95.54%', '4:95.42%', '5:95.40%', '6:96.66%', '7:94.75%', '8:93.74%', '9:94.45%']
+The model is from round 366 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.13, accuracy 95.74%
+Accuracy per label : ['0:98.88%', '1:97.89%', '2:95.54%', '3:96.04%', '4:95.52%', '5:94.51%', '6:96.45%', '7:94.84%', '8:92.92%', '9:94.45%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.13, accuracy 95.83%
+Accuracy per label : ['0:98.98%', '1:97.89%', '2:95.93%', '3:96.24%', '4:95.42%', '5:94.51%', '6:96.45%', '7:94.94%', '8:93.02%', '9:94.55%']
+
+Before aggregation, loss : 0.13, accuracy : 95.88%
+Before aggregation, accuracy per label : ['0:98.67%', '1:97.89%', '2:95.64%', '3:95.54%', '4:95.52%', '5:95.40%', '6:96.66%', '7:94.94%', '8:93.74%', '9:94.55%']
+Aggregation to central server completed at central server round 1000, loss : 0.13, accuracy: 95.90%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:97.89%', '2:95.64%', '3:95.54%', '4:95.52%', '5:95.63%', '6:96.66%', '7:94.94%', '8:93.74%', '9:94.55%']
+
+-----------------------------------------------------
+
+Central server round 386 started
+Model sent from central server with 100msec communication time, with loss :0.13, accuracy : 95.90%
+Accuracy per label : ['0:98.67%', '1:97.89%', '2:95.64%', '3:95.54%', '4:95.52%', '5:95.63%', '6:96.66%', '7:94.94%', '8:93.74%', '9:94.55%']
+The model is from round 376 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.13, accuracy 95.82%
+Accuracy per label : ['0:98.98%', '1:97.89%', '2:95.83%', '3:96.04%', '4:95.52%', '5:94.73%', '6:96.35%', '7:95.14%', '8:92.92%', '9:94.45%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.12, accuracy 95.91%
+Accuracy per label : ['0:98.98%', '1:97.97%', '2:96.03%', '3:96.14%', '4:95.42%', '5:94.84%', '6:96.45%', '7:95.04%', '8:93.33%', '9:94.55%']
+
+Before aggregation, loss : 0.13, accuracy : 95.99%
+Before aggregation, accuracy per label : ['0:98.57%', '1:97.89%', '2:95.83%', '3:95.74%', '4:95.52%', '5:95.63%', '6:96.76%', '7:95.14%', '8:94.05%', '9:94.55%']
+Aggregation to central server completed at central server round 1000, loss : 0.13, accuracy: 95.99%, staleness : 9
+Accuracy per label after aggregation : ['0:98.57%', '1:97.89%', '2:95.83%', '3:95.74%', '4:95.62%', '5:95.63%', '6:96.76%', '7:95.04%', '8:94.05%', '9:94.55%']
+
+-----------------------------------------------------
+
+Central server round 396 started
+Model sent from central server with 100msec communication time, with loss :0.13, accuracy : 95.99%
+Accuracy per label : ['0:98.57%', '1:97.89%', '2:95.83%', '3:95.74%', '4:95.62%', '5:95.63%', '6:96.76%', '7:95.04%', '8:94.05%', '9:94.55%']
+The model is from round 386 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.12, accuracy 95.98%
+Accuracy per label : ['0:98.98%', '1:97.89%', '2:96.03%', '3:96.14%', '4:95.52%', '5:94.96%', '6:96.76%', '7:95.33%', '8:93.33%', '9:94.55%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.12, accuracy 96.02%
+Accuracy per label : ['0:98.98%', '1:97.97%', '2:96.22%', '3:96.24%', '4:95.52%', '5:95.07%', '6:96.56%', '7:95.04%', '8:93.63%', '9:94.65%']
+
+Before aggregation, loss : 0.12, accuracy : 96.05%
+Before aggregation, accuracy per label : ['0:98.67%', '1:97.89%', '2:95.83%', '3:95.74%', '4:95.72%', '5:95.63%', '6:96.87%', '7:95.14%', '8:94.25%', '9:94.55%']
+Aggregation to central server completed at central server round 1000, loss : 0.12, accuracy: 96.05%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:97.89%', '2:95.93%', '3:95.74%', '4:95.72%', '5:95.63%', '6:96.87%', '7:95.14%', '8:94.15%', '9:94.55%']
+
+-----------------------------------------------------
+
+Central server round 406 started
+Model sent from central server with 100msec communication time, with loss :0.12, accuracy : 96.05%
+Accuracy per label : ['0:98.67%', '1:97.89%', '2:95.93%', '3:95.74%', '4:95.72%', '5:95.63%', '6:96.87%', '7:95.14%', '8:94.15%', '9:94.55%']
+The model is from round 396 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.12, accuracy 96.04%
+Accuracy per label : ['0:98.98%', '1:97.89%', '2:96.03%', '3:96.24%', '4:95.62%', '5:94.96%', '6:96.76%', '7:95.43%', '8:93.53%', '9:94.65%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.12, accuracy 96.11%
+Accuracy per label : ['0:98.88%', '1:97.97%', '2:96.32%', '3:96.24%', '4:95.52%', '5:95.07%', '6:96.66%', '7:95.33%', '8:93.94%', '9:94.85%']
+
+Before aggregation, loss : 0.12, accuracy : 96.10%
+Before aggregation, accuracy per label : ['0:98.67%', '1:97.89%', '2:96.03%', '3:95.84%', '4:95.72%', '5:95.63%', '6:97.08%', '7:95.14%', '8:94.25%', '9:94.55%']
+Aggregation to central server completed at central server round 1000, loss : 0.12, accuracy: 96.12%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:97.89%', '2:96.03%', '3:95.84%', '4:95.72%', '5:95.63%', '6:97.08%', '7:95.23%', '8:94.35%', '9:94.55%']
+
+-----------------------------------------------------
+
+Central server round 416 started
+Model sent from central server with 100msec communication time, with loss :0.12, accuracy : 96.12%
+Accuracy per label : ['0:98.67%', '1:97.89%', '2:96.03%', '3:95.84%', '4:95.72%', '5:95.63%', '6:97.08%', '7:95.23%', '8:94.35%', '9:94.55%']
+The model is from round 406 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.12, accuracy 96.09%
+Accuracy per label : ['0:98.98%', '1:97.97%', '2:96.03%', '3:96.24%', '4:95.72%', '5:95.07%', '6:96.76%', '7:95.33%', '8:93.84%', '9:94.65%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.12, accuracy 96.17%
+Accuracy per label : ['0:98.88%', '1:97.97%', '2:96.41%', '3:96.14%', '4:95.52%', '5:95.29%', '6:96.76%', '7:95.43%', '8:93.94%', '9:95.04%']
+
+Before aggregation, loss : 0.12, accuracy : 96.20%
+Before aggregation, accuracy per label : ['0:98.78%', '1:97.89%', '2:96.12%', '3:95.84%', '4:95.82%', '5:95.63%', '6:97.18%', '7:95.33%', '8:94.56%', '9:94.65%']
+Aggregation to central server completed at central server round 1000, loss : 0.12, accuracy: 96.22%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:97.89%', '2:96.22%', '3:95.84%', '4:95.93%', '5:95.63%', '6:97.18%', '7:95.33%', '8:94.46%', '9:94.75%']
+
+-----------------------------------------------------
+
+Central server round 426 started
+Model sent from central server with 100msec communication time, with loss :0.12, accuracy : 96.22%
+Accuracy per label : ['0:98.78%', '1:97.89%', '2:96.22%', '3:95.84%', '4:95.93%', '5:95.63%', '6:97.18%', '7:95.33%', '8:94.46%', '9:94.75%']
+The model is from round 416 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.12, accuracy 96.22%
+Accuracy per label : ['0:98.98%', '1:97.97%', '2:96.22%', '3:96.24%', '4:95.72%', '5:95.52%', '6:96.76%', '7:95.53%', '8:94.15%', '9:94.85%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.12, accuracy 96.21%
+Accuracy per label : ['0:98.78%', '1:98.06%', '2:96.51%', '3:96.14%', '4:95.62%', '5:95.40%', '6:96.76%', '7:95.43%', '8:94.05%', '9:95.04%']
+
+Before aggregation, loss : 0.12, accuracy : 96.27%
+Before aggregation, accuracy per label : ['0:98.78%', '1:97.97%', '2:96.51%', '3:95.84%', '4:95.93%', '5:95.63%', '6:97.18%', '7:95.33%', '8:94.56%', '9:94.75%']
+Aggregation to central server completed at central server round 1000, loss : 0.12, accuracy: 96.28%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:97.97%', '2:96.61%', '3:95.84%', '4:95.93%', '5:95.63%', '6:97.18%', '7:95.33%', '8:94.56%', '9:94.75%']
+
+-----------------------------------------------------
+
+Central server round 436 started
+Model sent from central server with 100msec communication time, with loss :0.12, accuracy : 96.28%
+Accuracy per label : ['0:98.78%', '1:97.97%', '2:96.61%', '3:95.84%', '4:95.93%', '5:95.63%', '6:97.18%', '7:95.33%', '8:94.56%', '9:94.75%']
+The model is from round 426 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.12, accuracy 96.30%
+Accuracy per label : ['0:98.78%', '1:98.06%', '2:96.51%', '3:96.14%', '4:96.13%', '5:95.52%', '6:96.87%', '7:95.43%', '8:94.46%', '9:94.85%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.11, accuracy 96.30%
+Accuracy per label : ['0:98.78%', '1:98.06%', '2:96.51%', '3:96.34%', '4:95.93%', '5:95.63%', '6:96.76%', '7:95.43%', '8:94.25%', '9:95.04%']
+
+Before aggregation, loss : 0.11, accuracy : 96.36%
+Before aggregation, accuracy per label : ['0:98.78%', '1:97.97%', '2:96.80%', '3:96.04%', '4:95.93%', '5:95.63%', '6:97.18%', '7:95.43%', '8:94.76%', '9:94.85%']
+Aggregation to central server completed at central server round 1000, loss : 0.11, accuracy: 96.36%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:97.97%', '2:96.80%', '3:96.04%', '4:95.93%', '5:95.74%', '6:97.18%', '7:95.43%', '8:94.76%', '9:94.75%']
+
+-----------------------------------------------------
+
+Central server round 446 started
+Model sent from central server with 100msec communication time, with loss :0.11, accuracy : 96.36%
+Accuracy per label : ['0:98.78%', '1:97.97%', '2:96.80%', '3:96.04%', '4:95.93%', '5:95.74%', '6:97.18%', '7:95.43%', '8:94.76%', '9:94.75%']
+The model is from round 436 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.11, accuracy 96.38%
+Accuracy per label : ['0:98.78%', '1:98.06%', '2:96.80%', '3:96.24%', '4:96.23%', '5:95.52%', '6:96.87%', '7:95.43%', '8:94.56%', '9:95.04%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.11, accuracy 96.35%
+Accuracy per label : ['0:98.78%', '1:98.15%', '2:96.61%', '3:96.24%', '4:96.03%', '5:95.74%', '6:96.76%', '7:95.43%', '8:94.46%', '9:95.04%']
+
+Before aggregation, loss : 0.11, accuracy : 96.40%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.06%', '2:96.90%', '3:96.04%', '4:95.93%', '5:95.74%', '6:97.29%', '7:95.43%', '8:94.76%', '9:94.85%']
+Aggregation to central server completed at central server round 1000, loss : 0.11, accuracy: 96.41%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:97.97%', '2:96.90%', '3:96.04%', '4:95.93%', '5:95.74%', '6:97.29%', '7:95.53%', '8:94.87%', '9:94.85%']
+
+-----------------------------------------------------
+
+Central server round 456 started
+Model sent from central server with 100msec communication time, with loss :0.11, accuracy : 96.41%
+Accuracy per label : ['0:98.78%', '1:97.97%', '2:96.90%', '3:96.04%', '4:95.93%', '5:95.74%', '6:97.29%', '7:95.53%', '8:94.87%', '9:94.85%']
+The model is from round 446 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.11, accuracy 96.41%
+Accuracy per label : ['0:98.78%', '1:98.06%', '2:96.90%', '3:96.24%', '4:96.23%', '5:95.63%', '6:96.87%', '7:95.43%', '8:94.66%', '9:95.04%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.11, accuracy 96.41%
+Accuracy per label : ['0:98.78%', '1:98.15%', '2:96.71%', '3:96.44%', '4:96.03%', '5:95.85%', '6:96.76%', '7:95.53%', '8:94.56%', '9:95.04%']
+
+Before aggregation, loss : 0.11, accuracy : 96.47%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.06%', '2:96.90%', '3:96.04%', '4:95.93%', '5:95.96%', '6:97.39%', '7:95.62%', '8:94.97%', '9:94.85%']
+Aggregation to central server completed at central server round 1000, loss : 0.11, accuracy: 96.46%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.06%', '2:96.90%', '3:96.04%', '4:95.93%', '5:95.85%', '6:97.39%', '7:95.62%', '8:94.97%', '9:94.85%']
+
+-----------------------------------------------------
+
+Central server round 466 started
+Model sent from central server with 100msec communication time, with loss :0.11, accuracy : 96.46%
+Accuracy per label : ['0:98.78%', '1:98.06%', '2:96.90%', '3:96.04%', '4:95.93%', '5:95.85%', '6:97.39%', '7:95.62%', '8:94.97%', '9:94.85%']
+The model is from round 456 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.11, accuracy 96.48%
+Accuracy per label : ['0:98.78%', '1:98.15%', '2:96.90%', '3:96.44%', '4:96.44%', '5:95.63%', '6:96.87%', '7:95.53%', '8:94.66%', '9:95.14%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.11, accuracy 96.51%
+Accuracy per label : ['0:98.78%', '1:98.15%', '2:96.80%', '3:96.53%', '4:96.23%', '5:95.96%', '6:96.76%', '7:95.62%', '8:94.76%', '9:95.24%']
+
+Before aggregation, loss : 0.11, accuracy : 96.52%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.06%', '2:97.00%', '3:96.14%', '4:95.93%', '5:96.08%', '6:97.39%', '7:95.62%', '8:94.97%', '9:95.04%']
+Aggregation to central server completed at central server round 1000, loss : 0.11, accuracy: 96.52%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.06%', '2:97.00%', '3:96.14%', '4:95.93%', '5:96.08%', '6:97.39%', '7:95.62%', '8:95.07%', '9:94.95%']
+
+-----------------------------------------------------
+
+Central server round 476 started
+Model sent from central server with 100msec communication time, with loss :0.11, accuracy : 96.52%
+Accuracy per label : ['0:98.78%', '1:98.06%', '2:97.00%', '3:96.14%', '4:95.93%', '5:96.08%', '6:97.39%', '7:95.62%', '8:95.07%', '9:94.95%']
+The model is from round 466 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.11, accuracy 96.53%
+Accuracy per label : ['0:98.67%', '1:98.15%', '2:97.00%', '3:96.44%', '4:96.54%', '5:95.85%', '6:96.97%', '7:95.62%', '8:94.66%', '9:95.14%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.11, accuracy 96.54%
+Accuracy per label : ['0:98.78%', '1:98.15%', '2:96.90%', '3:96.53%', '4:96.23%', '5:95.96%', '6:96.97%', '7:95.62%', '8:94.76%', '9:95.24%']
+
+Before aggregation, loss : 0.11, accuracy : 96.55%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.06%', '2:97.09%', '3:96.24%', '4:95.93%', '5:96.08%', '6:97.39%', '7:95.62%', '8:95.07%', '9:95.04%']
+Aggregation to central server completed at central server round 1000, loss : 0.11, accuracy: 96.58%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.06%', '2:97.09%', '3:96.34%', '4:96.03%', '5:96.08%', '6:97.39%', '7:95.62%', '8:95.17%', '9:95.14%']
+
+-----------------------------------------------------
+
+Central server round 486 started
+Model sent from central server with 100msec communication time, with loss :0.11, accuracy : 96.58%
+Accuracy per label : ['0:98.67%', '1:98.06%', '2:97.09%', '3:96.34%', '4:96.03%', '5:96.08%', '6:97.39%', '7:95.62%', '8:95.17%', '9:95.14%']
+The model is from round 476 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.11, accuracy 96.56%
+Accuracy per label : ['0:98.67%', '1:98.15%', '2:97.00%', '3:96.44%', '4:96.54%', '5:95.85%', '6:97.08%', '7:95.72%', '8:94.66%', '9:95.24%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.11, accuracy 96.60%
+Accuracy per label : ['0:98.78%', '1:98.15%', '2:97.09%', '3:96.53%', '4:96.33%', '5:95.96%', '6:97.08%', '7:95.62%', '8:94.87%', '9:95.34%']
+
+Before aggregation, loss : 0.11, accuracy : 96.61%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.15%', '2:97.09%', '3:96.44%', '4:96.13%', '5:96.19%', '6:97.39%', '7:95.62%', '8:95.07%', '9:95.14%']
+Aggregation to central server completed at central server round 1000, loss : 0.11, accuracy: 96.61%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.15%', '2:97.09%', '3:96.24%', '4:96.23%', '5:96.19%', '6:97.39%', '7:95.62%', '8:95.17%', '9:95.14%']
+
+-----------------------------------------------------
+
+Central server round 496 started
+Model sent from central server with 100msec communication time, with loss :0.11, accuracy : 96.61%
+Accuracy per label : ['0:98.67%', '1:98.15%', '2:97.09%', '3:96.24%', '4:96.23%', '5:96.19%', '6:97.39%', '7:95.62%', '8:95.17%', '9:95.14%']
+The model is from round 486 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.10, accuracy 96.63%
+Accuracy per label : ['0:98.67%', '1:98.15%', '2:97.19%', '3:96.44%', '4:96.64%', '5:95.96%', '6:97.18%', '7:95.72%', '8:94.76%', '9:95.34%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.10, accuracy 96.65%
+Accuracy per label : ['0:98.78%', '1:98.15%', '2:97.19%', '3:96.53%', '4:96.44%', '5:95.96%', '6:97.18%', '7:95.62%', '8:95.07%', '9:95.34%']
+
+Before aggregation, loss : 0.10, accuracy : 96.63%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.24%', '2:97.09%', '3:96.14%', '4:96.33%', '5:96.30%', '6:97.49%', '7:95.62%', '8:95.07%', '9:95.14%']
+Aggregation to central server completed at central server round 1000, loss : 0.10, accuracy: 96.66%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.24%', '2:97.09%', '3:96.24%', '4:96.44%', '5:96.30%', '6:97.39%', '7:95.72%', '8:95.17%', '9:95.14%']
+
+-----------------------------------------------------
+
+Central server round 506 started
+Model sent from central server with 100msec communication time, with loss :0.10, accuracy : 96.66%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.09%', '3:96.24%', '4:96.44%', '5:96.30%', '6:97.39%', '7:95.72%', '8:95.17%', '9:95.14%']
+The model is from round 496 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.10, accuracy 96.67%
+Accuracy per label : ['0:98.67%', '1:98.15%', '2:97.29%', '3:96.34%', '4:96.74%', '5:96.08%', '6:97.18%', '7:95.72%', '8:94.97%', '9:95.34%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.10, accuracy 96.69%
+Accuracy per label : ['0:98.78%', '1:98.24%', '2:97.38%', '3:96.53%', '4:96.54%', '5:95.96%', '6:97.18%', '7:95.62%', '8:95.07%', '9:95.34%']
+
+Before aggregation, loss : 0.10, accuracy : 96.68%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.24%', '2:97.09%', '3:96.14%', '4:96.44%', '5:96.30%', '6:97.49%', '7:95.91%', '8:95.07%', '9:95.24%']
+Aggregation to central server completed at central server round 1000, loss : 0.10, accuracy: 96.72%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.24%', '2:97.19%', '3:96.24%', '4:96.54%', '5:96.30%', '6:97.39%', '7:95.91%', '8:95.17%', '9:95.34%']
+
+-----------------------------------------------------
+
+Central server round 516 started
+Model sent from central server with 100msec communication time, with loss :0.10, accuracy : 96.72%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.19%', '3:96.24%', '4:96.54%', '5:96.30%', '6:97.39%', '7:95.91%', '8:95.17%', '9:95.34%']
+The model is from round 506 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.10, accuracy 96.68%
+Accuracy per label : ['0:98.67%', '1:98.15%', '2:97.19%', '3:96.44%', '4:96.84%', '5:96.08%', '6:97.18%', '7:95.72%', '8:95.07%', '9:95.24%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.10, accuracy 96.74%
+Accuracy per label : ['0:98.78%', '1:98.24%', '2:97.58%', '3:96.44%', '4:96.64%', '5:96.19%', '6:97.18%', '7:95.62%', '8:95.17%', '9:95.34%']
+
+Before aggregation, loss : 0.10, accuracy : 96.72%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.24%', '2:97.19%', '3:96.14%', '4:96.44%', '5:96.30%', '6:97.49%', '7:96.01%', '8:95.17%', '9:95.34%']
+Aggregation to central server completed at central server round 1000, loss : 0.10, accuracy: 96.74%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.24%', '2:97.19%', '3:96.24%', '4:96.54%', '5:96.41%', '6:97.49%', '7:95.91%', '8:95.17%', '9:95.34%']
+
+-----------------------------------------------------
+
+Central server round 526 started
+Model sent from central server with 100msec communication time, with loss :0.10, accuracy : 96.74%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.19%', '3:96.24%', '4:96.54%', '5:96.41%', '6:97.49%', '7:95.91%', '8:95.17%', '9:95.34%']
+The model is from round 516 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.10, accuracy 96.77%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.48%', '3:96.53%', '4:96.95%', '5:96.19%', '6:97.18%', '7:95.72%', '8:95.17%', '9:95.34%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.10, accuracy 96.78%
+Accuracy per label : ['0:98.78%', '1:98.24%', '2:97.67%', '3:96.44%', '4:96.64%', '5:96.41%', '6:97.18%', '7:95.62%', '8:95.38%', '9:95.24%']
+
+Before aggregation, loss : 0.10, accuracy : 96.79%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.24%', '2:97.19%', '3:96.24%', '4:96.44%', '5:96.52%', '6:97.70%', '7:96.11%', '8:95.28%', '9:95.34%']
+Aggregation to central server completed at central server round 1000, loss : 0.10, accuracy: 96.79%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.24%', '2:97.19%', '3:96.24%', '4:96.54%', '5:96.52%', '6:97.60%', '7:96.11%', '8:95.28%', '9:95.34%']
+
+-----------------------------------------------------
+
+Central server round 536 started
+Model sent from central server with 100msec communication time, with loss :0.10, accuracy : 96.79%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.19%', '3:96.24%', '4:96.54%', '5:96.52%', '6:97.60%', '7:96.11%', '8:95.28%', '9:95.34%']
+The model is from round 526 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.10, accuracy 96.77%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.48%', '3:96.53%', '4:96.95%', '5:96.19%', '6:97.18%', '7:95.72%', '8:95.17%', '9:95.34%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.10, accuracy 96.83%
+Accuracy per label : ['0:98.78%', '1:98.33%', '2:97.48%', '3:96.44%', '4:96.74%', '5:96.52%', '6:97.18%', '7:95.72%', '8:95.59%', '9:95.34%']
+
+Before aggregation, loss : 0.10, accuracy : 96.86%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.24%', '2:97.38%', '3:96.34%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.21%', '8:95.28%', '9:95.34%']
+Aggregation to central server completed at central server round 1000, loss : 0.10, accuracy: 96.85%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.24%', '2:97.38%', '3:96.34%', '4:96.64%', '5:96.64%', '6:97.60%', '7:96.21%', '8:95.28%', '9:95.34%']
+
+-----------------------------------------------------
+
+Central server round 546 started
+Model sent from central server with 100msec communication time, with loss :0.10, accuracy : 96.85%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.38%', '3:96.34%', '4:96.64%', '5:96.64%', '6:97.60%', '7:96.21%', '8:95.28%', '9:95.34%']
+The model is from round 536 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.10, accuracy 96.83%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.58%', '3:96.53%', '4:96.95%', '5:96.30%', '6:97.18%', '7:95.91%', '8:95.38%', '9:95.34%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.10, accuracy 96.90%
+Accuracy per label : ['0:98.78%', '1:98.33%', '2:97.58%', '3:96.53%', '4:96.84%', '5:96.52%', '6:97.18%', '7:96.01%', '8:95.69%', '9:95.34%']
+
+Before aggregation, loss : 0.10, accuracy : 96.86%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.24%', '2:97.38%', '3:96.34%', '4:96.64%', '5:96.52%', '6:97.70%', '7:96.21%', '8:95.38%', '9:95.34%']
+Aggregation to central server completed at central server round 1000, loss : 0.10, accuracy: 96.86%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.24%', '2:97.38%', '3:96.34%', '4:96.64%', '5:96.52%', '6:97.70%', '7:96.21%', '8:95.38%', '9:95.34%']
+
+-----------------------------------------------------
+
+Central server round 556 started
+Model sent from central server with 100msec communication time, with loss :0.10, accuracy : 96.86%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.38%', '3:96.34%', '4:96.64%', '5:96.52%', '6:97.70%', '7:96.21%', '8:95.38%', '9:95.34%']
+The model is from round 546 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.10, accuracy 96.86%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.67%', '3:96.53%', '4:96.95%', '5:96.41%', '6:97.18%', '7:96.01%', '8:95.38%', '9:95.34%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.10, accuracy 96.90%
+Accuracy per label : ['0:98.78%', '1:98.33%', '2:97.48%', '3:96.53%', '4:96.84%', '5:96.41%', '6:97.18%', '7:96.21%', '8:95.69%', '9:95.34%']
+
+Before aggregation, loss : 0.10, accuracy : 96.89%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.24%', '2:97.38%', '3:96.34%', '4:96.74%', '5:96.64%', '6:97.70%', '7:96.30%', '8:95.38%', '9:95.34%']
+Aggregation to central server completed at central server round 1000, loss : 0.10, accuracy: 96.87%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.24%', '2:97.38%', '3:96.34%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.21%', '8:95.38%', '9:95.34%']
+
+-----------------------------------------------------
+
+Central server round 566 started
+Model sent from central server with 100msec communication time, with loss :0.10, accuracy : 96.87%
+Accuracy per label : ['0:98.67%', '1:98.24%', '2:97.38%', '3:96.34%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.21%', '8:95.38%', '9:95.34%']
+The model is from round 556 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.10, accuracy 96.91%
+Accuracy per label : ['0:98.67%', '1:98.33%', '2:97.67%', '3:96.53%', '4:96.95%', '5:96.52%', '6:97.18%', '7:96.01%', '8:95.59%', '9:95.44%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 96.97%
+Accuracy per label : ['0:98.88%', '1:98.41%', '2:97.48%', '3:96.53%', '4:97.05%', '5:96.41%', '6:97.18%', '7:96.21%', '8:95.89%', '9:95.44%']
+
+Before aggregation, loss : 0.09, accuracy : 96.88%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.33%', '2:97.38%', '3:96.24%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.21%', '8:95.48%', '9:95.34%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 96.90%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.33%', '2:97.38%', '3:96.24%', '4:96.74%', '5:96.64%', '6:97.70%', '7:96.30%', '8:95.48%', '9:95.34%']
+
+-----------------------------------------------------
+
+Central server round 576 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 96.90%
+Accuracy per label : ['0:98.67%', '1:98.33%', '2:97.38%', '3:96.24%', '4:96.74%', '5:96.64%', '6:97.70%', '7:96.30%', '8:95.48%', '9:95.34%']
+The model is from round 566 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 96.96%
+Accuracy per label : ['0:98.67%', '1:98.33%', '2:97.67%', '3:96.53%', '4:96.95%', '5:96.52%', '6:97.18%', '7:96.01%', '8:96.00%', '9:95.54%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 97.02%
+Accuracy per label : ['0:98.88%', '1:98.50%', '2:97.58%', '3:96.63%', '4:97.05%', '5:96.41%', '6:97.18%', '7:96.21%', '8:96.10%', '9:95.44%']
+
+Before aggregation, loss : 0.09, accuracy : 96.88%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.33%', '2:97.29%', '3:96.24%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.21%', '8:95.48%', '9:95.44%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 96.90%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.33%', '2:97.38%', '3:96.24%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.30%', '8:95.48%', '9:95.44%']
+
+-----------------------------------------------------
+
+Central server round 586 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 96.90%
+Accuracy per label : ['0:98.67%', '1:98.33%', '2:97.38%', '3:96.24%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.30%', '8:95.48%', '9:95.44%']
+The model is from round 576 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 96.95%
+Accuracy per label : ['0:98.67%', '1:98.33%', '2:97.58%', '3:96.53%', '4:97.05%', '5:96.52%', '6:97.08%', '7:96.01%', '8:96.00%', '9:95.54%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 97.02%
+Accuracy per label : ['0:98.88%', '1:98.50%', '2:97.67%', '3:96.63%', '4:97.05%', '5:96.41%', '6:97.18%', '7:96.21%', '8:96.10%', '9:95.34%']
+
+Before aggregation, loss : 0.09, accuracy : 96.87%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.33%', '2:97.38%', '3:96.24%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.21%', '8:95.38%', '9:95.34%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 96.89%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.33%', '2:97.38%', '3:96.24%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.30%', '8:95.48%', '9:95.34%']
+
+-----------------------------------------------------
+
+Central server round 596 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 96.89%
+Accuracy per label : ['0:98.67%', '1:98.33%', '2:97.38%', '3:96.24%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.30%', '8:95.48%', '9:95.34%']
+The model is from round 586 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 96.99%
+Accuracy per label : ['0:98.78%', '1:98.41%', '2:97.58%', '3:96.53%', '4:97.05%', '5:96.64%', '6:97.18%', '7:96.11%', '8:96.00%', '9:95.44%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 97.05%
+Accuracy per label : ['0:98.98%', '1:98.68%', '2:97.67%', '3:96.53%', '4:97.05%', '5:96.41%', '6:97.29%', '7:96.21%', '8:96.10%', '9:95.34%']
+
+Before aggregation, loss : 0.09, accuracy : 96.90%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.41%', '2:97.38%', '3:96.24%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.21%', '8:95.48%', '9:95.44%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 96.92%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.41%', '2:97.48%', '3:96.24%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.30%', '8:95.48%', '9:95.44%']
+
+-----------------------------------------------------
+
+Central server round 606 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 96.92%
+Accuracy per label : ['0:98.67%', '1:98.41%', '2:97.48%', '3:96.24%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.30%', '8:95.48%', '9:95.44%']
+The model is from round 596 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 97.04%
+Accuracy per label : ['0:98.78%', '1:98.68%', '2:97.67%', '3:96.44%', '4:97.05%', '5:96.64%', '6:97.18%', '7:96.21%', '8:96.00%', '9:95.54%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 97.08%
+Accuracy per label : ['0:98.98%', '1:98.68%', '2:97.67%', '3:96.53%', '4:97.15%', '5:96.52%', '6:97.29%', '7:96.21%', '8:96.10%', '9:95.44%']
+
+Before aggregation, loss : 0.09, accuracy : 96.94%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.41%', '2:97.48%', '3:96.34%', '4:96.64%', '5:96.64%', '6:97.70%', '7:96.21%', '8:95.69%', '9:95.44%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 96.97%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.41%', '2:97.48%', '3:96.24%', '4:96.74%', '5:96.75%', '6:97.70%', '7:96.30%', '8:95.79%', '9:95.44%']
+
+-----------------------------------------------------
+
+Central server round 616 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 96.97%
+Accuracy per label : ['0:98.67%', '1:98.41%', '2:97.48%', '3:96.24%', '4:96.74%', '5:96.75%', '6:97.70%', '7:96.30%', '8:95.79%', '9:95.44%']
+The model is from round 606 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 97.07%
+Accuracy per label : ['0:98.88%', '1:98.68%', '2:97.58%', '3:96.53%', '4:97.15%', '5:96.64%', '6:97.18%', '7:96.21%', '8:96.10%', '9:95.54%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 97.13%
+Accuracy per label : ['0:98.98%', '1:98.59%', '2:97.77%', '3:96.63%', '4:97.15%', '5:96.64%', '6:97.29%', '7:96.21%', '8:96.10%', '9:95.74%']
+
+Before aggregation, loss : 0.09, accuracy : 97.00%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.50%', '2:97.48%', '3:96.44%', '4:96.74%', '5:96.75%', '6:97.81%', '7:96.21%', '8:95.79%', '9:95.44%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 96.99%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.41%', '2:97.48%', '3:96.44%', '4:96.74%', '5:96.75%', '6:97.70%', '7:96.30%', '8:95.79%', '9:95.44%']
+
+-----------------------------------------------------
+
+Central server round 626 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 96.99%
+Accuracy per label : ['0:98.67%', '1:98.41%', '2:97.48%', '3:96.44%', '4:96.74%', '5:96.75%', '6:97.70%', '7:96.30%', '8:95.79%', '9:95.44%']
+The model is from round 616 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 97.08%
+Accuracy per label : ['0:98.88%', '1:98.59%', '2:97.58%', '3:96.53%', '4:97.15%', '5:96.64%', '6:97.18%', '7:96.21%', '8:96.20%', '9:95.64%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 97.14%
+Accuracy per label : ['0:98.98%', '1:98.59%', '2:97.77%', '3:96.63%', '4:97.15%', '5:96.52%', '6:97.29%', '7:96.21%', '8:96.30%', '9:95.74%']
+
+Before aggregation, loss : 0.09, accuracy : 97.03%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.50%', '2:97.48%', '3:96.53%', '4:96.74%', '5:96.75%', '6:97.91%', '7:96.21%', '8:95.89%', '9:95.44%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 97.04%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.59%', '2:97.48%', '3:96.53%', '4:96.74%', '5:96.75%', '6:97.81%', '7:96.30%', '8:95.89%', '9:95.44%']
+
+-----------------------------------------------------
+
+Central server round 636 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 97.04%
+Accuracy per label : ['0:98.67%', '1:98.59%', '2:97.48%', '3:96.53%', '4:96.74%', '5:96.75%', '6:97.81%', '7:96.30%', '8:95.89%', '9:95.44%']
+The model is from round 626 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 97.11%
+Accuracy per label : ['0:98.88%', '1:98.59%', '2:97.67%', '3:96.53%', '4:97.15%', '5:96.75%', '6:97.18%', '7:96.30%', '8:96.20%', '9:95.64%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 97.18%
+Accuracy per label : ['0:98.98%', '1:98.59%', '2:97.87%', '3:96.63%', '4:97.15%', '5:96.64%', '6:97.39%', '7:96.21%', '8:96.41%', '9:95.74%']
+
+Before aggregation, loss : 0.09, accuracy : 97.08%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.59%', '2:97.67%', '3:96.53%', '4:96.74%', '5:96.86%', '6:97.91%', '7:96.21%', '8:96.00%', '9:95.44%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 97.09%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.59%', '2:97.67%', '3:96.53%', '4:96.74%', '5:96.86%', '6:97.91%', '7:96.30%', '8:96.00%', '9:95.44%']
+
+-----------------------------------------------------
+
+Central server round 646 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 97.09%
+Accuracy per label : ['0:98.67%', '1:98.59%', '2:97.67%', '3:96.53%', '4:96.74%', '5:96.86%', '6:97.91%', '7:96.30%', '8:96.00%', '9:95.44%']
+The model is from round 636 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 97.11%
+Accuracy per label : ['0:98.88%', '1:98.59%', '2:97.67%', '3:96.53%', '4:97.15%', '5:96.86%', '6:97.18%', '7:96.30%', '8:96.10%', '9:95.64%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 97.21%
+Accuracy per label : ['0:98.98%', '1:98.68%', '2:97.87%', '3:96.63%', '4:97.15%', '5:96.75%', '6:97.39%', '7:96.21%', '8:96.51%', '9:95.74%']
+
+Before aggregation, loss : 0.09, accuracy : 97.10%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.77%', '2:97.67%', '3:96.53%', '4:96.74%', '5:96.86%', '6:97.91%', '7:96.21%', '8:96.00%', '9:95.44%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 97.10%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.77%', '2:97.67%', '3:96.53%', '4:96.74%', '5:96.86%', '6:97.91%', '7:96.21%', '8:96.00%', '9:95.44%']
+
+-----------------------------------------------------
+
+Central server round 656 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 97.10%
+Accuracy per label : ['0:98.67%', '1:98.77%', '2:97.67%', '3:96.53%', '4:96.74%', '5:96.86%', '6:97.91%', '7:96.21%', '8:96.00%', '9:95.44%']
+The model is from round 646 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 97.17%
+Accuracy per label : ['0:98.98%', '1:98.59%', '2:97.77%', '3:96.53%', '4:97.15%', '5:96.86%', '6:97.29%', '7:96.40%', '8:96.20%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 97.22%
+Accuracy per label : ['0:98.98%', '1:98.68%', '2:97.87%', '3:96.63%', '4:97.15%', '5:96.86%', '6:97.39%', '7:96.21%', '8:96.51%', '9:95.74%']
+
+Before aggregation, loss : 0.09, accuracy : 97.11%
+Before aggregation, accuracy per label : ['0:98.67%', '1:98.77%', '2:97.67%', '3:96.53%', '4:96.74%', '5:96.86%', '6:97.91%', '7:96.21%', '8:96.10%', '9:95.44%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 97.11%, staleness : 9
+Accuracy per label after aggregation : ['0:98.67%', '1:98.68%', '2:97.67%', '3:96.53%', '4:96.84%', '5:96.86%', '6:97.91%', '7:96.21%', '8:96.10%', '9:95.44%']
+
+-----------------------------------------------------
+
+Central server round 666 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 97.11%
+Accuracy per label : ['0:98.67%', '1:98.68%', '2:97.67%', '3:96.53%', '4:96.84%', '5:96.86%', '6:97.91%', '7:96.21%', '8:96.10%', '9:95.44%']
+The model is from round 656 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 97.18%
+Accuracy per label : ['0:98.98%', '1:98.59%', '2:97.77%', '3:96.53%', '4:97.05%', '5:96.75%', '6:97.39%', '7:96.40%', '8:96.41%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.09, accuracy 97.23%
+Accuracy per label : ['0:99.08%', '1:98.77%', '2:97.87%', '3:96.53%', '4:97.05%', '5:96.75%', '6:97.39%', '7:96.40%', '8:96.51%', '9:95.74%']
+
+Before aggregation, loss : 0.09, accuracy : 97.12%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.68%', '2:97.67%', '3:96.53%', '4:96.84%', '5:96.86%', '6:97.91%', '7:96.21%', '8:96.10%', '9:95.44%']
+Aggregation to central server completed at central server round 1000, loss : 0.09, accuracy: 97.17%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.77%', '2:97.67%', '3:96.53%', '4:97.05%', '5:96.97%', '6:97.91%', '7:96.21%', '8:96.10%', '9:95.54%']
+
+-----------------------------------------------------
+
+Central server round 676 started
+Model sent from central server with 100msec communication time, with loss :0.09, accuracy : 97.17%
+Accuracy per label : ['0:98.78%', '1:98.77%', '2:97.67%', '3:96.53%', '4:97.05%', '5:96.97%', '6:97.91%', '7:96.21%', '8:96.10%', '9:95.54%']
+The model is from round 666 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.09, accuracy 97.22%
+Accuracy per label : ['0:98.98%', '1:98.77%', '2:97.77%', '3:96.53%', '4:97.15%', '5:96.75%', '6:97.39%', '7:96.40%', '8:96.51%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.25%
+Accuracy per label : ['0:99.08%', '1:98.77%', '2:97.87%', '3:96.53%', '4:97.05%', '5:96.75%', '6:97.39%', '7:96.50%', '8:96.61%', '9:95.74%']
+
+Before aggregation, loss : 0.08, accuracy : 97.19%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.77%', '2:97.67%', '3:96.53%', '4:97.15%', '5:96.97%', '6:97.91%', '7:96.21%', '8:96.20%', '9:95.54%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.19%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.77%', '2:97.67%', '3:96.53%', '4:97.15%', '5:96.97%', '6:97.91%', '7:96.21%', '8:96.20%', '9:95.54%']
+
+-----------------------------------------------------
+
+Central server round 686 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.19%
+Accuracy per label : ['0:98.78%', '1:98.77%', '2:97.67%', '3:96.53%', '4:97.15%', '5:96.97%', '6:97.91%', '7:96.21%', '8:96.20%', '9:95.54%']
+The model is from round 676 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.24%
+Accuracy per label : ['0:98.98%', '1:98.77%', '2:97.77%', '3:96.63%', '4:97.15%', '5:96.86%', '6:97.39%', '7:96.40%', '8:96.51%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.31%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:97.87%', '3:96.63%', '4:97.15%', '5:96.75%', '6:97.60%', '7:96.60%', '8:96.61%', '9:95.74%']
+
+Before aggregation, loss : 0.08, accuracy : 97.22%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.85%', '2:97.67%', '3:96.53%', '4:97.15%', '5:96.97%', '6:97.91%', '7:96.21%', '8:96.30%', '9:95.64%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.22%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.85%', '2:97.67%', '3:96.53%', '4:97.15%', '5:96.97%', '6:97.91%', '7:96.21%', '8:96.30%', '9:95.64%']
+
+-----------------------------------------------------
+
+Central server round 696 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.22%
+Accuracy per label : ['0:98.78%', '1:98.85%', '2:97.67%', '3:96.53%', '4:97.15%', '5:96.97%', '6:97.91%', '7:96.21%', '8:96.30%', '9:95.64%']
+The model is from round 686 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.28%
+Accuracy per label : ['0:98.98%', '1:98.85%', '2:97.77%', '3:96.63%', '4:97.15%', '5:96.86%', '6:97.49%', '7:96.50%', '8:96.61%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.33%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:97.97%', '3:96.73%', '4:97.15%', '5:96.86%', '6:97.60%', '7:96.60%', '8:96.61%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.26%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.63%', '4:97.25%', '5:96.97%', '6:97.91%', '7:96.21%', '8:96.41%', '9:95.64%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.25%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.63%', '4:97.15%', '5:96.97%', '6:97.91%', '7:96.30%', '8:96.30%', '9:95.64%']
+
+-----------------------------------------------------
+
+Central server round 706 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.25%
+Accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.63%', '4:97.15%', '5:96.97%', '6:97.91%', '7:96.30%', '8:96.30%', '9:95.64%']
+The model is from round 696 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.35%
+Accuracy per label : ['0:98.98%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.56%', '5:96.86%', '6:97.60%', '7:96.50%', '8:96.71%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.36%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.06%', '3:96.73%', '4:97.15%', '5:96.97%', '6:97.60%', '7:96.60%', '8:96.71%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.31%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.35%', '5:96.97%', '6:97.91%', '7:96.21%', '8:96.51%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.31%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.35%', '5:96.97%', '6:97.91%', '7:96.30%', '8:96.51%', '9:95.74%']
+
+-----------------------------------------------------
+
+Central server round 716 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.31%
+Accuracy per label : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.35%', '5:96.97%', '6:97.91%', '7:96.30%', '8:96.51%', '9:95.74%']
+The model is from round 706 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.38%
+Accuracy per label : ['0:98.98%', '1:98.85%', '2:97.87%', '3:96.73%', '4:97.66%', '5:96.97%', '6:97.60%', '7:96.50%', '8:96.71%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.37%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.06%', '3:96.73%', '4:97.15%', '5:96.97%', '6:97.70%', '7:96.60%', '8:96.71%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.33%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.35%', '5:97.09%', '6:97.91%', '7:96.21%', '8:96.61%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.33%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.35%', '5:97.09%', '6:97.91%', '7:96.21%', '8:96.61%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 726 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.33%
+Accuracy per label : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.35%', '5:97.09%', '6:97.91%', '7:96.21%', '8:96.61%', '9:95.84%']
+The model is from round 716 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.40%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:97.97%', '3:96.73%', '4:97.66%', '5:96.97%', '6:97.60%', '7:96.50%', '8:96.71%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.36%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.06%', '3:96.63%', '4:97.25%', '5:96.97%', '6:97.60%', '7:96.60%', '8:96.71%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.33%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.35%', '5:97.09%', '6:97.91%', '7:96.21%', '8:96.61%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.33%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.35%', '5:97.09%', '6:97.91%', '7:96.21%', '8:96.61%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 736 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.33%
+Accuracy per label : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.35%', '5:97.09%', '6:97.91%', '7:96.21%', '8:96.61%', '9:95.84%']
+The model is from round 726 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.41%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:97.97%', '3:96.73%', '4:97.66%', '5:96.97%', '6:97.60%', '7:96.60%', '8:96.71%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.38%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.06%', '3:96.63%', '4:97.45%', '5:96.97%', '6:97.60%', '7:96.60%', '8:96.71%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.35%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.45%', '5:97.20%', '6:97.91%', '7:96.21%', '8:96.61%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.36%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.45%', '5:97.20%', '6:97.91%', '7:96.30%', '8:96.61%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 746 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.36%
+Accuracy per label : ['0:98.78%', '1:98.94%', '2:97.77%', '3:96.63%', '4:97.45%', '5:97.20%', '6:97.91%', '7:96.30%', '8:96.61%', '9:95.84%']
+The model is from round 736 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.42%
+Accuracy per label : ['0:99.08%', '1:98.94%', '2:97.97%', '3:96.73%', '4:97.66%', '5:96.97%', '6:97.60%', '7:96.60%', '8:96.71%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.43%
+Accuracy per label : ['0:99.08%', '1:98.94%', '2:98.16%', '3:96.83%', '4:97.56%', '5:96.97%', '6:97.60%', '7:96.60%', '8:96.71%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.36%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.63%', '4:97.45%', '5:97.20%', '6:97.91%', '7:96.30%', '8:96.71%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.37%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.45%', '5:97.20%', '6:98.02%', '7:96.30%', '8:96.61%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 756 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.37%
+Accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.45%', '5:97.20%', '6:98.02%', '7:96.30%', '8:96.61%', '9:95.84%']
+The model is from round 746 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.46%
+Accuracy per label : ['0:99.08%', '1:98.94%', '2:98.06%', '3:96.73%', '4:97.66%', '5:96.97%', '6:97.70%', '7:96.60%', '8:96.82%', '9:95.84%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.44%
+Accuracy per label : ['0:99.08%', '1:98.94%', '2:98.16%', '3:96.83%', '4:97.66%', '5:96.97%', '6:97.60%', '7:96.60%', '8:96.71%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.39%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.63%', '4:97.56%', '5:97.20%', '6:98.12%', '7:96.30%', '8:96.71%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.41%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.56%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.71%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 766 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.41%
+Accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.56%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.71%', '9:95.84%']
+The model is from round 756 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.49%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.16%', '3:96.73%', '4:97.76%', '5:97.09%', '6:97.81%', '7:96.60%', '8:96.82%', '9:95.84%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.45%
+Accuracy per label : ['0:99.08%', '1:98.94%', '2:98.26%', '3:96.73%', '4:97.66%', '5:97.09%', '6:97.60%', '7:96.60%', '8:96.71%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.41%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.66%', '5:97.20%', '6:98.12%', '7:96.30%', '8:96.71%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.43%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.71%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 776 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.43%
+Accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.71%', '9:95.84%']
+The model is from round 766 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.50%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.16%', '3:96.83%', '4:97.76%', '5:97.09%', '6:97.81%', '7:96.60%', '8:96.82%', '9:95.84%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.47%
+Accuracy per label : ['0:99.08%', '1:98.94%', '2:98.26%', '3:96.73%', '4:97.56%', '5:97.09%', '6:97.70%', '7:96.60%', '8:96.92%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.42%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.66%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.71%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.44%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 786 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.44%
+Accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+The model is from round 776 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.51%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.16%', '3:96.83%', '4:97.76%', '5:97.09%', '6:97.91%', '7:96.69%', '8:96.82%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.49%
+Accuracy per label : ['0:99.08%', '1:98.94%', '2:98.26%', '3:96.63%', '4:97.56%', '5:97.20%', '6:97.81%', '7:96.69%', '8:96.92%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.43%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.71%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.44%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 796 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.44%
+Accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.73%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+The model is from round 786 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.51%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:96.83%', '4:97.76%', '5:97.09%', '6:97.91%', '7:96.69%', '8:96.82%', '9:95.64%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.52%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:96.73%', '4:97.66%', '5:97.31%', '6:97.81%', '7:96.79%', '8:96.92%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.45%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.83%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.45%, staleness : 9
+Accuracy per label after aggregation : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.83%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 806 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.45%
+Accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.83%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+The model is from round 796 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.52%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:96.93%', '4:97.76%', '5:97.09%', '6:97.91%', '7:96.69%', '8:96.82%', '9:95.64%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.54%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:96.73%', '4:97.66%', '5:97.31%', '6:97.91%', '7:96.89%', '8:96.92%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.46%
+Before aggregation, accuracy per label : ['0:98.78%', '1:98.85%', '2:97.77%', '3:96.93%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.47%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:97.87%', '3:96.83%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 816 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.47%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:97.87%', '3:96.83%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+The model is from round 806 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.53%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.03%', '4:97.76%', '5:97.09%', '6:97.91%', '7:96.69%', '8:96.82%', '9:95.64%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.55%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:96.73%', '4:97.76%', '5:97.31%', '6:97.91%', '7:96.89%', '8:96.92%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.49%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:97.87%', '3:96.93%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.94%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.48%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:97.87%', '3:96.93%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+
+-----------------------------------------------------
+
+Central server round 826 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.48%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:97.87%', '3:96.93%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.84%']
+The model is from round 816 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.55%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.03%', '4:97.76%', '5:97.20%', '6:97.91%', '7:96.69%', '8:96.82%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.57%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:96.93%', '4:97.76%', '5:97.42%', '6:97.91%', '7:96.79%', '8:96.92%', '9:95.64%']
+
+Before aggregation, loss : 0.08, accuracy : 97.50%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:97.87%', '3:97.03%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.94%']
+Aggregation to central server completed at central server round 1000, loss : 0.08, accuracy: 97.51%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:97.87%', '3:97.03%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:96.04%']
+
+-----------------------------------------------------
+
+Central server round 836 started
+Model sent from central server with 100msec communication time, with loss :0.08, accuracy : 97.51%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:97.87%', '3:97.03%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:96.04%']
+The model is from round 826 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.08, accuracy 97.57%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.03%', '4:97.76%', '5:97.31%', '6:97.91%', '7:96.69%', '8:96.92%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.59%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.03%', '4:97.76%', '5:97.42%', '6:97.91%', '7:96.89%', '8:96.92%', '9:95.64%']
+
+Before aggregation, loss : 0.07, accuracy : 97.51%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:97.87%', '3:97.13%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:95.94%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.55%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:97.97%', '3:97.13%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.40%', '8:96.92%', '9:96.04%']
+
+-----------------------------------------------------
+
+Central server round 846 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.55%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:97.97%', '3:97.13%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.40%', '8:96.92%', '9:96.04%']
+The model is from round 836 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.59%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.03%', '4:97.86%', '5:97.31%', '6:97.91%', '7:96.69%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.08, accuracy 97.59%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.03%', '4:97.76%', '5:97.42%', '6:97.91%', '7:96.89%', '8:96.92%', '9:95.64%']
+
+Before aggregation, loss : 0.07, accuracy : 97.53%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:97.97%', '3:97.13%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.30%', '8:96.82%', '9:96.04%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.57%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.50%', '8:96.92%', '9:96.04%']
+
+-----------------------------------------------------
+
+Central server round 856 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.57%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.50%', '8:96.92%', '9:96.04%']
+The model is from round 846 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.61%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.03%', '4:97.96%', '5:97.42%', '6:97.91%', '7:96.69%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.60%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:96.93%', '4:97.76%', '5:97.42%', '6:98.02%', '7:96.89%', '8:96.92%', '9:95.64%']
+
+Before aggregation, loss : 0.07, accuracy : 97.56%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.40%', '8:96.92%', '9:96.04%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.58%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.60%', '8:96.92%', '9:96.04%']
+
+-----------------------------------------------------
+
+Central server round 866 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.58%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.31%', '6:98.12%', '7:96.60%', '8:96.92%', '9:96.04%']
+The model is from round 856 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.63%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.23%', '4:97.96%', '5:97.42%', '6:97.91%', '7:96.69%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.63%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.03%', '4:97.76%', '5:97.53%', '6:98.12%', '7:96.89%', '8:96.92%', '9:95.64%']
+
+Before aggregation, loss : 0.07, accuracy : 97.58%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.40%', '8:96.92%', '9:96.13%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.60%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.04%']
+
+-----------------------------------------------------
+
+Central server round 876 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.60%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.04%']
+The model is from round 866 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.64%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.23%', '4:97.96%', '5:97.42%', '6:97.91%', '7:96.69%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.63%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.03%', '4:97.76%', '5:97.53%', '6:98.02%', '7:96.89%', '8:96.92%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.59%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.50%', '8:96.92%', '9:96.13%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.61%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+
+-----------------------------------------------------
+
+Central server round 886 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.61%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+The model is from round 876 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.65%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.23%', '4:97.96%', '5:97.42%', '6:97.91%', '7:96.79%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.65%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.03%', '4:97.76%', '5:97.53%', '6:98.12%', '7:96.89%', '8:97.02%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.59%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.50%', '8:96.92%', '9:96.13%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.61%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+
+-----------------------------------------------------
+
+Central server round 896 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.61%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+The model is from round 886 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.66%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.23%', '4:97.96%', '5:97.42%', '6:98.02%', '7:96.79%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.66%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.03%', '4:97.86%', '5:97.53%', '6:98.12%', '7:96.89%', '8:97.02%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.59%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.50%', '8:96.92%', '9:96.13%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.61%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+
+-----------------------------------------------------
+
+Central server round 906 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.61%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+The model is from round 896 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.66%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.23%', '4:97.96%', '5:97.42%', '6:98.02%', '7:96.79%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.67%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.13%', '4:97.86%', '5:97.53%', '6:98.12%', '7:96.98%', '8:97.02%', '9:95.64%']
+
+Before aggregation, loss : 0.07, accuracy : 97.60%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.60%', '8:96.92%', '9:96.13%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.61%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+
+-----------------------------------------------------
+
+Central server round 916 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.61%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+The model is from round 906 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.65%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.13%', '4:97.96%', '5:97.42%', '6:98.02%', '7:96.79%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.68%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.13%', '4:97.86%', '5:97.53%', '6:98.12%', '7:96.98%', '8:97.02%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.60%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.60%', '8:96.92%', '9:96.13%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.61%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+
+-----------------------------------------------------
+
+Central server round 926 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.61%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+The model is from round 916 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.66%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.03%', '4:97.96%', '5:97.42%', '6:98.12%', '7:96.89%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.68%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.13%', '4:97.86%', '5:97.53%', '6:98.12%', '7:96.98%', '8:97.02%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.59%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.76%', '5:97.42%', '6:98.12%', '7:96.50%', '8:96.92%', '9:96.13%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.62%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.86%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+
+-----------------------------------------------------
+
+Central server round 936 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.62%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.86%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.13%']
+The model is from round 926 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.68%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.03%', '4:98.07%', '5:97.42%', '6:98.12%', '7:96.98%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.68%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.13%', '4:97.86%', '5:97.53%', '6:98.12%', '7:97.08%', '8:97.02%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.61%
+Before aggregation, accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.86%', '5:97.42%', '6:98.23%', '7:96.50%', '8:96.92%', '9:96.13%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.63%, staleness : 9
+Accuracy per label after aggregation : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.86%', '5:97.42%', '6:98.23%', '7:96.69%', '8:96.92%', '9:96.13%']
+
+-----------------------------------------------------
+
+Central server round 946 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.63%
+Accuracy per label : ['0:98.88%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.86%', '5:97.42%', '6:98.23%', '7:96.69%', '8:96.92%', '9:96.13%']
+The model is from round 936 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.67%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.03%', '4:98.07%', '5:97.42%', '6:98.12%', '7:96.89%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.68%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.13%', '4:97.86%', '5:97.53%', '6:98.12%', '7:97.08%', '8:97.02%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.64%
+Before aggregation, accuracy per label : ['0:98.98%', '1:98.85%', '2:98.06%', '3:97.23%', '4:97.86%', '5:97.42%', '6:98.23%', '7:96.50%', '8:96.92%', '9:96.23%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.65%, staleness : 9
+Accuracy per label after aggregation : ['0:98.98%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.86%', '5:97.42%', '6:98.23%', '7:96.69%', '8:96.92%', '9:96.23%']
+
+-----------------------------------------------------
+
+Central server round 956 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.65%
+Accuracy per label : ['0:98.98%', '1:98.85%', '2:98.06%', '3:97.13%', '4:97.86%', '5:97.42%', '6:98.23%', '7:96.69%', '8:96.92%', '9:96.23%']
+The model is from round 946 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.67%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.03%', '4:98.07%', '5:97.42%', '6:98.12%', '7:96.89%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.69%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.13%', '4:97.86%', '5:97.53%', '6:98.12%', '7:97.08%', '8:97.13%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.64%
+Before aggregation, accuracy per label : ['0:98.98%', '1:98.85%', '2:98.06%', '3:97.23%', '4:97.86%', '5:97.42%', '6:98.23%', '7:96.50%', '8:96.92%', '9:96.23%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.66%, staleness : 9
+Accuracy per label after aggregation : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.23%', '4:97.86%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.23%']
+
+-----------------------------------------------------
+
+Central server round 966 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.66%
+Accuracy per label : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.23%', '4:97.86%', '5:97.42%', '6:98.12%', '7:96.69%', '8:96.92%', '9:96.23%']
+The model is from round 956 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.67%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.03%', '4:98.07%', '5:97.42%', '6:98.12%', '7:96.89%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.69%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.13%', '4:97.86%', '5:97.53%', '6:98.12%', '7:97.08%', '8:97.13%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.65%
+Before aggregation, accuracy per label : ['0:98.98%', '1:98.85%', '2:98.06%', '3:97.33%', '4:97.86%', '5:97.42%', '6:98.23%', '7:96.50%', '8:96.92%', '9:96.23%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.68%, staleness : 9
+Accuracy per label after aggregation : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.33%', '4:97.86%', '5:97.42%', '6:98.12%', '7:96.69%', '8:97.02%', '9:96.23%']
+
+-----------------------------------------------------
+
+Central server round 976 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.68%
+Accuracy per label : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.33%', '4:97.86%', '5:97.42%', '6:98.12%', '7:96.69%', '8:97.02%', '9:96.23%']
+The model is from round 966 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.67%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.35%', '3:97.03%', '4:98.07%', '5:97.42%', '6:98.12%', '7:96.89%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.68%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.13%', '4:97.86%', '5:97.53%', '6:98.12%', '7:96.98%', '8:97.13%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.66%
+Before aggregation, accuracy per label : ['0:98.98%', '1:98.85%', '2:98.06%', '3:97.33%', '4:97.96%', '5:97.42%', '6:98.23%', '7:96.50%', '8:96.92%', '9:96.23%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.69%, staleness : 9
+Accuracy per label after aggregation : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.33%', '4:97.96%', '5:97.42%', '6:98.12%', '7:96.69%', '8:97.02%', '9:96.23%']
+
+-----------------------------------------------------
+
+Central server round 986 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.69%
+Accuracy per label : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.33%', '4:97.96%', '5:97.42%', '6:98.12%', '7:96.69%', '8:97.02%', '9:96.23%']
+The model is from round 976 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.64%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.03%', '4:97.96%', '5:97.42%', '6:98.12%', '7:96.79%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.67%
+Accuracy per label : ['0:98.98%', '1:98.85%', '2:98.26%', '3:97.23%', '4:97.76%', '5:97.53%', '6:98.12%', '7:96.98%', '8:97.13%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.69%
+Before aggregation, accuracy per label : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.43%', '4:97.96%', '5:97.42%', '6:98.23%', '7:96.50%', '8:97.02%', '9:96.23%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.71%, staleness : 9
+Accuracy per label after aggregation : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.43%', '4:97.96%', '5:97.42%', '6:98.23%', '7:96.69%', '8:97.02%', '9:96.23%']
+
+-----------------------------------------------------
+
+Central server round 996 started
+Model sent from central server with 100msec communication time, with loss :0.07, accuracy : 97.71%
+Accuracy per label : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.43%', '4:97.96%', '5:97.42%', '6:98.23%', '7:96.69%', '8:97.02%', '9:96.23%']
+The model is from round 986 from central server, staleness is 9
+
+Cluster round 1 completed, aggregated models from all the clients, time past : 800msec, loss : 0.07, accuracy 97.65%
+Accuracy per label : ['0:99.08%', '1:98.85%', '2:98.26%', '3:97.03%', '4:97.96%', '5:97.42%', '6:98.12%', '7:96.89%', '8:97.02%', '9:95.74%']
+
+Cluster round 2 completed, aggregated models from all the clients, time past : 1500msec, loss : 0.07, accuracy 97.69%
+Accuracy per label : ['0:98.98%', '1:98.85%', '2:98.26%', '3:97.23%', '4:97.86%', '5:97.53%', '6:98.12%', '7:97.08%', '8:97.13%', '9:95.74%']
+
+Before aggregation, loss : 0.07, accuracy : 97.73%
+Before aggregation, accuracy per label : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.52%', '4:97.96%', '5:97.53%', '6:98.23%', '7:96.69%', '8:97.02%', '9:96.23%']
+Aggregation to central server completed at central server round 1000, loss : 0.07, accuracy: 97.75%, staleness : 9
+Accuracy per label after aggregation : ['0:98.98%', '1:98.85%', '2:98.16%', '3:97.52%', '4:97.96%', '5:97.53%', '6:98.23%', '7:96.89%', '8:97.02%', '9:96.23%']
+
