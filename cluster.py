@@ -78,15 +78,16 @@ class Cluster:
                     
                 # use multi process, it does not use gpu simultaneously, other operations are in parallel
                 processes = []
-                queue = Queue()
+                queue = q.Queue()
                 for client in self.clientlist:
-                    p = Process(target=train_single_client, args=(client,queue))
-                    p.start()
-                    processes.append(p)
+                    client.local_train(queue)
+                #     p = Process(target=train_single_client, args=(client,queue))
+                #     p.start()
+                #     processes.append(p)
 
-                # Wait for all to finish
-                for p in processes:
-                    p.join()
+                # # Wait for all to finish
+                # for p in processes:
+                #     p.join()
                 
                 #log the results
                 while not queue.empty():

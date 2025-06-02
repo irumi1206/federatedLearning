@@ -13,6 +13,7 @@ from centralserver import CentralServer
 from utils import get_test_dataloader, calculate_divergence, create_loggers
 from partitiondata import partition_data
 from partitionsystem import partition_system
+from clusterclients import clusterclients
 
 # Setting and add additional arguments(args.testdataloader, args.labellist)
 def setting(args):
@@ -61,7 +62,7 @@ def create_clientlist(clientdataloaderlist, clientcommunicationtimelist, clientc
 
     # Create clients, -1 for the clusterid  before clustering
     for i in range(args.clientnum):
-        client = Client(i, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, args)
+        client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, args)
         clientlist.append(client)
     
     return clientlist
@@ -160,43 +161,6 @@ def savegraph(args):
         graphdata["clusterround"] = args.clusterround
         json.dump(graphdata,f)
 
-# Draw graph for evaluation
-def drawgraph(args):
-    fig, axs = plt.subplots(2, 2, figsize = (12, 6))
-
-    # graph 1
-    axs[0].plot(args.centralservertimepast, args.centralserveraccuracy, label = "accuracy by time")
-    axs[0].set_title("accuracy by time")
-    axs[0].set_xlabel("time(msec)")
-    axs[0].set_ylabel("accuracy(%)")
-    axs[0].grid(False)
-
-    # graph 2
-    axs[1].plot(args.centralserverround, args.centralserveraccuracy, label = "accuracy by round")
-    axs[1].set_title("accuracy by round")
-    axs[1].set_xlabel("round")
-    axs[1].set_ylabel("accuracy(%)")
-    axs[1].grid(False)
-
-    # graph 3
-    axs[2].plot(args.centralservertimepast, args.centralserverloss, label = "loss by time")
-    axs[2].set_title("loss by time")
-    axs[2].set_xlabel("time(msec)")
-    axs[2].set_ylabel("loss")
-    axs[2].grid(False)
-
-    # graph 4
-    axs[3].plot(args.centralserverround, args.centralserverloss, label = "loss by round")
-    axs[3].set_title("loss by round")
-    axs[3].set_xlabel("round")
-    axs[3].set_ylabel("loss")
-    axs[3].grid(False)
-    
-
-    plt.tight_layout()
-    plt.savefig(f"{args.timestamp}/centralserver.png")
-    plt.show()
-
 # Main function
 if __name__ == "__main__":
 
@@ -205,21 +169,23 @@ if __name__ == "__main__":
     parser.add_argument("-clusternum", type = int, default = 5)
     parser.add_argument("-clustersize", type = int, default = 5)
     parser.add_argument("-clientnum", type = int, default = 25)
-    parser.add_argument("-centralserverepoch", type = int, default = 50)
-    parser.add_argument("-clusterepoch", type = int, default = 5)
-    parser.add_argument("-localepoch", type = int, default = 3)
+    parser.add_argument("-centralserverepoch", type = int, default = 100)
+    parser.add_argument("-clusterepoch", type = int, default = 2)
+    parser.add_argument("-localepoch", type = int, default = 5)
     parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
-    parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
-    parser.add_argument("-interasyncalpha", type = float, default = 0.6)
     parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10"], default = "cnnmnist")
     parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10"], default = "mnist")
+    parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="iid")
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbysimilarlabel", "clusterbysimilarsystem"], default = "clusterbyclientorder")
+    parser.add_argument("-systemheterogeneity", type = str)
+    parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
+    parser.add_argument("-interasyncalpha", type = float, default = 0.6)
     parser.add_argument("-optimizername", type = str, default = "sgd")
     parser.add_argument("-learningrate", type = float, default = 0.01)
     parser.add_argument("-batchsize", type = int, default =32)
     parser.add_argument("-randomseed", type = int, default = 1)
     parser.add_argument("-device", type = str, default = "cuda")
-    parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="iid")
     parser.add_argument("-dominantpercentage", type = int, default = 95)
     parser.add_argument("-labelperclient", type = int, default =2)
     parser.add_argument("-dirichletalpha", type = float, default = 0.1)
@@ -240,12 +206,8 @@ if __name__ == "__main__":
     clientlist = create_clientlist(clientdataloaderlist, clientcommunicationtimelist, clientcomputationtimelist, args)
 
     # clustering
-    centralserver = CentralServer(args,[
-        Cluster(i,clustercommunicationtimelist[i],args,[Client(i,j,clientdataloaderlist[i*args.clustersize+j],clientcommunicationtimelist[i*args.clustersize+j],clientcomputationtimelist[i*args.clustersize+j],i*args.clustersize+j,args) 
-            for j in range(args.clustersize)
-        ])
-        for i in range(args.clusternum) 
-    ])
+
+    centralserver = clusterclients(clientlist, clustercommunicationtimelist, args)
 
     # log experiment setting(args)
     # log client information
@@ -260,6 +222,3 @@ if __name__ == "__main__":
     # save graph file
     savegraph(args)
 
-
-    # draw graph of loass and accuracy with time and round for centralserver and clusters
-    # drawgraph(args)
