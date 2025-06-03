@@ -1,8 +1,0 @@
-Cluster 0 with 10 clients
-Cluster communication time : 500
-Cluster computation time : 2670000
-Cluster training time : 2671000
-Cluster clients : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-Label percentage: ['0 : 0.56%', '1 : 10.00%', '2 : 0.56%', '3 : 0.55%', '4 : 28.87%', '5 : 0.54%', '6 : 28.89%', '7 : 0.59%', '8 : 0.56%', '9 : 28.88%']%
-Divergence : jsd 0.3256, tvd 0.5664
-
