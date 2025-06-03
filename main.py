@@ -3,14 +3,12 @@ import logging
 from datetime import datetime
 import torch.multiprocessing as mp
 import os
-import matplotlib.pyplot as plt
 from collections import defaultdict
 import json
+from torch.utils.data import DataLoader
 
 from client import Client
-from cluster import Cluster
-from centralserver import CentralServer
-from utils import get_test_dataloader, calculate_divergence, create_loggers
+from utils import get_test_dataset, get_train_dataset, calculate_divergence, create_loggers
 from partitiondata import partition_data
 from partitionsystem import partition_system
 from clusterclients import clusterclients
@@ -41,18 +39,17 @@ def setting(args):
     args.clusterloss = [[] for _ in range(args.clusternum)]
     args.clusterround = [[] for _ in range(args.clusternum)]
 
-    # Set multiprocessing
+    # set multiprocessing
     mp.set_start_method("spawn", force=True)
+
+    # set dataset for training
+    args.traindataset = get_train_dataset(args.datasetname)
     
     # Set testdataloader in arguments for examining accuracy for the global distribution
-    args.testdataloader = get_test_dataloader(args.datasetname)
+    args.testdataloader = DataLoader(get_test_dataset(args.datasetname), batch_size=128, shuffle=False) 
 
     # Set label list
     args.labellist = sorted({label.item() for _, labels in args.testdataloader for label in labels})
-
-    # Error handling if the cluster structure does not match the number of clients
-    if args.clientnum != args.clustersize*args.clusternum:
-        raise ValueError("clients not matching cluster size and number")
 
 # Create list of clients
 def create_clientlist(clientdataloaderlist, clientcommunicationtimelist, clientcomputationtimelist, args):
@@ -164,23 +161,31 @@ def savegraph(args):
 # Main function
 if __name__ == "__main__":
 
-    # Define arguments
+    # define parser
     parser = argparse.ArgumentParser()
-    parser.add_argument("-clusternum", type = int, default = 1)
-    parser.add_argument("-clustersize", type = int, default = 10)
-    parser.add_argument("-clientnum", type = int, default = 10)
-    parser.add_argument("-centralserverepoch", type = int, default = 1)
-    parser.add_argument("-clusterepoch", type = int, default = 100)
-    parser.add_argument("-localepoch", type = int, default = 5)
-    parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
-    parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
+    # general information about the cluster federated leanring
     parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10"], default = "cnncifar10")
     parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10"], default = "cifar10")
+    parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
+    parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "async")
+    # how to partition the device in data and system
+    parser.add_argument("-clientnum", type = int, default = 10)
     parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="onelabeldominant")
-    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "custom")
+    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "communicationtimesamecomputationdifferent")
+    # how to cluster, how to choose epoch for cluster and client
     parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "custom"], default = "clusterbyclientorder")
+    parser.add_argument("-clusternum", type = int, default = 1)
+    parser.add_argument("-clustersize", type = int, default = 10)
+    parser.add_argument("-centralserverepoch", type = int, default = 100)
+    parser.add_argument("-clusterepochtype", type = str, choices = ["fixed", "custom"], default = "fixed")
+    parser.add_argument("-clusterepoch", type = int, default = 100)
+    parser.add_argument("-localepochtype", type =str, choices=["fixed", "custom"], default ="fixed")
+    parser.add_argument("-localepoch", type = int, default = 5)
+    # details
     parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
+    parser.add_argument("-intraasyncthreshold", type = int, default = 100)
     parser.add_argument("-interasyncalpha", type = float, default = 0.6)
+    parser.add_argument("-interasyncthreshold", type = int, default = 100)
     parser.add_argument("-optimizername", type = str, default = "sgd")
     parser.add_argument("-learningrate", type = float, default = 0.01)
     parser.add_argument("-batchsize", type = int, default =32)
@@ -192,15 +197,16 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # set logger for the general training process
-    # set logger for eahc cluster
-    # setting for the multi proecessing in sync setting
+    # set logger for each cluster
+    # setting for the multi proecessing in intracluster-sync setting
     # set args.testdataloader for the validation across global distribution
+    # set args.traindataset for training data
     # set args.labellist for the label list
     setting(args)
     
     # set communication and system time for each cluster and client
     # split the data and distribute to each clients as a list. and also save the data distribution for each client in args.labelpercentageperclient, and global data distribution in args.labelpercentageforglobaldistribution
-    # create list of clients
+    # create list of clients in this stage, local epochs for clients are not set up yet
     clientcommunicationtimelist, clientcomputationtimelist = partition_system(args)
     clientdataloaderlist = partition_data(args)
     clientlist = create_clientlist(clientdataloaderlist, clientcommunicationtimelist, clientcomputationtimelist, args)
@@ -209,6 +215,7 @@ if __name__ == "__main__":
     # set cluster's communication time with central server,clustering epoch
     # set client's clusterid, clientid, local epoch
     centralserver = clusterclients(clientlist, args)
+
 
     # log experiment setting(args)
     # log client information

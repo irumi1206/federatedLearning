@@ -1,0 +1,150 @@
+Client 0 with 1668 data
+Communication time : 100, Computation time per batch : 300, Training time : -15700
+0 : 0.60%  1 : 0.42%  2 : 0.54%  3 : 0.48%  4 : 0.42%  5 : 0.78%  6 : 94.96%  7 : 0.54%  8 : 0.78%  9 : 0.48%  
+Divergence : jsd 0.6206, tvd 0.8496
+labels from the first batch :[6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+
+Client 1 with 1667 data
+Communication time : 100, Computation time per batch : 200, Training time : -10400
+0 : 0.54%  1 : 0.54%  2 : 0.66%  3 : 0.42%  4 : 0.60%  5 : 0.60%  6 : 94.96%  7 : 0.72%  8 : 0.42%  9 : 0.54%  
+Divergence : jsd 0.6202, tvd 0.8496
+labels from the first batch :[6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+
+Client 2 with 1667 data
+Communication time : 100, Computation time per batch : 200, Training time : -10400
+0 : 0.54%  1 : 0.72%  2 : 0.48%  3 : 0.78%  4 : 0.66%  5 : 0.30%  6 : 94.96%  7 : 0.42%  8 : 0.48%  9 : 0.66%  
+Divergence : jsd 0.6209, tvd 0.8496
+labels from the first batch :[6, 6, 1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+
+Client 3 with 1668 data
+Communication time : 100, Computation time per batch : 200, Training time : -10400
+0 : 0.36%  1 : 0.66%  2 : 0.54%  3 : 0.60%  4 : 0.60%  5 : 0.54%  6 : 0.60%  7 : 0.84%  8 : 0.30%  9 : 94.96%  
+Divergence : jsd 0.6210, tvd 0.8496
+labels from the first batch :[9, 9, 9, 9, 9, 9, 6, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Client 4 with 1667 data
+Communication time : 100, Computation time per batch : 500, Training time : -26300
+0 : 0.48%  1 : 0.54%  2 : 0.54%  3 : 0.36%  4 : 0.84%  5 : 0.72%  6 : 0.60%  7 : 0.30%  8 : 0.66%  9 : 94.96%  
+Divergence : jsd 0.6211, tvd 0.8496
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 4, 9, 9, 9, 9, 9, 9, 9]
+
+Client 5 with 1667 data
+Communication time : 100, Computation time per batch : 400, Training time : -21000
+0 : 0.84%  1 : 0.48%  2 : 0.60%  3 : 0.72%  4 : 0.24%  5 : 0.42%  6 : 0.48%  7 : 0.54%  8 : 0.72%  9 : 94.96%  
+Divergence : jsd 0.6214, tvd 0.8496
+labels from the first batch :[9, 9, 6, 9, 9, 9, 9, 9, 2, 9, 9, 9, 9, 9, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Client 6 with 1668 data
+Communication time : 100, Computation time per batch : 400, Training time : -21000
+0 : 0.54%  1 : 0.30%  2 : 0.42%  3 : 0.60%  4 : 94.96%  5 : 0.72%  6 : 0.66%  7 : 0.72%  8 : 0.66%  9 : 0.42%  
+Divergence : jsd 0.6209, tvd 0.8496
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 4, 4, 4, 4, 7, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0]
+
+Client 7 with 1667 data
+Communication time : 100, Computation time per batch : 200, Training time : -10400
+0 : 1.02%  1 : 0.84%  2 : 0.54%  3 : 0.42%  4 : 94.96%  5 : 0.48%  6 : 0.36%  7 : 0.42%  8 : 0.36%  9 : 0.60%  
+Divergence : jsd 0.6220, tvd 0.8496
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 9, 4, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Client 8 with 1667 data
+Communication time : 100, Computation time per batch : 400, Training time : -21000
+0 : 0.12%  1 : 0.54%  2 : 0.72%  3 : 0.66%  4 : 94.96%  5 : 0.48%  6 : 0.66%  7 : 0.54%  8 : 0.66%  9 : 0.66%  
+Divergence : jsd 0.6219, tvd 0.8496
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Client 9 with 1668 data
+Communication time : 100, Computation time per batch : 100, Training time : -5100
+0 : 0.60%  1 : 94.96%  2 : 0.54%  3 : 0.42%  4 : 0.48%  5 : 0.36%  6 : 0.66%  7 : 0.84%  8 : 0.60%  9 : 0.54%  
+Divergence : jsd 0.6207, tvd 0.8496
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Client 10 with 1667 data
+Communication time : 100, Computation time per batch : 100, Training time : -5100
+0 : 0.60%  1 : 94.96%  2 : 0.48%  3 : 0.78%  4 : 0.72%  5 : 0.42%  6 : 0.66%  7 : 0.42%  8 : 0.30%  9 : 0.66%  
+Divergence : jsd 0.6210, tvd 0.8496
+labels from the first batch :[1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 7, 1, 1, 1, 1]
+
+Client 11 with 1667 data
+Communication time : 100, Computation time per batch : 500, Training time : -26300
+0 : 0.48%  1 : 94.96%  2 : 0.66%  3 : 0.48%  4 : 0.48%  5 : 0.90%  6 : 0.36%  7 : 0.42%  8 : 0.78%  9 : 0.48%  
+Divergence : jsd 0.6212, tvd 0.8496
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Client 12 with 1668 data
+Communication time : 100, Computation time per batch : 100, Training time : -5100
+0 : 0.72%  1 : 0.42%  2 : 94.96%  3 : 0.48%  4 : 0.30%  5 : 0.72%  6 : 0.54%  7 : 0.48%  8 : 0.54%  9 : 0.84%  
+Divergence : jsd 0.6212, tvd 0.8496
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Client 13 with 1667 data
+Communication time : 100, Computation time per batch : 500, Training time : -26300
+0 : 0.48%  1 : 0.66%  2 : 94.96%  3 : 0.42%  4 : 0.90%  5 : 0.48%  6 : 0.66%  7 : 0.60%  8 : 0.60%  9 : 0.24%  
+Divergence : jsd 0.6214, tvd 0.8496
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Client 14 with 1667 data
+Communication time : 100, Computation time per batch : 500, Training time : -26300
+0 : 0.48%  1 : 0.60%  2 : 94.96%  3 : 0.78%  4 : 0.48%  5 : 0.48%  6 : 0.48%  7 : 0.60%  8 : 0.54%  9 : 0.60%  
+Divergence : jsd 0.6202, tvd 0.8496
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Client 15 with 2501 data
+Communication time : 100, Computation time per batch : 400, Training time : -31400
+0 : 0.52%  1 : 0.48%  2 : 0.56%  3 : 0.56%  4 : 0.72%  5 : 0.56%  6 : 0.48%  7 : 94.96%  8 : 0.52%  9 : 0.64%  
+Divergence : jsd 0.6200, tvd 0.8496
+labels from the first batch :[7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 7, 7, 7, 7, 7, 7, 7, 7, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+Client 16 with 2501 data
+Communication time : 100, Computation time per batch : 100, Training time : -7700
+0 : 0.60%  1 : 0.64%  2 : 0.56%  3 : 0.56%  4 : 0.40%  5 : 0.56%  6 : 0.64%  7 : 94.96%  8 : 0.60%  9 : 0.48%  
+Divergence : jsd 0.6200, tvd 0.8496
+labels from the first batch :[7, 7, 7, 0, 7, 7, 7, 7, 7, 7, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+Client 17 with 2501 data
+Communication time : 100, Computation time per batch : 200, Training time : -15600
+0 : 0.48%  1 : 0.60%  2 : 0.64%  3 : 0.76%  4 : 0.68%  5 : 0.56%  6 : 0.36%  7 : 0.44%  8 : 94.96%  9 : 0.52%  
+Divergence : jsd 0.6205, tvd 0.8496
+labels from the first batch :[8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+
+Client 18 with 2501 data
+Communication time : 100, Computation time per batch : 500, Training time : -39300
+0 : 0.64%  1 : 0.52%  2 : 0.48%  3 : 0.36%  4 : 0.44%  5 : 0.56%  6 : 0.76%  7 : 0.68%  8 : 94.96%  9 : 0.60%  
+Divergence : jsd 0.6205, tvd 0.8496
+labels from the first batch :[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+
+Client 19 with 2500 data
+Communication time : 100, Computation time per batch : 300, Training time : -23500
+0 : 0.60%  1 : 0.48%  2 : 0.64%  3 : 95.00%  4 : 0.52%  5 : 0.56%  6 : 0.52%  7 : 0.52%  8 : 0.52%  9 : 0.64%  
+Divergence : jsd 0.6207, tvd 0.8500
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Client 20 with 2500 data
+Communication time : 100, Computation time per batch : 400, Training time : -31400
+0 : 0.48%  1 : 0.64%  2 : 0.48%  3 : 95.00%  4 : 0.60%  5 : 0.52%  6 : 0.60%  7 : 0.60%  8 : 0.60%  9 : 0.48%  
+Divergence : jsd 0.6207, tvd 0.8500
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Client 21 with 2497 data
+Communication time : 100, Computation time per batch : 100, Training time : -7700
+0 : 0.48%  1 : 0.72%  2 : 0.52%  3 : 0.56%  4 : 0.48%  5 : 95.11%  6 : 0.76%  7 : 0.36%  8 : 0.56%  9 : 0.44%  
+Divergence : jsd 0.6237, tvd 0.8511
+labels from the first batch :[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 5, 5, 5, 5, 9, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+
+Client 22 with 2496 data
+Communication time : 100, Computation time per batch : 100, Training time : -7600
+0 : 0.60%  1 : 0.36%  2 : 0.56%  3 : 0.52%  4 : 0.60%  5 : 95.15%  6 : 0.32%  7 : 0.72%  8 : 0.52%  9 : 0.64%  
+Divergence : jsd 0.6245, tvd 0.8515
+labels from the first batch :[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+
+Client 23 with 2497 data
+Communication time : 100, Computation time per batch : 300, Training time : -23500
+0 : 95.11%  1 : 0.56%  2 : 0.36%  3 : 0.44%  4 : 0.60%  5 : 0.44%  6 : 0.64%  7 : 0.68%  8 : 0.64%  9 : 0.52%  
+Divergence : jsd 0.6235, tvd 0.8511
+labels from the first batch :[0, 0, 0, 0, 0, 0, 6, 0, 2, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Client 24 with 2496 data
+Communication time : 100, Computation time per batch : 400, Training time : -31000
+0 : 95.15%  1 : 0.52%  2 : 0.72%  3 : 0.64%  4 : 0.48%  5 : 0.64%  6 : 0.44%  7 : 0.40%  8 : 0.44%  9 : 0.56%  
+Divergence : jsd 0.6242, tvd 0.8515
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+

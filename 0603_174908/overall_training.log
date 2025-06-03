@@ -1,0 +1,132 @@
+Starting cluster federated learning
+Cluster num : 1, Cluster size : 10, Client num : 25
+Central server epoch : 100, Cluster server epoch : 100, Local epoch : 5
+Intra clustering type : sync, Inter clustering type : async, Intercluseringasyncalpha: 0.6
+Data heterogeneity type : onelabeldominant, Dominant percentage : 95
+Model name : cnncifar10, Dataset name : cifar10, Optimizer name : sgd, Learning rate : 0.01, Batch size : 32
+Random seed : 1
+
+----------------------------------------------------------------------------------------------------
+
+Central server round 1, loss : 2.30, accuracy :10.90%
+['0:0.00%', '1:0.00%', '2:40.90%', '3:65.90%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.10%', '8:0.00%', '9:2.10%']
+                                          ->500msec
+                                                     -> Cluster 0, loss : 2.30, accuracy 10.90%, model from round 0
+                                                     ['0:0.00%', '1:0.00%', '2:40.90%', '3:65.90%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.10%', '8:0.00%', '9:2.10%']
+                                                                                              <-> Client 0, global : from 10.90% to 10.00%, local : from 0.84% to 94.96%, training time : 16100msec
+                                                                                              <-> Client 1, global : from 10.90% to 10.00%, local : from 0.48% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 2, global : from 10.90% to 10.00%, local : from 0.84% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 3, global : from 10.90% to 10.00%, local : from 2.40% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 4, global : from 10.90% to 10.00%, local : from 2.28% to 94.96%, training time : 26700msec
+                                                                                              <-> Client 5, global : from 10.90% to 10.00%, local : from 2.46% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 6, global : from 10.90% to 10.00%, local : from 0.54% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 7, global : from 10.90% to 10.00%, local : from 0.36% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 8, global : from 10.90% to 10.00%, local : from 0.60% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 9, global : from 10.90% to 10.00%, local : from 0.42% to 94.96%, training time : 5500msec
+                                                     Cluster 0, round 1, loss : 2.53, accuracy 10.04% <-
+                                                     Time past : 27200msec
+                                                     ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:100.00%', '7:0.00%', '8:0.00%', '9:0.40%']
+                                                                                              <-> Client 0, global : from 10.04% to 10.00%, local : from 94.96% to 94.96%, training time : 16100msec
+                                                                                              <-> Client 1, global : from 10.04% to 10.00%, local : from 94.96% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 2, global : from 10.04% to 10.00%, local : from 94.96% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 3, global : from 10.04% to 10.00%, local : from 0.96% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 4, global : from 10.04% to 10.00%, local : from 0.90% to 94.96%, training time : 26700msec
+                                                                                              <-> Client 5, global : from 10.04% to 10.00%, local : from 0.72% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 6, global : from 10.04% to 10.00%, local : from 0.66% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 7, global : from 10.04% to 10.00%, local : from 0.36% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 8, global : from 10.04% to 10.00%, local : from 0.66% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 9, global : from 10.04% to 10.00%, local : from 0.66% to 94.96%, training time : 5500msec
+                                                     Cluster 0, round 2, loss : 2.69, accuracy 14.79% <-
+                                                     Time past : 53900msec
+                                                     ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:65.30%', '7:0.00%', '8:0.00%', '9:82.60%']
+                                                                                              <-> Client 0, global : from 14.79% to 10.00%, local : from 62.71% to 94.96%, training time : 16100msec
+                                                                                              <-> Client 1, global : from 14.79% to 10.00%, local : from 64.07% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 2, global : from 14.79% to 10.00%, local : from 62.15% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 3, global : from 14.79% to 10.00%, local : from 78.90% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 4, global : from 14.79% to 10.00%, local : from 80.92% to 94.96%, training time : 26700msec
+                                                                                              <-> Client 5, global : from 14.79% to 10.00%, local : from 80.38% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 6, global : from 14.79% to 10.00%, local : from 0.84% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 7, global : from 14.79% to 10.00%, local : from 0.72% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 8, global : from 14.79% to 10.00%, local : from 0.96% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 9, global : from 14.79% to 10.00%, local : from 0.78% to 94.96%, training time : 5500msec
+                                                     Cluster 0, round 3, loss : 2.67, accuracy 14.07% <-
+                                                     Time past : 80600msec
+                                                     ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.20%', '5:0.00%', '6:52.90%', '7:0.00%', '8:0.00%', '9:87.60%']
+                                                                                              <-> Client 0, global : from 14.07% to 10.00%, local : from 51.98% to 94.96%, training time : 16100msec
+                                                                                              <-> Client 1, global : from 14.07% to 10.00%, local : from 52.91% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 2, global : from 14.07% to 10.00%, local : from 51.41% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 3, global : from 14.07% to 10.00%, local : from 83.99% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 4, global : from 14.07% to 10.00%, local : from 85.12% to 94.96%, training time : 26700msec
+                                                                                              <-> Client 5, global : from 14.07% to 10.00%, local : from 84.28% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 6, global : from 14.07% to 10.00%, local : from 1.32% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 7, global : from 14.07% to 10.00%, local : from 1.20% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 8, global : from 14.07% to 10.00%, local : from 0.96% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 9, global : from 14.07% to 10.00%, local : from 0.84% to 94.96%, training time : 5500msec
+                                                     Cluster 0, round 4, loss : 2.64, accuracy 14.48% <-
+                                                     Time past : 107300msec
+                                                     ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:1.20%', '5:0.00%', '6:57.60%', '7:0.00%', '8:0.00%', '9:86.00%']
+                                                                                              <-> Client 0, global : from 14.48% to 10.00%, local : from 55.88% to 94.96%, training time : 16100msec
+                                                                                              <-> Client 1, global : from 14.48% to 10.00%, local : from 57.17% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 2, global : from 14.48% to 10.00%, local : from 54.41% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 3, global : from 14.48% to 10.00%, local : from 82.49% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 4, global : from 14.48% to 10.00%, local : from 83.92% to 94.96%, training time : 26700msec
+                                                                                              <-> Client 5, global : from 14.48% to 10.00%, local : from 82.84% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 6, global : from 14.48% to 10.00%, local : from 1.56% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 7, global : from 14.48% to 10.00%, local : from 1.86% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 8, global : from 14.48% to 10.00%, local : from 1.98% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 9, global : from 14.48% to 10.00%, local : from 0.78% to 94.96%, training time : 5500msec
+                                                     Cluster 0, round 5, loss : 2.61, accuracy 14.66% <-
+                                                     Time past : 134000msec
+                                                     ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:1.80%', '5:0.00%', '6:59.50%', '7:0.00%', '8:0.00%', '9:85.30%']
+                                                                                              <-> Client 0, global : from 14.66% to 10.00%, local : from 58.45% to 94.96%, training time : 16100msec
+                                                                                              <-> Client 1, global : from 14.66% to 10.00%, local : from 58.43% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 2, global : from 14.66% to 10.00%, local : from 56.57% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 3, global : from 14.66% to 10.00%, local : from 81.59% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 4, global : from 14.66% to 10.00%, local : from 83.08% to 94.96%, training time : 26700msec
+                                                                                              <-> Client 5, global : from 14.66% to 10.00%, local : from 82.00% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 6, global : from 14.66% to 10.00%, local : from 2.34% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 7, global : from 14.66% to 10.00%, local : from 2.64% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 8, global : from 14.66% to 10.00%, local : from 3.06% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 9, global : from 14.66% to 10.00%, local : from 0.78% to 94.96%, training time : 5500msec
+                                                     Cluster 0, round 6, loss : 2.59, accuracy 14.84% <-
+                                                     Time past : 160700msec
+                                                     ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:3.10%', '5:0.00%', '6:61.00%', '7:0.00%', '8:0.00%', '9:84.30%']
+                                                                                              <-> Client 0, global : from 14.84% to 10.00%, local : from 59.65% to 94.96%, training time : 16100msec
+                                                                                              <-> Client 1, global : from 14.84% to 10.00%, local : from 59.81% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 2, global : from 14.84% to 10.00%, local : from 58.13% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 3, global : from 14.84% to 10.00%, local : from 80.94% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 4, global : from 14.84% to 10.00%, local : from 82.36% to 94.96%, training time : 26700msec
+                                                                                              <-> Client 5, global : from 14.84% to 10.00%, local : from 81.46% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 6, global : from 14.84% to 10.00%, local : from 3.12% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 7, global : from 14.84% to 10.00%, local : from 3.90% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 8, global : from 14.84% to 10.00%, local : from 4.44% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 9, global : from 14.84% to 10.00%, local : from 0.78% to 94.96%, training time : 5500msec
+                                                     Cluster 0, round 7, loss : 2.57, accuracy 14.92% <-
+                                                     Time past : 187400msec
+                                                     ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:3.50%', '5:0.00%', '6:62.50%', '7:0.00%', '8:0.00%', '9:83.20%']
+                                                                                              <-> Client 0, global : from 14.92% to 10.00%, local : from 60.79% to 94.96%, training time : 16100msec
+                                                                                              <-> Client 1, global : from 14.92% to 10.00%, local : from 60.77% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 2, global : from 14.92% to 10.00%, local : from 58.85% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 3, global : from 14.92% to 10.00%, local : from 80.34% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 4, global : from 14.92% to 10.00%, local : from 81.76% to 94.96%, training time : 26700msec
+                                                                                              <-> Client 5, global : from 14.92% to 10.00%, local : from 81.22% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 6, global : from 14.92% to 10.00%, local : from 3.42% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 7, global : from 14.92% to 10.00%, local : from 4.62% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 8, global : from 14.92% to 10.00%, local : from 4.86% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 9, global : from 14.92% to 10.00%, local : from 0.78% to 94.96%, training time : 5500msec
+                                                     Cluster 0, round 8, loss : 2.56, accuracy 15.11% <-
+                                                     Time past : 214100msec
+                                                     ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:4.60%', '5:0.00%', '6:63.50%', '7:0.00%', '8:0.00%', '9:83.00%']
+                                                                                              <-> Client 0, global : from 15.11% to 10.00%, local : from 61.09% to 94.96%, training time : 16100msec
+                                                                                              <-> Client 1, global : from 15.11% to 10.00%, local : from 61.61% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 2, global : from 15.11% to 10.00%, local : from 59.57% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 3, global : from 15.11% to 10.00%, local : from 80.16% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 4, global : from 15.11% to 10.00%, local : from 81.04% to 94.96%, training time : 26700msec
+                                                                                              <-> Client 5, global : from 15.11% to 10.00%, local : from 80.92% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 6, global : from 15.11% to 10.00%, local : from 4.50% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 7, global : from 15.11% to 10.00%, local : from 6.12% to 94.96%, training time : 10800msec
+                                                                                              <-> Client 8, global : from 15.11% to 10.00%, local : from 6.54% to 94.96%, training time : 21400msec
+                                                                                              <-> Client 9, global : from 15.11% to 10.00%, local : from 0.78% to 94.96%, training time : 5500msec
+                                                     Cluster 0, round 9, loss : 2.55, accuracy 15.12% <-
+                                                     Time past : 240800msec
+                                                     ['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:5.30%', '5:0.00%', '6:63.30%', '7:0.00%', '8:0.00%', '9:82.60%']

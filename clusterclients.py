@@ -14,9 +14,9 @@ def clusterclients(clientlist, args):
     elif args.clusteringtype == "clusterbyrandomshuffle":
         raise ValueError("not implemented yet")
     elif args.clusteringtype == "custom":
-        raise ValueError("custom not defined")
+        raise ValueError("customize it plz")
     else:
-        raise ValueError("wrong clustering type")
+        raise ValueError("clustering type not supported")
 
 
     # organizing central server and clusters and set cluster-central communication time(500msec)
@@ -29,10 +29,7 @@ def clusterclients(clientlist, args):
             client.clusterid = clusterind
             tempclient = Client(clusterind, clientind, client.dataloader, client.communicationtime, client.computationtimeperbatch, client.uniqueid,1, args)
             tempclientlist.append(tempclient)
-        if args.systemheterogeneity == "alltimesame" or args.systemheterogeneity == "alltimesame": cluster = Cluster(clusterind, 100, args, tempclientlist)
-        elif args.systemheterogeneity == "realistic": cluster = Cluster(clusterind, 500, args, tempclientlist)
-        elif args.systemheterogeneity == "custom": cluster = Cluster(clusterind, 0, args, tempclientlist)
-        else: raise ValueError("wrong system heterogeneity")
+        cluster = Cluster(clusterind, 500, args, tempclientlist)
         tempclusterlist.append(cluster)
     centralserver = CentralServer(args, tempclusterlist)
 

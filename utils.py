@@ -16,13 +16,34 @@ def get_model(modelname):
     if modelname == "cnnmnist":
         module = importlib.import_module(f"models.{modelname}")
         return module.get_model()
-    
     elif modelname == "cnncifar10":
         module = importlib.import_module(f"models.{modelname}")
         return module.get_model()
-
     else :
-        raise ValueError("model not supported yet")
+        raise ValueError("model not supported")
+
+# Return test dataloader based on the dataset name, batchsize is 128
+def get_test_dataset(datasetname):
+
+    if datasetname == "mnist":
+        testdataset = datasets.MNIST(root='./data', train=False, download=True, transform=transforms.ToTensor())
+        return testdataset
+    elif datasetname == "cifar10":
+        testdataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transforms.ToTensor())
+        return testdataset
+    else:
+        raise ValueError("datasetname not supported")
+    
+def get_train_dataset(datasetname):
+
+    if datasetname == "mnist":
+        traindataset = datasets.MNIST(root = './data', train = True, download = True, transform = transforms.ToTensor())
+        return traindataset
+    elif datasetname == "cifar10":
+        traindataset = datasets.CIFAR10(root = './data', train = True, download = True, transform = transforms.ToTensor() )
+        return traindataset
+    else:
+        raise ValueError("datasetname not supported")
 
 # Return optimizer object based on the modle object, optimizer name, and learning rate
 def get_optimizer(model, optimizername, learningrate):
@@ -32,21 +53,6 @@ def get_optimizer(model, optimizername, learningrate):
 
     else:
         raise ValueError("optimizer not supported yet")
-
-# Return test dataloader based on the dataset name
-def get_test_dataloader(datasetname):
-
-    if datasetname == "mnist":
-
-        testdataset = datasets.MNIST(root='./data', train=False, download=True, transform=transforms.ToTensor())
-        testdataloader = DataLoader(testdataset, batch_size=128, shuffle=False)
-        return testdataloader
-    
-    elif datasetname == "cifar10":
-
-        testdataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transforms.ToTensor())
-        testdataloader = DataLoader(testdataset, batch_size=128, shuffle=False)
-        return testdataloader
 
 # Return loss and accuracy based on the model object, data loader, and device
 def validate_model(model, dataloader, args):

@@ -13,9 +13,10 @@ def partition_system(args):
     # cluster communication time and client communication time is set to 100msec, and computatation is uniformed by distribution of [100.200.300.400.500]
     elif args.systemheterogeneity == "communicationtimesamecomputationdifferent":
         clientcommunicationtimelist = [100 for _ in range(args.clientnum)]
+        clientcomputationtimelist = []
 
         for _ in range(args.clientnum):
-            clientcomputationtimelist = rng.choice([100, 200, 300, 400, 500], p=[0.2, 0.2, 0.2, 0.2, 0.2])
+            clientcomputationtimelist.append(rng.choice([100, 200, 300, 400, 500], p=[0.2, 0.2, 0.2, 0.2, 0.2]))
 
     elif args.systemheterogeneity == "realistic":
 
@@ -63,6 +64,13 @@ def partition_system(args):
             clientcomputationtimelist.append(int(computationtime  * (1 + rng.uniform(-computationvariance, computationvariance))))
 
     elif args.systemheterogeneity == "custom":
+
+        ######################################
+
+
+
+        #######################################
+        raise ValueError("customize it plz")
         clientcommunicationtimelist = [0,0,0,0,0,0,0,0,0,0]
         clientcomputationtimelist = [100,100,100,100,100,50,50,50,50,50]
 
