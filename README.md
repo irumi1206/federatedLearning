@@ -43,7 +43,7 @@ Implementation about federated learning and boosting its convergence via system 
         
         dirichletdistribution : the data is splitted following the dirichlet distribution with alpha(-dirichletalpha) where the heterogeneity can be controlled. Same as the onlyspecificlabelpartition, there is no consistency for the distribution of each label and no correlation between devices next to each other.
 
-    -systemheterogeneity : System distribution for each client. cluster - central communication time is set to 500msec, for clients the choices are
+    -systemheterogeneity : System distribution for each client. choices are
 
         alltimesame : all the computation time and communication time is set to 100msec
 
@@ -52,6 +52,10 @@ Implementation about federated learning and boosting its convergence via system 
         realistic : the communication and computation of clients is dependent on the class of device it belongs to. 5 classes include highend laptop, mid range laptop/high end tablet, fast smartphone, mid range smartphone/tablet, low end smartphone/rasberry pi. each device is selected as one of the class by the distribution of devices
 
         custom : for need to set communication and computation time manually
+
+    -clustercommunicationtime : cluster - central server communication time which is fixed for all clusters
+
+        in case of "realistic" setting in -systemheterogeneity, it is set to 500msec for the relavnce with the client's communication and computation time.
 
     -clusteringtype : how to cluster clients. choices are
 

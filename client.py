@@ -4,6 +4,7 @@ import numpy as np
 import random
 from utils import validate_model, get_model, get_optimizer
 from math import ceil
+import copy
 
 # Class for client, local device
 class Client:
@@ -25,7 +26,7 @@ class Client:
     def calculate_training_time(self):
 
         # calculate the training time
-        trainingtime = self.computationtimeperbatch * self.localepoch * ceil(len(self.dataloader.dataset) / self.dataloader.batch_size) + 2*self.communicationtime
+        trainingtime = self.computationtimeperbatch * self.localepoch * ceil(len(self.dataloader.dataset) / int(self.dataloader.batch_size)) + 2*self.communicationtime
         return trainingtime
 
     # logging is done by passing the queue due to the possibility of multi processing the clients in case of sync 
@@ -47,6 +48,7 @@ class Client:
         localaccuracybefore, _ = validate_model(self.model, self.dataloader, self.args)
         globalaccuracybefore, _= validate_model(self.model, self.args.testdataloader, self.args)
 
+        modelbefore = copy.deepcopy(self.model)
         # train the model
         for _ in range(self.localepoch):
             self.model.train()
@@ -55,6 +57,13 @@ class Client:
                 self.optimizer.zero_grad()
                 output = self.model(x)
                 loss = self.criterion(output, y)
+
+                if self.args.regularizationcoefficient !=  0.0:
+                    proxterm = 0.0
+                    for localweight, globalweight in zip(self.model.parameters(), modelbefore.parameters()):
+                        proxterm += ((localweight - globalweight.detach())**2).sum()
+                    loss += (self.args.regularizationcoefficient/2)*proxterm
+
                 loss.backward()
                 self.optimizer.step()
         

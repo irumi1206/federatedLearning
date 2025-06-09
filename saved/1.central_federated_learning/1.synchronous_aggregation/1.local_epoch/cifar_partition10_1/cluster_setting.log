@@ -1,0 +1,80 @@
+Cluster 0 with 1 clients
+Cluster communication time : 0
+Cluster computation time : 3170
+Cluster training time : 3170
+Cluster clients : [0]
+Label percentage: ['0 : 0.56%', '1 : 0.56%', '2 : 0.56%', '3 : 0.56%', '4 : 0.56%', '5 : 0.56%', '6 : 94.96%', '7 : 0.56%', '8 : 0.56%', '9 : 0.56%']%
+Divergence : jsd 0.6197, tvd 0.8496
+
+Cluster 1 with 1 clients
+Cluster communication time : 0
+Cluster computation time : 3170
+Cluster training time : 3170
+Cluster clients : [1]
+Label percentage: ['0 : 0.56%', '1 : 0.56%', '2 : 0.56%', '3 : 0.56%', '4 : 0.56%', '5 : 0.56%', '6 : 0.56%', '7 : 0.56%', '8 : 0.56%', '9 : 94.96%']%
+Divergence : jsd 0.6197, tvd 0.8496
+
+Cluster 2 with 1 clients
+Cluster communication time : 0
+Cluster computation time : 3170
+Cluster training time : 3170
+Cluster clients : [2]
+Label percentage: ['0 : 0.56%', '1 : 0.56%', '2 : 0.56%', '3 : 0.56%', '4 : 94.96%', '5 : 0.56%', '6 : 0.56%', '7 : 0.56%', '8 : 0.56%', '9 : 0.56%']%
+Divergence : jsd 0.6197, tvd 0.8496
+
+Cluster 3 with 1 clients
+Cluster communication time : 0
+Cluster computation time : 3170
+Cluster training time : 3170
+Cluster clients : [3]
+Label percentage: ['0 : 0.56%', '1 : 94.96%', '2 : 0.56%', '3 : 0.56%', '4 : 0.56%', '5 : 0.56%', '6 : 0.56%', '7 : 0.56%', '8 : 0.56%', '9 : 0.56%']%
+Divergence : jsd 0.6197, tvd 0.8496
+
+Cluster 4 with 1 clients
+Cluster communication time : 0
+Cluster computation time : 3170
+Cluster training time : 3170
+Cluster clients : [4]
+Label percentage: ['0 : 0.56%', '1 : 0.56%', '2 : 94.96%', '3 : 0.56%', '4 : 0.56%', '5 : 0.56%', '6 : 0.56%', '7 : 0.56%', '8 : 0.56%', '9 : 0.56%']%
+Divergence : jsd 0.6197, tvd 0.8496
+
+Cluster 5 with 1 clients
+Cluster communication time : 0
+Cluster computation time : 3170
+Cluster training time : 3170
+Cluster clients : [5]
+Label percentage: ['0 : 0.56%', '1 : 0.56%', '2 : 0.56%', '3 : 0.56%', '4 : 0.56%', '5 : 0.56%', '6 : 0.56%', '7 : 94.96%', '8 : 0.56%', '9 : 0.56%']%
+Divergence : jsd 0.6197, tvd 0.8496
+
+Cluster 6 with 1 clients
+Cluster communication time : 0
+Cluster computation time : 3170
+Cluster training time : 3170
+Cluster clients : [6]
+Label percentage: ['0 : 0.56%', '1 : 0.56%', '2 : 0.56%', '3 : 0.56%', '4 : 0.56%', '5 : 0.56%', '6 : 0.56%', '7 : 0.56%', '8 : 94.96%', '9 : 0.56%']%
+Divergence : jsd 0.6197, tvd 0.8496
+
+Cluster 7 with 1 clients
+Cluster communication time : 0
+Cluster computation time : 3170
+Cluster training time : 3170
+Cluster clients : [7]
+Label percentage: ['0 : 0.54%', '1 : 0.56%', '2 : 0.56%', '3 : 95.00%', '4 : 0.56%', '5 : 0.54%', '6 : 0.56%', '7 : 0.56%', '8 : 0.56%', '9 : 0.56%']%
+Divergence : jsd 0.6205, tvd 0.8500
+
+Cluster 8 with 1 clients
+Cluster communication time : 0
+Cluster computation time : 3170
+Cluster training time : 3170
+Cluster clients : [8]
+Label percentage: ['0 : 0.54%', '1 : 0.54%', '2 : 0.54%', '3 : 0.54%', '4 : 0.54%', '5 : 95.13%', '6 : 0.54%', '7 : 0.54%', '8 : 0.54%', '9 : 0.54%']%
+Divergence : jsd 0.6232, tvd 0.8513
+
+Cluster 9 with 1 clients
+Cluster communication time : 0
+Cluster computation time : 3170
+Cluster training time : 3170
+Cluster clients : [9]
+Label percentage: ['0 : 95.13%', '1 : 0.54%', '2 : 0.54%', '3 : 0.54%', '4 : 0.54%', '5 : 0.54%', '6 : 0.54%', '7 : 0.54%', '8 : 0.54%', '9 : 0.54%']%
+Divergence : jsd 0.6232, tvd 0.8513
+

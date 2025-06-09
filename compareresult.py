@@ -20,6 +20,7 @@ round = 100
 
 for name, data in dataforeachfile:
     axes[0].plot(data["centralservertimepast"][:round], data["centralserveraccuracy"][:round],label=name)
+    #axes[0].plot(data["centralserverround"][:round], data["centralserverloss"][:round],label=name)
 axes[0].set_title("Accuracy per Time")
 axes[0].set_xlabel("Time(msec)")
 axes[0].set_ylabel("Accuracy(%)")
@@ -31,6 +32,7 @@ axes[1].set_title("Accuracy per round")
 axes[1].set_xlabel("Round")
 axes[1].set_ylabel("Accuracy(%)")
 axes[1].legend()
+
 
 plt.suptitle("Experiment Accuracy comparison")
 plt.tight_layout()

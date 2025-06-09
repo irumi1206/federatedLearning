@@ -6,8 +6,10 @@ from queue import PriorityQueue
 from torch.multiprocessing import Queue
 
 class CentralServer:
-    def __init__(self, args, clusterlist):
+    def __init__(self, interclusteringtype, centralserverepoch, args, clusterlist):
 
+        self.interclusteringtype = interclusteringtype
+        self.centralserverepoch = centralserverepoch
         self.clusterlist = clusterlist
         self.model = get_model(args.modelname)
         self.model.to(args.device)
@@ -27,9 +29,9 @@ class CentralServer:
         self.args.centralserveraccuracy.append(accuracyinitial)
         self.args.centralserverloss.append(lossinitial)
 
-        if self.args.interclusteringtype == "sync":
+        if self.interclusteringtype == "sync":
 
-            for i in range(self.args.centralserverepoch):
+            for i in range(self.centralserverepoch):
 
                 # before round begins, save the infromation of the global model
                 accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.args.testdataloader, self.args)
@@ -87,7 +89,7 @@ class CentralServer:
 
             # calculate the client sequence
             timepast = 0
-            for i in range(self.args.centralserverepoch * self.args.clusternum):
+            for i in range(self.centralserverepoch * len(self.clusterlist)):
                 timetoexecute, clustertime, clusterid = clustertimequeue.get()
                 timepast = timetoexecute
                 clustertimequeue.put((timetoexecute+clustertime,clustertime,clusterid))
@@ -103,14 +105,14 @@ class CentralServer:
 
             
             # train the clients in the order of the sequence
-            for epoch in range(self.args.centralserverepoch):
-                for clusterind in range(self.args.clusternum):
+            for epoch in range(self.centralserverepoch):
+                for clusterind in range(len(self.clusterlist)):
 
                     # before round begins, save the infromation of the global model
                     accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.args.testdataloader, self.args)
 
                     # get cluster id and timepast to execute
-                    clusterid, timepast = clustertoexecute[self.args.clusternum*epoch+clusterind]
+                    clusterid, timepast = clustertoexecute[len(self.clusterlist)*epoch+clusterind]
                     
                     # local trainng the client
                     cluster = self.clusterlist[clusterid]

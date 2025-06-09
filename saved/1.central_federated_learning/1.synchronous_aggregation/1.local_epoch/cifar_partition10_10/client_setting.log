@@ -1,0 +1,60 @@
+Unique id : 0, dataset size : 5002
+Communication time : 800, Computation time per batch : 10, Training time : 17300
+0 : 0.56%  1 : 0.56%  2 : 0.56%  3 : 0.56%  4 : 0.56%  5 : 0.56%  6 : 94.96%  7 : 0.56%  8 : 0.56%  9 : 0.56%  
+Divergence : jsd 0.6197, tvd 0.8496
+labels from the first batch :[6, 7, 6, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 4, 6, 6, 6, 6, 6, 1, 6, 6, 6]
+
+Unique id : 1, dataset size : 5002
+Communication time : 800, Computation time per batch : 10, Training time : 17300
+0 : 0.56%  1 : 0.56%  2 : 0.56%  3 : 0.56%  4 : 0.56%  5 : 0.56%  6 : 0.56%  7 : 0.56%  8 : 0.56%  9 : 94.96%  
+Divergence : jsd 0.6197, tvd 0.8496
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Unique id : 2, dataset size : 5002
+Communication time : 800, Computation time per batch : 10, Training time : 17300
+0 : 0.56%  1 : 0.56%  2 : 0.56%  3 : 0.56%  4 : 94.96%  5 : 0.56%  6 : 0.56%  7 : 0.56%  8 : 0.56%  9 : 0.56%  
+Divergence : jsd 0.6197, tvd 0.8496
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Unique id : 3, dataset size : 5002
+Communication time : 800, Computation time per batch : 10, Training time : 17300
+0 : 0.56%  1 : 94.96%  2 : 0.56%  3 : 0.56%  4 : 0.56%  5 : 0.56%  6 : 0.56%  7 : 0.56%  8 : 0.56%  9 : 0.56%  
+Divergence : jsd 0.6197, tvd 0.8496
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 4, dataset size : 5002
+Communication time : 800, Computation time per batch : 10, Training time : 17300
+0 : 0.56%  1 : 0.56%  2 : 94.96%  3 : 0.56%  4 : 0.56%  5 : 0.56%  6 : 0.56%  7 : 0.56%  8 : 0.56%  9 : 0.56%  
+Divergence : jsd 0.6197, tvd 0.8496
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 2, 2, 2]
+
+Unique id : 5, dataset size : 5002
+Communication time : 800, Computation time per batch : 10, Training time : 17300
+0 : 0.56%  1 : 0.56%  2 : 0.56%  3 : 0.56%  4 : 0.56%  5 : 0.56%  6 : 0.56%  7 : 94.96%  8 : 0.56%  9 : 0.56%  
+Divergence : jsd 0.6197, tvd 0.8496
+labels from the first batch :[7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 7, 8, 7, 7, 7, 7, 7, 7]
+
+Unique id : 6, dataset size : 5002
+Communication time : 800, Computation time per batch : 10, Training time : 17300
+0 : 0.56%  1 : 0.56%  2 : 0.56%  3 : 0.56%  4 : 0.56%  5 : 0.56%  6 : 0.56%  7 : 0.56%  8 : 94.96%  9 : 0.56%  
+Divergence : jsd 0.6197, tvd 0.8496
+labels from the first batch :[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 1, 8, 8]
+
+Unique id : 7, dataset size : 5000
+Communication time : 800, Computation time per batch : 10, Training time : 17300
+0 : 0.54%  1 : 0.56%  2 : 0.56%  3 : 95.00%  4 : 0.56%  5 : 0.54%  6 : 0.56%  7 : 0.56%  8 : 0.56%  9 : 0.56%  
+Divergence : jsd 0.6205, tvd 0.8500
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 8, dataset size : 4993
+Communication time : 800, Computation time per batch : 10, Training time : 17300
+0 : 0.54%  1 : 0.54%  2 : 0.54%  3 : 0.54%  4 : 0.54%  5 : 95.13%  6 : 0.54%  7 : 0.54%  8 : 0.54%  9 : 0.54%  
+Divergence : jsd 0.6232, tvd 0.8513
+labels from the first batch :[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+
+Unique id : 9, dataset size : 4993
+Communication time : 800, Computation time per batch : 10, Training time : 17300
+0 : 95.13%  1 : 0.54%  2 : 0.54%  3 : 0.54%  4 : 0.54%  5 : 0.54%  6 : 0.54%  7 : 0.54%  8 : 0.54%  9 : 0.54%  
+Divergence : jsd 0.6232, tvd 0.8513
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0]
+

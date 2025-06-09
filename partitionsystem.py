@@ -16,7 +16,7 @@ def partition_system(args):
         clientcomputationtimelist = []
 
         for _ in range(args.clientnum):
-            clientcomputationtimelist.append(rng.choice([100, 200, 300, 400, 500], p=[0.2, 0.2, 0.2, 0.2, 0.2]))
+            clientcomputationtimelist.append(int(rng.choice([100, 200, 300, 400, 500], p=[0.2, 0.2, 0.2, 0.2, 0.2])))
 
     elif args.systemheterogeneity == "realistic":
 
@@ -25,33 +25,32 @@ def partition_system(args):
         computationvariance = 0.2
 
         # assumption for device class's computation and communication time
-        # assuming the model size is 2mb and the batchsize is 32, the training time per batch and the upload communication time is calculated
+        # assuming the model size is 10mb and the batchsize is 32, the training time per batch and the upload communication time is calculated
         # assume upload time is similar to download
         # the ratio of each device's capabilities and the ratio of the communication time and computation time is the key, so even with larger modeel size,
         # since the communication and computation time ratio would be about the same, the value is enough to examine the fast convergence in relavance to time
 
-        # communication time for device
+        # communication time for device (msec)
         devicecommunicationtime={
-            "highend laptop" : 50.0,
-            "mid range laptop/high end tablet" : 150.0,
-            "fast smartphone" : 300.0,
-            "mid range smartphone/tablet" : 1000.0,
-            "low end smartphone/rasberry pi" : 5000.0
+            "highend recent smartphones(top tier 5g/wifi)" : 800,
+            "midrange recent smartphones(typical 4g/mid range 5g)" : 2400,
+            "low range recent smartphones(slow 4g)" : 24000,
+            "old smartphones(slow 4g)" : 24000,
+            "iot devices(lora)" : 2400000
         }
 
-        # Device trainigtime per batch (msec)
+        #Device trainigtime per batch (msec)
         devicetrainingtime={
-            "highend laptop" : 100.0,
-            "mid range laptop/high end tablet" : 200.0,
-            "fast smartphone" : 400.0,
-            "mid range smartphone/tablet" : 800.0,
-            "low end smartphone/rasberry pi" : 1500.0
+            "highend recent smartphones(gpubounded)" : 10,
+            "midrange recent smartphones(gpubounded)" : 25,
+            "low range recent smartphones(gpubounded)" : 70,
+            "old smartphones(cpubounded))" : 600,
+            "iot devices(cpubounded))" : 5000
         }
 
         # distribution for each device
-        devicedistribution = [0.1, 0.2, 0.2, 0.4, 0.1]
+        devicedistribution = [0.10, 0.35, 0.30, 0.20, 0.05]
 
-        clustercommunicationtimelist = []
         clientcommunicationtimelist = []
         clientcomputationtimelist = []
         
@@ -66,13 +65,11 @@ def partition_system(args):
     elif args.systemheterogeneity == "custom":
 
         ######################################
-
-
+        clientcommunicationtimelist = [800 for _ in range(args.clientnum)]
+        clientcomputationtimelist = [10 for _ in range(args.clientnum)]
 
         #######################################
-        raise ValueError("customize it plz")
-        clientcommunicationtimelist = [0,0,0,0,0,0,0,0,0,0]
-        clientcomputationtimelist = [100,100,100,100,100,50,50,50,50,50]
+        ##raise ValueError("customize it plz")
 
     else:
         raise ValueError("")

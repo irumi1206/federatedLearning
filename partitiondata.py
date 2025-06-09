@@ -98,8 +98,10 @@ def split_onelabeldominant(args):
     nondominantlabeltoindices = defaultdict(list)
     dominantlabeltoindices = defaultdict(list)
     for label,indicelist in labeltoindices.items():
-        splitpoint = int(len(indicelist)*ratio/100)
-        nondominantindicessplit = np.array_split(indicelist[splitpoint:],len(labeltoindices.keys())-1)
+        splitpoint = int(len(indicelist)*ratio/100.0)
+        if ratio !=100: nondominantindicessplit = np.array_split(indicelist[splitpoint:],len(labeltoindices.keys())-1)
+        else: 
+            nondominantindicessplit=[[] for _ in range(len(labeltoindices) - 1)]
         current = 0
         for i in labeltoindices.keys():
             if label != i:
@@ -114,10 +116,13 @@ def split_onelabeldominant(args):
         rng.shuffle(indiceslist)
         dominantindices = np.array_split(indiceslist,devicenum)
         rng.shuffle(nondominantlabeltoindices[label])
-        nondominantindices = np.array_split(nondominantlabeltoindices[label],devicenum)
+        if ratio !=100 : 
+            nondominantindices = np.array_split(nondominantlabeltoindices[label],devicenum)
+        else: 
+            nondominantindices = [[] for _ in range(devicenum)]
         for i in range(devicenum):
-            dataloaderlist.append(DataLoader(Subset(args.traindataset, np.concatenate((dominantindices[i],nondominantindices[i]))), batch_size = args.batchsize, shuffle=True))
-
+            if ratio !=100: dataloaderlist.append(DataLoader(Subset(args.traindataset, np.concatenate((dominantindices[i],nondominantindices[i]))), batch_size = args.batchsize, shuffle=True))
+            else: dataloaderlist.append(DataLoader(Subset(args.traindataset, dominantindices[i]), batch_size = args.batchsize, shuffle=True))
     return dataloaderlist
 
 # Return list of dataloader splitted in clients having only two labels
@@ -202,8 +207,4 @@ def split_dirichletdistribution(args):
 
     return dataloaderlist
 
-def train_single_client(client, queue):
-    torch.manual_seed(client.uniqueid + client.args.randomseed)
-    np.random.seed(client.uniqueid + client.args.randomseed)
-    # ... rest of code ...
 

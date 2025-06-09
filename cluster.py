@@ -11,19 +11,17 @@ def train_single_client(client,queue):
     client.local_train(queue)
 
 class Cluster:
-    def __init__(self, clusterid, communicationtime, args, clientlist):
+    def __init__(self, clusterid, communicationtime, intraclusteringtype, clusterepoch, args, clientlist):
 
         self.clusterid = clusterid
         self.communicationtime = communicationtime
-        self.clientlist = clientlist
+        self.intraclusteringtype = intraclusteringtype
+        self.clusterepoch = clusterepoch
+        self.args = args
         self.model = get_model(args.modelname)
         self.model.to(args.device)
         self.testdataloader = args.testdataloader
-        self.intraclusteringtype = args.intraclusteringtype
-        self.device = args.device
-        self.clusterepoch = args.clusterepoch
-        self.clustersize = args.clustersize
-        self.args = args
+        self.clientlist = clientlist
 
     def calculate_training_time(self):
 
@@ -45,7 +43,7 @@ class Cluster:
 
             # time past
             timepast = 0
-            for i in range(self.clusterepoch * self.clustersize):
+            for i in range(self.clusterepoch * len(self.clientlist)):
                 timetoexecute, clienttime, clientid = clienttimequeue.get()
                 timepast = timetoexecute
                 clienttimequeue.put((timetoexecute+clienttime,clienttime,clientid))
@@ -81,6 +79,7 @@ class Cluster:
                 queue = q.Queue()
                 for client in self.clientlist:
                     client.local_train(queue)
+                #     multiprocess has bugs in logging use sequenatial exexution now
                 #     p = Process(target=train_single_client, args=(client,queue))
                 #     p.start()
                 #     processes.append(p)
@@ -127,7 +126,7 @@ class Cluster:
                 clienttimequeue.put((clienttrainingtime+timepast, clienttrainingtime, client.clientid))
 
             # calculate the client sequence
-            for i in range(self.clusterepoch * self.clustersize):
+            for i in range(self.clusterepoch * len(self.clientlist)):
                 timetoexecute, clienttime, clientid = clienttimequeue.get()
                 timepast = timetoexecute
                 clienttimequeue.put((timetoexecute+clienttime,clienttime,clientid))
@@ -139,13 +138,12 @@ class Cluster:
             timestamp = 0 
             timestampforclient = [timestamp] * len(self.clientlist)
    
-
             # train the clients in the order of the sequence
             for epoch in range(self.clusterepoch):    
-                for clientind in range(self.clustersize):
+                for clientind in range(len(self.clientlist)):
                     
                     # get client id and timepast to execute
-                    clientid, timepast = clienttoexecute[self.clustersize*epoch+clientind]
+                    clientid, timepast = clienttoexecute[len(self.clientlist)*epoch+clientind]
                     
                     # local trainng the client
                     client = self.clientlist[clientid]
