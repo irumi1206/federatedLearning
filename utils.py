@@ -9,6 +9,8 @@ import logging
 import numpy as np
 from scipy.spatial.distance import jensenshannon
 from collections import defaultdict
+from datasets import load_dataset
+from dataset.HuggingFaceToTorchvisionDataset import HuggingFaceFEMNIST
 
 # Return model object based on the model name
 def get_model(modelname):
@@ -22,28 +24,26 @@ def get_model(modelname):
     else :
         raise ValueError("model not supported")
 
-# Return test dataloader based on the dataset name, batchsize is 128
-def get_test_dataset(datasetname):
+# Return dataset for training and testing
+def get_dataset(datasetname,args):
 
     if datasetname == "mnist":
+        traindataset = datasets.MNIST(root = './data', train = True, download = True, transform = transforms.ToTensor())      
         testdataset = datasets.MNIST(root='./data', train=False, download=True, transform=transforms.ToTensor())
-        return testdataset
     elif datasetname == "cifar10":
+        traindataset = datasets.CIFAR10(root = './data', train = True, download = True, transform = transforms.ToTensor() )
         testdataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transforms.ToTensor())
-        return testdataset
+    elif datasetname == "femnist":
+        femnistdataset = load_dataset("flwrlabs/femnist", split='train')
+        splitdataset = femnistdataset.train_test_split(test_size=0.2, seed=42)
+        traindataset = splitdataset['train']
+        testdataset = splitdataset['test']
+
     else:
         raise ValueError("datasetname not supported")
     
-def get_train_dataset(datasetname):
+    return traindataset,testdataset
 
-    if datasetname == "mnist":
-        traindataset = datasets.MNIST(root = './data', train = True, download = True, transform = transforms.ToTensor())
-        return traindataset
-    elif datasetname == "cifar10":
-        traindataset = datasets.CIFAR10(root = './data', train = True, download = True, transform = transforms.ToTensor() )
-        return traindataset
-    else:
-        raise ValueError("datasetname not supported")
 
 # Return optimizer object based on the modle object, optimizer name, and learning rate
 def get_optimizer(model, optimizername, learningrate):

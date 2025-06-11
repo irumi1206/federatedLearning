@@ -5,24 +5,15 @@ from torch.utils.data import DataLoader, Subset
 from collections import defaultdict
 import os
 import random
+from datasets import load_dataset
 
 # Return list of dataloader splited based on the setting also save data distribution for each client and global data distribution(args.labelpercentageperclient, args.labelpercentageforglobaldistribution)
 def partition_data(args):
 
-    # fix randomness
-    seed = args.randomseed  # or set a constant for testing
+    if args.datasetname == "femnist":
+        print("d")
 
-    os.environ["PYTHONHASHSEED"] = str(seed)
-    os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"  # For CUDA deterministic ops (if needed)
 
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-    torch.use_deterministic_algorithms(True)  # PyTorch 1.8+
 
     # return list of dataloader based on the splitting type
     if args.dataheterogeneitytype == "iid":
@@ -39,21 +30,14 @@ def partition_data(args):
     # error checking the partition is done in correct number
     if len(dataloaderlist) != args.clientnum:
         raise ValueError("partitioning error")
-    
-    # save each client's label percentage
-    args.labelpercentageperclient = []
-    for i in range(args.clientnum):
-        clientdataloader = dataloaderlist[i]
-        totaldatasetsize = len(clientdataloader.dataset)
-        labelpercentage = defaultdict(float)
-        for label in args.labellist:
-            labelpercentage[label] = (len([i for _, labels in clientdataloader for i in labels if i == label])/totaldatasetsize)
-        args.labelpercentageperclient.append(labelpercentage)
 
     # save global label percentage
     args.labelpercentageforglobaldistribution = defaultdict(float)
+    traindasetcache=[]
+    for _,label in args.traindataset:
+        traindasetcache.append(label)
     for label in args.labellist:
-        args.labelpercentageforglobaldistribution[label] = (len([i for _, i in args.traindataset if i == label])/len(args.traindataset))
+        args.labelpercentageforglobaldistribution[label] = (len([i for i in traindasetcache if i == label])/len(traindasetcache))
 
     return dataloaderlist
 

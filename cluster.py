@@ -58,11 +58,11 @@ class Cluster:
 
         # validate the model before training
         accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.testdataloader, self.args)
-        self.args.loggers[self.clusterid].info(f"{'-'*53}\n")
-        self.args.loggers[self.clusterid].info(f"Central server round {roundnumber+1} started")
-        self.args.loggers[self.clusterid].info(f"Model sent from central server with {timepast}msec communication time, with loss :{lossbefore:.2f}, accuracy : {(100*accuracybefore):.2f}%")
-        self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
-        self.args.loggers[self.clusterid].info(f"The model is from round {modelroundnumber+1} from central server, staleness is {roundnumber-modelroundnumber-1}\n")
+        # self.args.loggers[self.clusterid].info(f"{'-'*53}\n")
+        # self.args.loggers[self.clusterid].info(f"Central server round {roundnumber+1} started")
+        # self.args.loggers[self.clusterid].info(f"Model sent from central server with {timepast}msec communication time, with loss :{lossbefore:.2f}, accuracy : {(100*accuracybefore):.2f}%")
+        # self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
+        # self.args.loggers[self.clusterid].info(f"The model is from round {modelroundnumber+1} from central server, staleness is {roundnumber-modelroundnumber-1}\n")
         logging.info(f"{' '*53}-> Cluster {self.clusterid}, loss : {lossbefore:.2f}, accuracy {(100*accuracybefore):.2f}%, model from round {modelroundnumber+1}")
         logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
 
@@ -113,8 +113,8 @@ class Cluster:
                 logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
 
                 # log the information to cluster level logger
-                self.args.loggers[self.clusterid].info(f"Cluster round {i+1} completed, aggregated models from all the clients, time past : {timepast}msec, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}%")
-                self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
+                # self.args.loggers[self.clusterid].info(f"Cluster round {i+1} completed, aggregated models from all the clients, time past : {timepast}msec, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}%")
+                # self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
 
         else:
 
@@ -174,8 +174,8 @@ class Cluster:
                     logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
 
                     # log the information to cluster level logger
-                    self.args.loggers[self.clusterid].info(f"Cluster round {timestamp+1} completed, aggregated model from client {clientid}, time past : {timepast}msec, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}%")
-                    self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
+                    # self.args.loggers[self.clusterid].info(f"Cluster round {timestamp+1} completed, aggregated model from client {clientid}, time past : {timepast}msec, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}%")
+                    # self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
                     
                     # update the timestamp
                     timestamp += 1

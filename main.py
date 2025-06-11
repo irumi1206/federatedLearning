@@ -6,18 +6,23 @@ import os
 from collections import defaultdict
 import json
 from torch.utils.data import DataLoader
+import torch
+import random
+import numpy as np
+import queue as q
+
 
 from client import Client
-from utils import get_test_dataset, get_train_dataset, calculate_divergence, create_loggers
+from utils import get_dataset, calculate_divergence, create_loggers
 from partitiondata import partition_data
 from partitionsystem import partition_system
-from clusterclients import clusterclients
+from clusterclients import cluster_clients
+from dataset.HuggingFaceToTorchvisionDataset import HuggingFaceFEMNIST
 
 # Setting and add additional arguments(args.testdataloader, args.labellist)
 def setting(args):
 
-    # set logging
-    # make timestamp folder, args.loggers for logging each cluster, basic logger for the overall training process
+    # make folder to log training, and basic logger to keep track overall training
     timestamp = datetime.now().strftime("%m%d_%H%M%S")
     os.makedirs(timestamp, exist_ok=True)
     args.timestamp = timestamp
@@ -28,33 +33,47 @@ def setting(args):
         format="%(message)s"
     )
 
+    # fix randomness
+    seed = args.randomseed
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"  
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.use_deterministic_algorithms(True)  
+
     # define list to keep track of accuracy and loss for central server and each cluster
     args.centralservertimepast = []
     args.centralserveraccuracy = []
     args.centralserverloss =[]
     args.centralserverround = []
 
-    # set multiprocessing
-    mp.set_start_method("spawn", force=True)
+    # set data for training and testing
+    args.traindataset, testdataset = get_dataset(args.datasetname, args)
+    test_dataset = HuggingFaceFEMNIST(testdataset)
+    test_loader = DataLoader(test_dataset, batch_size=128, shuffle=False)
 
-    # set dataset for training
-    args.traindataset = get_train_dataset(args.datasetname)
+    a=0
+    for data in testdataset:
+        print(type(data))
+
     
-    # Set testdataloader in arguments for examining accuracy for the global distribution
-    args.testdataloader = DataLoader(get_test_dataset(args.datasetname), batch_size=128, shuffle=False) 
+    # # Set testdataloader in arguments for examining accuracy for the global distribution
+    # args.testdataloader = DataLoader(testdataset, batch_size=1, shuffle=False)
 
-    # Set label list
-    args.labellist = sorted({label.item() for _, labels in args.testdataloader for label in labels})
+    # # Set label list
+    # args.labellist = sorted({label.item() for _,labels in args.testdataloader for label in labels})
 
 # Create list of clients
-def create_clientlist(clientdataloaderlist, clientcommunicationtimelist, clientcomputationtimelist, args):
+def create_client(clientdataloaderlist, clientcommunicationtimelist, clientcomputationtimelist, args):
     
     # Create list of clients
     clientlist = []
 
     # Create clients, -1 for the clusterid  before clustering
     for i in range(args.clientnum):
-        client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, -1,args)
+        client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, 0,args)
         clientlist.append(client)
     
     return clientlist
@@ -63,28 +82,29 @@ def create_clientlist(clientdataloaderlist, clientcommunicationtimelist, clientc
 def logsetting(args):
 
     # print arguments
-    # general federated learning setting
-    logging.info("Starting cluster federated learning")
-    logging.info(f"Model name : {args.modelname}, Dataset name : {args.datasetname}")
+    # aggregation type
     intraclusteringinfo = f", intraasyncalpha : {args.intraasyncalpha}, intraasyncthreshold : {args.intraasyncthreshold}" if args.intraclusteringtype == "async" else ""
     logging.info(f"Intraclustering type : {args.intraclusteringtype}{intraclusteringinfo}")
     interclusteringinfo = f", interasyncalpha : {args.interasyncalpha}, interasyncthreshold : {args.interasyncthreshold}" if args.interclusteringtype == "async" else ""
     logging.info(f"Interclustering type : {args.interclusteringtype}{interclusteringinfo}")
-    # how to partition client's system and system
-    logging.info(f"Client num : {args.clientnum}, System heterogeneity : {args.systemheterogeneity}")
+    # model and dataset for training including how its partitioned to clients. for specific dataset ex.femnist, the number of clients night be fixed
+    logging.info(f"Model name : {args.modelname}, Dataset name : {args.datasetname}")
+    logging.info(f"Client num : {args.clientnum}")
     datainfo1 = f", Dominant percentage : {args.dominantpercentage}" if args.dataheterogeneitytype == "onelabeldominant" else ""
     datainfo2 = f", Label per client : {args.labelperclient}" if args.dataheterogeneitytype == "onlyspecificlabel" else ""
     datainfo3 = f", Dirichletalpha: {args.dirichletalpha}" if args.dataheterogeneitytype == "dirichletdistribution" else ""
-    logging.info(f"Data heterogeneity type : {args.dataheterogeneitytype}{datainfo1}{datainfo2}{datainfo3}")
-    # how to cluster and set cluster communication time
+    if args.datasetname != "femnist" or args.datasetname != "shakespeare": logging.info(f"Data heterogeneity type : {args.dataheterogeneitytype}{datainfo1}{datainfo2}{datainfo3}")
+    # system heterogeneity
+    logging.info(f"System heterogeneity : {args.systemheterogeneity}")
+    # how to cluster
     clusteringinfo = f", Cluster num : {args.clusternum}, Cluster size : {args.clustersize}" if args.clusteringtype == "clusterbyclientorder" or args.clusteringtype == "clusterbyrandomshuffle" else ""
     logging.info(f"Clustering type : {args.clusteringtype}{clusteringinfo}")
     logging.info(f"Cluster communication time : {args.clustercommunicationtime}")
     # how to choose epoch for each client, cluster, and centralserver
     logging.info(f"Central server epoch : {args.centralserverepoch}")
-    clusterepochinfo = f", Cluster epoch : {args.clusterepoch}" if args.clusterepochtype == "fixed" else ""
+    clusterepochinfo = f", Cluster epoch : {args.clusterepoch}" if args.clusterepochtype == "fixed" else f", Cluster epoch : {args.clusterepoch}"
     logging.info(f"Cluster epoch type : {args.clusterepochtype},{clusterepochinfo}")
-    localepochinfo = f", local epoch : {args.localepoch}" if args.localepochtype == "fixed" else ""
+    localepochinfo = f", local epoch : {args.localepoch}" if args.localepochtype == "fixed" else f", local epoch : {args.localepoch}"
     logging.info(f"Local epoch type : {args.localepochtype},{localepochinfo}")
     # details
     logging.info(f"Optimizer name : {args.optimizername}, Lr : {args.learningrate}, Batch size : {args.batchsize}, Random seed : {args.randomseed}, Device : {args.device}, Regularizationcoefficient : {args.regularizationcoefficient}")
@@ -105,38 +125,24 @@ def logclient(clientlist, args):
         clientdataloader = client.dataloader
         clientlogger.info(f"Unique id : {client.uniqueid}, dataset size : {len(clientdataloader.dataset)}")
         clientlogger.info(f"Communication time : {client.communicationtime}, Computation time per batch : {client.computationtimeperbatch}, Training time : {client.calculate_training_time()}")
-        percentstring = ""
+        cachelabels = []
+        for _, labels in clientdataloader:
+            cachelabels.extend(labels.tolist())
+        labelpercentageperclient = defaultdict(float)
         for label in args.labellist:
-            percentstring += f"{label} : {(args.labelpercentageperclient[client.uniqueid][label]*100):.2f}%  "
-        clientlogger.info(percentstring)
-        divergence = calculate_divergence(args.labelpercentageforglobaldistribution, args.labelpercentageperclient[client.uniqueid], args)
+            count = cachelabels.count(label)
+            percentage = count / len(cachelabels) if cachelabels else 0.0
+            labelpercentageperclient[label] = percentage
+        clientlogger.info(f"{[f'{label}:{(percentage*100):.2f}%' for label, percentage in labelpercentageperclient.items()]}")
+        divergence = calculate_divergence(args.labelpercentageforglobaldistribution, labelpercentageperclient, args)
         clientlogger.info(f"Divergence : jsd {divergence['jsd']:.4f}, tvd {divergence['tvd']:.4f}")
         first_batch = next(iter(clientdataloader))
         _, labels = first_batch
         clientlogger.info(f"labels from the first batch :{[i.item() for i in labels]}")
         clientlogger.info("")
 
-    # logging client's data partition, communication time, and computation time
-    # for i in range(args.clientnum):
-    #     clientdataloader = clientlist[i].dataloader
-    #     clientlogger.info(f"Client {i} with {len(clientdataloader.dataset)} data")
-    #     clientlogger.info(f"Communication time : {clientlist[i].communicationtime}, Computation time per batch : {clientlist[i].computationtimeperbatch}, Training time : {clientlist[i].calculate_training_time()}")
-    #     percentstring = ""
-    #     for label in args.labellist:
-    #         percentstring += f"{label} : {(args.labelpercentageperclient[i][label]*100):.2f}%  "
-    #     clientlogger.info(percentstring)
-    #     divergence = calculate_divergence(args.labelpercentageforglobaldistribution, args.labelpercentageperclient[i], args)
-    #     clientlogger.info(f"Divergence : jsd {divergence['jsd']:.4f}, tvd {divergence['tvd']:.4f}")
-    #     first_batch = next(iter(clientdataloader))
-    #     _, labels = first_batch
-    #     clientlogger.info(f"labels from the first batch :{[i.item() for i in labels]}")
-    #     clientlogger.info("")
-
 # Log cluster information
 def logcluster(centralserver, args):
-
-    # set loggers for clusters
-    args.loggers = create_loggers(args.timestamp, len(centralserver.clusterlist))
 
     # logger for cluster setting
     clusterlogger = logging.getLogger("cluster")
@@ -150,9 +156,6 @@ def logcluster(centralserver, args):
     for cluster in centralserver.clusterlist:
         clusterlogger.info(f"Cluster {cluster.clusterid} with {len(cluster.clientlist)} clients")
         clusterlogger.info(f"Cluster communication time : {cluster.communicationtime}")
-        clustertrainingtime = cluster.calculate_training_time()
-        clusterlogger.info(f"Cluster computation time : {clustertrainingtime - 2*cluster.communicationtime}")
-        clusterlogger.info(f"Cluster training time : {clustertrainingtime}")
         clusterlogger.info(f"Cluster clients : {[client.uniqueid for client in cluster.clientlist]}")
 
         # log the cluster size data distribution and divergence
@@ -184,28 +187,30 @@ def savegraph(args):
 # Main function
 if __name__ == "__main__":
 
-    # define parser
+
     parser = argparse.ArgumentParser()
-    # general information about the cluster federated leanring
-    parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10"], default = "cnnmnist")
-    parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10"], default = "mnist")
+
+    # aggregation type for inter and intra cluster
     parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
-    # how to partition the device in data and system
-    parser.add_argument("-clientnum", type = int, default = 10)
-    parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="onelabeldominant")
-    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "custom")
+    # model and dataset for training including how its partitioned to clients. for specific dataset ex.femnist, the number of clients night be fixed
+    parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10"], default = "cnnmnist")
+    parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10", "femnist", "shakespeare"], default = "femnist")
+    parser.add_argument("-clientnum", type = int, default = 100)
+    parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="dirichletdistribution")
+    # how communication and computation in formed for clients
+    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "realistic")
     # how to cluster
-    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "custom"], default = "custom")
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "custom"], default = "clusterbyclientorder")
     parser.add_argument("-clusternum", type = int, default = 10)
-    parser.add_argument("-clustersize", type = int, default = 1)
+    parser.add_argument("-clustersize", type = int, default = 10)
     parser.add_argument("-clustercommunicationtime", type = int, default = 0)
     # how to choose epoch for each client, cluster, centralserver
-    parser.add_argument("-centralserverepoch", type = int, default = 100)
+    parser.add_argument("-centralserverepoch", type = int, default = 2)
     parser.add_argument("-clusterepochtype", type = str, choices = ["fixed", "custom"], default = "fixed")
-    parser.add_argument("-clusterepoch", type = int, default = 1)
+    parser.add_argument("-clusterepoch", type = int, default = 2)
     parser.add_argument("-localepochtype", type =str, choices=["fixed", "custom"], default ="fixed")
-    parser.add_argument("-localepoch", type = int, default = 1)
+    parser.add_argument("-localepoch", type = int, default = 3)
     # details
     parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
     parser.add_argument("-intraasyncthreshold", type = int, default = 5)
@@ -215,43 +220,41 @@ if __name__ == "__main__":
     parser.add_argument("-learningrate", type = float, default = 0.01)
     parser.add_argument("-batchsize", type = int, default =32)
     parser.add_argument("-randomseed", type = int, default = 1)
-    parser.add_argument("-device", type = str, default = "cuda")
+    parser.add_argument("-device", type = str, default = "cpu")
     parser.add_argument("-dominantpercentage", type = int, default = 95)
     parser.add_argument("-labelperclient", type = int, default =2)
     parser.add_argument("-dirichletalpha", type = float, default = 0.1)
     parser.add_argument("-regularizationcoefficient", type =float, default = 0.0)
+    parser.add_argument("-clusterparticipationratio", type = int, default = 100)
+    parser.add_argument("-clientparticipationratio", type = int, default = 100)
     args = parser.parse_args()
 
-    # set logger for the general training process
-    # setting for the multi proecessing in intracluster-sync setting
-    # set args.testdataloader for the validation across global distribution
-    # set args.traindataset for training data
-    # set args.labellist for the label list
+    # make folder for to track training
+    # fix randomness
+    # set dataset for training and testing
+    # set labellist for the dataset
     setting(args)
-    
-    # set communication and system time for each client
-    # split the data and distribute to each clients as a list. and also save the data distribution for each client in args.labelpercentageperclient, and global data distribution in args.labelpercentageforglobaldistribution
-    # create list of clients in this stage, local epochs, clientid, clusterid for clients are not set up yet
-    clientcommunicationtimelist, clientcomputationtimelist = partition_system(args)
-    clientdataloaderlist = partition_data(args)
-    clientlist = create_clientlist(clientdataloaderlist, clientcommunicationtimelist, clientcomputationtimelist, args)
-
-    # clustering 
-    # set central server's centralserverepoch, interaggregation strategy
-    # set cluster's clusterid, communicationtime, intraaggregation strategy, clusterepoch
-    # set client's clusterid, clientid, local epoch
-    centralserver = clusterclients(clientlist, args)
-
-    # log experiment setting(args)
-    # log client information
-    # set loggers for each cluster, log the cluster information
     logsetting(args)
+
+    # generate clients exiting
+    # generate dataset existing in each client
+    # generate communicationtime and computationtime for each client
+    clientdataloaderlist = partition_data(args)
+    clientcommunicationtimelist, clientcomputationtimelist = partition_system(args)
+    clientlist = create_client(clientdataloaderlist, clientcommunicationtimelist, clientcomputationtimelist,args)
     logclient(clientlist,args)
-    logcluster(centralserver,args)
 
-    # training process
-    centralserver.central_train()
 
-    # save graph file
-    savegraph(args)
+    # # cluster clients in clientlist and return centralserver
+    # # client's clusterid, clientid, adjustment to local epoch(if needed) is set
+    # # cluster's clusterid, communicationtime, intraaggregationstrategy, clusterepoch is set
+    # # centralserver's centralserverepoch, interaggregationstrategy is set
+    # centralserver = cluster_clients(clientlist, args)
+    # logcluster(centralserver,args)
+
+    # # training process
+    # centralserver.central_train()
+
+    # # save graph file
+    # savegraph(args)
 

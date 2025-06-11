@@ -17,7 +17,6 @@ class Client:
         self.communicationtime = communicationtime
         self.computationtimeperbatch = computationtimeperbatch
         self.model = get_model(args.modelname)
-        self.model.to(args.device)
         self.optimizer = get_optimizer(self.model, args.optimizername, args.learningrate)
         self.criterion = nn.CrossEntropyLoss()
         self.localepoch = localepoch
@@ -32,14 +31,10 @@ class Client:
     # logging is done by passing the queue due to the possibility of multi processing the clients in case of sync 
     def local_train(self,queue):
 
-        seed = self.args.randomseed + self.uniqueid
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
-        torch.cuda.manual_seed(seed)
-        torch.cuda.manual_seed_all(seed)
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
+        self.model.to(self.args.device)
+        torch.manual_seed(self.args.randomseed)
+        torch.cuda.manual_seed(self.args.randomseed)
+        torch.cuda.manual_seed_all(self.args.randomseed)
 
         # reset optimizer
         self.optimizer = get_optimizer(self.model, self.args.optimizername, self.args.learningrate)
