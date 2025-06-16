@@ -65,8 +65,13 @@ def partition_system(args):
     elif args.systemheterogeneity == "custom":
 
         ######################################
-        clientcommunicationtimelist = [800 for _ in range(args.clientnum)]
-        clientcomputationtimelist = [10 for _ in range(args.clientnum)]
+        clientcommunicationtimelist = [100 for _ in range(args.clientnum)]
+        clientcomputationtimelist = []
+        for i in range(args.clustersize):
+            time = 100
+            for j in range(args.clusternum):
+                clientcomputationtimelist.append(time)
+                time +=100
 
         #######################################
         ##raise ValueError("customize it plz")

@@ -5,15 +5,33 @@ from torch.utils.data import DataLoader, Subset
 from collections import defaultdict
 import os
 import random
-from datasets import load_dataset
+from dataset.FEMNISTClientDataset import FEMNISTClientDataset
 
 # Return list of dataloader splited based on the setting also save data distribution for each client and global data distribution(args.labelpercentageperclient, args.labelpercentageforglobaldistribution)
 def partition_data(args):
 
     if args.datasetname == "femnist":
-        print("d")
 
+        dataloaderlist = []
+        args.labelpercentageforglobaldistribution = defaultdict(float)
+        dataperlabel = defaultdict(int)
+        dataperclient = defaultdict(list)
+        totalsample = len(args.traindataset)
 
+        for sample in args.traindataset:
+            dataperlabel[sample["character"]] +=1
+            dataperclient[sample["writer_id"]].append(sample)
+
+        for label in dataperlabel.keys():
+            args.labelpercentageforglobaldistribution[label] = dataperlabel[label]/totalsample
+        
+        for samples in dataperclient.values():
+            clientdataset = FEMNISTClientDataset(samples)
+            clientdataloader = DataLoader(clientdataset, batch_size=args.batchsize, shuffle =True)
+            dataloaderlist.append(clientdataloader)
+
+        return dataloaderlist
+            
 
     # return list of dataloader based on the splitting type
     if args.dataheterogeneitytype == "iid":
@@ -67,7 +85,7 @@ def split_onelabeldominant(args):
         labeltoindices[label].append(i)
     labellist = [label for label in labeltoindices.keys()]
     if len(labellist) > args.clientnum : raise NotImplementedError("too small clients")
-    rng = np.random.default_rng(args.randomseed+4)
+    rng = np.random.default_rng(args.randomseed)
 
     # compute client number per label, fair distribution, labels with few get less clients
     sortedlabellist = sorted(labellist, key = lambda x : len(labeltoindices[x]),reverse = True)
@@ -119,7 +137,7 @@ def split_onlyspecificlabelexist(args):
         _, label = args.traindataset[i]
         labeltoindices[label].append(i)
     labellist = [label for label in labeltoindices.keys()]
-    rng = np.random.default_rng(args.randomseed+4)
+    rng = np.random.default_rng(args.randomseed)
 
     # setting for label partitioning to clients
     labelchosennum = defaultdict(int)
@@ -164,7 +182,7 @@ def split_dirichletdistribution(args):
 
     # get parameter
     alpha = args.dirichletalpha
-    rng = np.random.default_rng(args.randomseed+4)
+    rng = np.random.default_rng(args.randomseed)
     clientnum = args.clientnum
 
     # get labels

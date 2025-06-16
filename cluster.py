@@ -2,11 +2,11 @@ import torch
 import torch.nn as nn
 import logging
 from utils import validate_model, get_model, validate_model_detailed
-from torch.multiprocessing import Process, Queue
 from queue import PriorityQueue
-import queue as q
+from queue import Queue
 import numpy as np
-
+import random
+from collections import defaultdict
 def train_single_client(client,queue):
     client.local_train(queue)
 
@@ -23,163 +23,157 @@ class Cluster:
         self.testdataloader = args.testdataloader
         self.clientlist = clientlist
 
-    def calculate_training_time(self):
 
-        # calculate the training time
-        if self.intraclusteringtype == "sync":
-
-            # maximum training time amoung all clients
-            trainingtime = 0
-            for client in self.clientlist:
-                trainingtime = max(trainingtime, client.calculate_training_time())
-            return trainingtime * self.clusterepoch + 2 *self.communicationtime
-        
-        elif self.intraclusteringtype == "async":
-
-            # priority queue for the training time of each client
-            clienttimequeue = PriorityQueue()
-            for client in self.clientlist:
-                clienttimequeue.put((client.calculate_training_time(), client.calculate_training_time(), client.clientid))
-
-            # time past
-            timepast = 0
-            for i in range(self.clusterepoch * len(self.clientlist)):
-                timetoexecute, clienttime, clientid = clienttimequeue.get()
-                timepast = timetoexecute
-                clienttimequeue.put((timetoexecute+clienttime,clienttime,clientid))
-                
-
-            return timepast + 2 * self.communicationtime
-
-    def cluster_train(self, roundnumber, modelroundnumber):
+    def cluster_train(self,modelroundnumber,messagequeue):
 
         # assuming that it got model parameters from the central server, communication time past
         timepast = self.communicationtime
+        datasize = 0
 
         # validate the model before training
         accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.testdataloader, self.args)
-        # self.args.loggers[self.clusterid].info(f"{'-'*53}\n")
-        # self.args.loggers[self.clusterid].info(f"Central server round {roundnumber+1} started")
-        # self.args.loggers[self.clusterid].info(f"Model sent from central server with {timepast}msec communication time, with loss :{lossbefore:.2f}, accuracy : {(100*accuracybefore):.2f}%")
-        # self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
-        # self.args.loggers[self.clusterid].info(f"The model is from round {modelroundnumber+1} from central server, staleness is {roundnumber-modelroundnumber-1}\n")
-        logging.info(f"{' '*53}-> Cluster {self.clusterid}, loss : {lossbefore:.2f}, accuracy {(100*accuracybefore):.2f}%, model from round {modelroundnumber+1}")
-        logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
+        # logging.info(f"{' '*53}-> Cluster {self.clusterid}, loss : {lossbefore:.2f}, accuracy {(100*accuracybefore):.2f}%, model from round {modelroundnumber+1}")
+        # logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
+        messagequeue.put(f"{' '*53}-> Cluster {self.clusterid}, loss : {lossbefore:.2f}, accuracy {(100*accuracybefore):.2f}%, model from round {modelroundnumber+1}")
+        messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
 
         if self.intraclusteringtype == "sync":
 
             for i in range(self.clusterepoch):
+
+                clientnum = len(self.clientlist)
+                selectedclientnum = max(1,int(clientnum*self.args.clientparticipationratio/100))
+                selectedclientind = random.sample([i for i in range(clientnum)], selectedclientnum)
                 
                 # load the model from the central cluster
-                for client in self.clientlist:
+                epochtimepast = 0
+                epochdatasize = 0
+                datasizecached = defaultdict(int)
+                q = Queue()
+                for clientind in selectedclientind:
+                    client=self.clientlist[clientind]
                     client.model.load_state_dict(self.model.state_dict())
-                    
-                # use multi process, it does not use gpu simultaneously, other operations are in parallel
-                processes = []
-                queue = q.Queue()
-                for client in self.clientlist:
-                    client.local_train(queue)
-                #     multiprocess has bugs in logging use sequenatial exexution now
-                #     p = Process(target=train_single_client, args=(client,queue))
-                #     p.start()
-                #     processes.append(p)
-
-                # # Wait for all to finish
-                # for p in processes:
-                #     p.join()
+                    t, d = client.local_train(q)
+                    epochtimepast = max(epochtimepast, t)
+                    epochdatasize += d
+                    datasizecached[clientind] = d
+                datasize += epochdatasize
+                timepast += epochtimepast
+                
                 
                 #log the results
-                while not queue.empty():
-                    logging.info(queue.get())
+                while not q.empty():
+                    messagequeue.put(q.get())
+                    #logging.info(q.get())
 
                 # aggregate the models based on the dataset size
-                totalsamples = sum(len(client.dataloader.dataset) for client in self.clientlist)
                 modelstatedict = self.model.state_dict()
                 for key in modelstatedict:
                     modelstatedict[key] = torch.zeros_like(modelstatedict[key])
-                    for client in self.clientlist:
-                        weight = len(client.dataloader.dataset) / totalsamples
+                    for clientind in selectedclientind:
+                        client = self.clientlist[clientind]
+                        weight = datasizecached[clientind] / epochdatasize
                         modelstatedict[key] += client.model.state_dict()[key] * weight
                 self.model.load_state_dict(modelstatedict)
-
-                # after training, keep track of timepast
-                timeperepoch = max(client.calculate_training_time() for client in self.clientlist)
-                timepast += timeperepoch
+                datasizecached.clear()
 
                 # validate the model after training and log it to overall training log
                 accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
-                logging.info(f"{' '*53}Cluster {self.clusterid}, round {i+1}, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}% <-")
-                logging.info(f"{' '*53}Time past : {timepast}msec")
-                logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
+                # logging.info(f"{' '*53}Cluster {self.clusterid}, round {i+1}, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}% <-")
+                # logging.info(f"{' '*53}Time past : {timepast}msec")
+                # logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
+                messagequeue.put(f"{' '*53}Cluster {self.clusterid}, round {i+1}, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}% <-")
+                messagequeue.put(f"{' '*53}Time past : {timepast}msec")
+                messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
 
-                # log the information to cluster level logger
-                # self.args.loggers[self.clusterid].info(f"Cluster round {i+1} completed, aggregated models from all the clients, time past : {timepast}msec, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}%")
-                # self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
+            timepast += self.communicationtime
 
+            return timepast, datasize
+        
         else:
+            
+            # pick random clients
+            clientnum = len(self.clientlist)
+            participatingclientnum = max(1,int(clientnum * self.args.clientparticipationratio/100))
+            participatingclientind = random.sample([i for i in range(clientnum)], participatingclientnum)
+            notparticipatingclientind = [i for i in range(clientnum) if i not in participatingclientind ]
 
-            # priority queue to track the training sequence
-            clienttimequeue = PriorityQueue()
-            clienttoexecute = []
-            for client in self.clientlist:
-                clienttrainingtime = client.calculate_training_time()
-                clienttimequeue.put((clienttrainingtime+timepast, clienttrainingtime, client.clientid))
+            # keep track of timestamp to calculate staleness
+            clientmodelversion = [-1] * len(self.clientlist)
+            modelversion = 0
 
-            # calculate the client sequence
-            for i in range(self.clusterepoch * len(self.clientlist)):
-                timetoexecute, clienttime, clientid = clienttimequeue.get()
-                timepast = timetoexecute
-                clienttimequeue.put((timetoexecute+clienttime,clienttime,clientid))
-                clienttoexecute.append((clientid,timepast))
-
-            # timestamp for each client and initialize each client's model
-            for client in self.clientlist:
+            # generate eventqueue and train some clients
+            clienteventqueue = PriorityQueue()
+            datasizecached = defaultdict(int)
+            loggingcached = defaultdict(list)
+            for ind in participatingclientind:
+                queue = Queue()
+                client = self.clientlist[ind]
                 client.model.load_state_dict(self.model.state_dict())
-            timestamp = 0 
-            timestampforclient = [timestamp] * len(self.clientlist)
-   
-            # train the clients in the order of the sequence
-            for epoch in range(self.clusterepoch):    
-                for clientind in range(len(self.clientlist)):
-                    
-                    # get client id and timepast to execute
-                    clientid, timepast = clienttoexecute[len(self.clientlist)*epoch+clientind]
-                    
-                    # local trainng the client
-                    client = self.clientlist[clientid]
-                    queue = q.Queue()
-                    client.local_train(queue)
+                clientmodelversion[ind] = modelversion
+                t, d = client.local_train(queue)
+                datasizecached[ind] = d
+                while not queue.empty():
+                        loggingcached[ind].append(queue.get())
+                clienteventqueue.put((t+timepast,ind))
 
-                    # calulate the staleness and log device
+            round = 0
+
+            # pop the event with least executiontime, and pick anotherone for the event
+            for epoch in range(self.clusterepoch):
+                for _ in range(participatingclientnum):
+
+                    # get the client that fast arrived
+                    arrivedtime, arrivedclientind = clienteventqueue.get()
+                    timepast = arrivedtime
+                    datasize += datasizecached[arrivedclientind]
+                    client = self.clientlist[arrivedclientind]
+                    loggingmessage = loggingcached[arrivedclientind]
+                    for message in loggingmessage:
+                        messagequeue.put(message)
+
+                    # aggregate it
                     alpha = self.args.intraasyncalpha
-                    staleness = timestamp - timestampforclient[clientid]
-                    stalenessfunction = 1/(1+staleness)
-                    alphatime = alpha * stalenessfunction
-                    if queue.empty():
-                        print("client queue empty")
-                    while not queue.empty():
-                        logging.info(queue.get()+f", staleness :{staleness}")
+                    staleness = modelversion - clientmodelversion[arrivedclientind]
+                    if staleness<=self.args.intraasyncthreshold:
+                        stalenessfunction = 1/(1+staleness)
+                        alphatime = alpha * stalenessfunction
+                        modelstatedict = self.model.state_dict()
+                        for key in modelstatedict:
+                            #modelstatedict[key] = torch.zeros_like(modelstatedict[key])
+                            modelstatedict[key] = alphatime * client.model.state_dict()[key] + (1-alphatime) * self.model.state_dict()[key]
+                        self.model.load_state_dict(modelstatedict)
+                        modelversion +=1
 
-                    # aggregate the cluster model and the client model
-                    modelstatedict = self.model.state_dict()
-                    for key in modelstatedict:
-                        modelstatedict[key] = torch.zeros_like(modelstatedict[key])
-                        modelstatedict[key] = alphatime * client.model.state_dict()[key] + (1-alphatime) * self.model.state_dict()[key]
-                    self.model.load_state_dict(modelstatedict)
+                    # pick one client
+                    participatingclientind.remove(arrivedclientind)
+                    notparticipatingclientind.append(arrivedclientind)
+                    pickedclientind = random.sample(notparticipatingclientind, 1)[0]
+                    notparticipatingclientind.remove(pickedclientind)
+                    participatingclientind.append(pickedclientind)
+                    
+                    self.clientlist[pickedclientind].model.load_state_dict(self.model.state_dict())
+                    clientmodelversion[pickedclientind] = modelversion
+                    q = Queue()
+                    t,d = self.clientlist[pickedclientind].local_train(q)
+                    datasizecached[pickedclientind] = d
+                    loggingcached[pickedclientind].clear()
+                    while not q.empty():
+                        loggingcached[pickedclientind].append(q.get())
+                    clienteventqueue.put((timepast+t, pickedclientind))
 
                     # validate the model after training and log it to overall training log
                     accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
-                    logging.info(f"{' '*53}Cluster {self.clusterid}, round {timestamp+1}, accuracy {(100*accuracyafter):.2f}% <-")
-                    logging.info(f"{' '*53}Time past : {timepast}msec")
-                    logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
+                    # logging.info(f"{' '*53}Cluster {self.clusterid}, round {round+1}, accuracy {(100*accuracyafter):.2f}% <-")
+                    # logging.info(f"{' '*53}Time past : {timepast}msec")
+                    # logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
+                    messagequeue.put(f"{' '*53}Cluster {self.clusterid}, round {round+1}, accuracy {(100*accuracyafter):.2f}% <-")
+                    messagequeue.put(f"{' '*53}Time past : {timepast}msec")
+                    messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
 
-                    # log the information to cluster level logger
-                    # self.args.loggers[self.clusterid].info(f"Cluster round {timestamp+1} completed, aggregated model from client {clientid}, time past : {timepast}msec, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}%")
-                    # self.args.loggers[self.clusterid].info(f"Accuracy per label : {[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}\n")
-                    
-                    # update the timestamp
-                    timestamp += 1
+                    round +=1
 
-                    # schedule the next client. currently, the client trained before is trained right afterward
-                    client.model.load_state_dict(self.model.state_dict())
-                    timestampforclient[clientid] = timestamp         
+            timepast += self.communicationtime
+
+            return timepast, datasize
+         

@@ -16,7 +16,6 @@ def cluster_clients(clientlist, args):
                 client = clientlist[clusterind*args.clustersize + clientind]
                 client.clientid = clientind
                 client.clusterid = clusterind
-                client.localepoch = args.localepoch
                 cluster.clientlist.append(client)
             centralserver.clusterlist.append(cluster)
         
@@ -34,7 +33,6 @@ def cluster_clients(clientlist, args):
                 client = clientlist[shuffledind[clusterind*args.clustersize + clientind]]
                 client.clientid = clientind
                 client.clusterid = clusterind
-                client.localepoch = args.localepoch
                 cluster.clientlist.append(client)
             centralserver.clusterlist.append(cluster)
 
@@ -42,17 +40,8 @@ def cluster_clients(clientlist, args):
     
     elif args.clusteringtype == "clusterbygradientsimilarity":
 
-        for clusterind in range(args.clusternum):
-            cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
-            for clientind in range(args.clustersize):
-                client = clientlist[clusterind*args.clustersize + clientind]
-                client.clientid = clientind
-                client.clusterid = clusterind
-                client.clusterid = args.localepoch
-                cluster.clientlist.append(client)
-            centralserver.clusterlist.append(cluster)
+        raise ValueError("to be implemented")
         
-        return centralserver
     
     elif args.clusteringtype == "custom":
 

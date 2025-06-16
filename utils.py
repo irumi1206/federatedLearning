@@ -2,7 +2,7 @@ import importlib
 import torch
 import torch.nn as nn
 from torchvision import datasets, transforms
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Dataset
 import torch.optim as optim
 import os
 import logging
@@ -10,7 +10,9 @@ import numpy as np
 from scipy.spatial.distance import jensenshannon
 from collections import defaultdict
 from datasets import load_dataset
-from dataset.HuggingFaceToTorchvisionDataset import HuggingFaceFEMNIST
+from random import seed,shuffle
+from dataset.FEMNISTClientDataset import FEMNISTClientDataset
+from torch.utils.data import Subset
 
 # Return model object based on the model name
 def get_model(modelname):
@@ -34,16 +36,42 @@ def get_dataset(datasetname,args):
         traindataset = datasets.CIFAR10(root = './data', train = True, download = True, transform = transforms.ToTensor() )
         testdataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transforms.ToTensor())
     elif datasetname == "femnist":
-        femnistdataset = load_dataset("flwrlabs/femnist", split='train')
-        splitdataset = femnistdataset.train_test_split(test_size=0.2, seed=42)
-        traindataset = splitdataset['train']
-        testdataset = splitdataset['test']
+        # get the dataset
+        dataset = load_dataset("flwrlabs/femnist", split = "train")
+        dataset.set_format("torch")
 
+        # shuffle and split
+        seed(args.randomseed)
+        indices = list(range(len(dataset)))
+        shuffle(indices)
+        testratio = 0.2
+        testsize = int(len(indices)*testratio)
+        testindices = indices[:testsize]
+        trainindices = indices[testsize:]
+
+        #dataset = FEMNISTClientDataset(dataset)
+        testdataset = Subset(dataset, testindices)
+        testdataset = FEMNISTClientDataset(testdataset)
+        traindataset = Subset(dataset, trainindices)
+
+    
     else:
         raise ValueError("datasetname not supported")
     
     return traindataset,testdataset
 
+def get_labellist(datasetname):
+
+    if datasetname == "mnist":
+        return [i for i in range(10)]
+    elif datasetname == "cifar10":
+        return [i for i in range(10)]
+    elif datasetname == "femnist":
+        return [i for i in range(62)]
+    elif datasetname == "shakespeare":
+        return [i for i in range(81)]
+    else:
+        raise ValueError("datasetname not supported")
 
 # Return optimizer object based on the modle object, optimizer name, and learning rate
 def get_optimizer(model, optimizername, learningrate):

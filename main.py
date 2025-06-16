@@ -13,11 +13,10 @@ import queue as q
 
 
 from client import Client
-from utils import get_dataset, calculate_divergence, create_loggers
+from utils import get_dataset, calculate_divergence, get_labellist
 from partitiondata import partition_data
 from partitionsystem import partition_system
 from clusterclients import cluster_clients
-from dataset.HuggingFaceToTorchvisionDataset import HuggingFaceFEMNIST
 
 # Setting and add additional arguments(args.testdataloader, args.labellist)
 def setting(args):
@@ -51,19 +50,12 @@ def setting(args):
 
     # set data for training and testing
     args.traindataset, testdataset = get_dataset(args.datasetname, args)
-    test_dataset = HuggingFaceFEMNIST(testdataset)
-    test_loader = DataLoader(test_dataset, batch_size=128, shuffle=False)
 
-    a=0
-    for data in testdataset:
-        print(type(data))
+    # Set testdataloader in arguments for examining accuracy for the global distribution
+    args.testdataloader = DataLoader(testdataset, batch_size=128, shuffle=False)
 
-    
-    # # Set testdataloader in arguments for examining accuracy for the global distribution
-    # args.testdataloader = DataLoader(testdataset, batch_size=1, shuffle=False)
-
-    # # Set label list
-    # args.labellist = sorted({label.item() for _,labels in args.testdataloader for label in labels})
+    # Set label list
+    args.labellist = get_labellist(args.datasetname)
 
 # Create list of clients
 def create_client(clientdataloaderlist, clientcommunicationtimelist, clientcomputationtimelist, args):
@@ -73,7 +65,7 @@ def create_client(clientdataloaderlist, clientcommunicationtimelist, clientcompu
 
     # Create clients, -1 for the clusterid  before clustering
     for i in range(args.clientnum):
-        client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, 0,args)
+        client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, args.localepoch,args)
         clientlist.append(client)
     
     return clientlist
@@ -93,7 +85,7 @@ def logsetting(args):
     datainfo1 = f", Dominant percentage : {args.dominantpercentage}" if args.dataheterogeneitytype == "onelabeldominant" else ""
     datainfo2 = f", Label per client : {args.labelperclient}" if args.dataheterogeneitytype == "onlyspecificlabel" else ""
     datainfo3 = f", Dirichletalpha: {args.dirichletalpha}" if args.dataheterogeneitytype == "dirichletdistribution" else ""
-    if args.datasetname != "femnist" or args.datasetname != "shakespeare": logging.info(f"Data heterogeneity type : {args.dataheterogeneitytype}{datainfo1}{datainfo2}{datainfo3}")
+    if args.datasetname not in ("femnist", "shakespeare"): logging.info(f"Data heterogeneity type : {args.dataheterogeneitytype}{datainfo1}{datainfo2}{datainfo3}")
     # system heterogeneity
     logging.info(f"System heterogeneity : {args.systemheterogeneity}")
     # how to cluster
@@ -107,7 +99,7 @@ def logsetting(args):
     localepochinfo = f", local epoch : {args.localepoch}" if args.localepochtype == "fixed" else f", local epoch : {args.localepoch}"
     logging.info(f"Local epoch type : {args.localepochtype},{localepochinfo}")
     # details
-    logging.info(f"Optimizer name : {args.optimizername}, Lr : {args.learningrate}, Batch size : {args.batchsize}, Random seed : {args.randomseed}, Device : {args.device}, Regularizationcoefficient : {args.regularizationcoefficient}")
+    logging.info(f"Optimizer name : {args.optimizername}, Lr : {args.learningrate}, Batch size : {args.batchsize}, Random seed : {args.randomseed}, Device : {args.device}, Regularizationcoefficient : {args.regularizationcoefficient}, Clusterparticipationratio : {args.clusterparticipationratio}, Clientparticipationratio : {args.clientparticipationratio}")
 
 # Log client information) and save data distribution for each client in args.labelpercentageperclient
 def logclient(clientlist, args):
@@ -195,32 +187,32 @@ if __name__ == "__main__":
     parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     # model and dataset for training including how its partitioned to clients. for specific dataset ex.femnist, the number of clients night be fixed
     parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10"], default = "cnnmnist")
-    parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10", "femnist", "shakespeare"], default = "femnist")
+    parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10", "femnist", "shakespeare"], default = "mnist")
     parser.add_argument("-clientnum", type = int, default = 100)
-    parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="dirichletdistribution")
+    parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="onelabeldominant")
     # how communication and computation in formed for clients
-    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "realistic")
+    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "custom")
     # how to cluster
     parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "custom"], default = "clusterbyclientorder")
     parser.add_argument("-clusternum", type = int, default = 10)
     parser.add_argument("-clustersize", type = int, default = 10)
-    parser.add_argument("-clustercommunicationtime", type = int, default = 0)
+    parser.add_argument("-clustercommunicationtime", type = int, default = 100)
     # how to choose epoch for each client, cluster, centralserver
-    parser.add_argument("-centralserverepoch", type = int, default = 2)
+    parser.add_argument("-centralserverepoch", type = int, default = 50)
     parser.add_argument("-clusterepochtype", type = str, choices = ["fixed", "custom"], default = "fixed")
     parser.add_argument("-clusterepoch", type = int, default = 2)
     parser.add_argument("-localepochtype", type =str, choices=["fixed", "custom"], default ="fixed")
-    parser.add_argument("-localepoch", type = int, default = 3)
+    parser.add_argument("-localepoch", type = int, default = 5)
     # details
     parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
-    parser.add_argument("-intraasyncthreshold", type = int, default = 5)
+    parser.add_argument("-intraasyncthreshold", type = int, default = 10)
     parser.add_argument("-interasyncalpha", type = float, default = 0.6)
-    parser.add_argument("-interasyncthreshold", type = int, default = 5)
+    parser.add_argument("-interasyncthreshold", type = int, default = 10)
     parser.add_argument("-optimizername", type = str, default = "sgd")
     parser.add_argument("-learningrate", type = float, default = 0.01)
     parser.add_argument("-batchsize", type = int, default =32)
     parser.add_argument("-randomseed", type = int, default = 1)
-    parser.add_argument("-device", type = str, default = "cpu")
+    parser.add_argument("-device", type = str, default = "cuda")
     parser.add_argument("-dominantpercentage", type = int, default = 95)
     parser.add_argument("-labelperclient", type = int, default =2)
     parser.add_argument("-dirichletalpha", type = float, default = 0.1)
@@ -245,16 +237,20 @@ if __name__ == "__main__":
     logclient(clientlist,args)
 
 
-    # # cluster clients in clientlist and return centralserver
-    # # client's clusterid, clientid, adjustment to local epoch(if needed) is set
-    # # cluster's clusterid, communicationtime, intraaggregationstrategy, clusterepoch is set
-    # # centralserver's centralserverepoch, interaggregationstrategy is set
-    # centralserver = cluster_clients(clientlist, args)
-    # logcluster(centralserver,args)
+    # cluster clients in clientlist and return centralserver
+    # client's clusterid, clientid, adjustment to local epoch(if needed) is set
+    # cluster's clusterid, communicationtime, intraaggregationstrategy, clusterepoch is set
+    # centralserver's centralserverepoch, interaggregationstrategy is set
+    centralserver = cluster_clients(clientlist, args)
+    logcluster(centralserver,args)
 
-    # # training process
-    # centralserver.central_train()
+    # # # training process
+    centralserver.central_train()
+
+
+
+
 
     # # save graph file
-    # savegraph(args)
+    savegraph(args)
 

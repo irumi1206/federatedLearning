@@ -23,7 +23,6 @@ class Client:
         self.args = args
 
     def calculate_training_time(self):
-
         # calculate the training time
         trainingtime = self.computationtimeperbatch * self.localepoch * ceil(len(self.dataloader.dataset) / int(self.dataloader.batch_size)) + 2*self.communicationtime
         return trainingtime
@@ -67,3 +66,8 @@ class Client:
         localaccuracyafter, _= validate_model(self.model, self.dataloader, self.args)
         globalaccuracyafter, _= validate_model(self.model, self.args.testdataloader, self.args)
         queue.put(f"{' '*94}<-> Client {self.clientid}, global : from {(100*globalaccuracybefore):.2f}% to {(100*globalaccuracyafter):.2f}%, local : from {(100*localaccuracybefore):.2f}% to {(100*localaccuracyafter):.2f}%, training time : {self.calculate_training_time()}msec")
+
+        # calculate the training time
+        trainingtime = self.computationtimeperbatch * self.localepoch * ceil(len(self.dataloader.dataset) / int(self.dataloader.batch_size)) + 2*self.communicationtime
+        datasize = len(self.dataloader.dataset)
+        return trainingtime, datasize
