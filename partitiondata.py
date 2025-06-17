@@ -1,11 +1,9 @@
-from torchvision import datasets, transforms
 import numpy as np
-import torch
 from torch.utils.data import DataLoader, Subset
 from collections import defaultdict
-import os
-import random
+
 from dataset.FEMNISTClientDataset import FEMNISTClientDataset
+
 
 # Return list of dataloader splited based on the setting also save data distribution for each client and global data distribution(args.labelpercentageperclient, args.labelpercentageforglobaldistribution)
 def partition_data(args):
@@ -17,21 +15,22 @@ def partition_data(args):
         dataperlabel = defaultdict(int)
         dataperclient = defaultdict(list)
         totalsample = len(args.traindataset)
-
+        
         for sample in args.traindataset:
             dataperlabel[sample["character"]] +=1
             dataperclient[sample["writer_id"]].append(sample)
 
         for label in dataperlabel.keys():
             args.labelpercentageforglobaldistribution[label] = dataperlabel[label]/totalsample
-        print(args.labelpercentageforglobaldistribution)
         
         for samples in dataperclient.values():
             clientdataset = FEMNISTClientDataset(samples)
             clientdataloader = DataLoader(clientdataset, batch_size=args.batchsize, shuffle =True)
             dataloaderlist.append(clientdataloader)
 
-        args.clientnum = len(dataloaderlist)
+
+        if len(dataloaderlist) != args.clientnum:
+            raise ValueError("partitioning error")
 
         return dataloaderlist
             

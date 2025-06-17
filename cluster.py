@@ -1,14 +1,10 @@
 import torch
 import torch.nn as nn
-import logging
-from utils import validate_model, get_model, validate_model_detailed
+from utils import get_model, validate_model_detailed
 from queue import PriorityQueue
 from queue import Queue
-import numpy as np
 import random
 from collections import defaultdict
-def train_single_client(client,queue):
-    client.local_train(queue)
 
 class Cluster:
     def __init__(self, clusterid, communicationtime, intraclusteringtype, clusterepoch, args, clientlist):
@@ -32,8 +28,6 @@ class Cluster:
 
         # validate the model before training
         accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.testdataloader, self.args)
-        # logging.info(f"{' '*53}-> Cluster {self.clusterid}, loss : {lossbefore:.2f}, accuracy {(100*accuracybefore):.2f}%, model from round {modelroundnumber+1}")
-        # logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
         messagequeue.put(f"{' '*53}-> Cluster {self.clusterid}, loss : {lossbefore:.2f}, accuracy {(100*accuracybefore):.2f}%, model from round {modelroundnumber+1}")
         messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
 
@@ -64,7 +58,6 @@ class Cluster:
                 #log the results
                 while not q.empty():
                     messagequeue.put(q.get())
-                    #logging.info(q.get())
 
                 # aggregate the models based on the dataset size
                 modelstatedict = self.model.state_dict()
@@ -79,9 +72,6 @@ class Cluster:
 
                 # validate the model after training and log it to overall training log
                 accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
-                # logging.info(f"{' '*53}Cluster {self.clusterid}, round {i+1}, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}% <-")
-                # logging.info(f"{' '*53}Time past : {timepast}msec")
-                # logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
                 messagequeue.put(f"{' '*53}Cluster {self.clusterid}, round {i+1}, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}% <-")
                 messagequeue.put(f"{' '*53}Time past : {timepast}msec")
                 messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
@@ -126,7 +116,6 @@ class Cluster:
                     # get the client that fast arrived
                     arrivedtime, arrivedclientind = clienteventqueue.get()
                     timepast = arrivedtime
-                    datasize += datasizecached[arrivedclientind]
                     client = self.clientlist[arrivedclientind]
                     loggingmessage = loggingcached[arrivedclientind]
                     for message in loggingmessage:
@@ -164,14 +153,13 @@ class Cluster:
 
                     # validate the model after training and log it to overall training log
                     accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
-                    # logging.info(f"{' '*53}Cluster {self.clusterid}, round {round+1}, accuracy {(100*accuracyafter):.2f}% <-")
-                    # logging.info(f"{' '*53}Time past : {timepast}msec")
-                    # logging.info(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
                     messagequeue.put(f"{' '*53}Cluster {self.clusterid}, round {round+1}, accuracy {(100*accuracyafter):.2f}% <-")
                     messagequeue.put(f"{' '*53}Time past : {timepast}msec")
                     messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
 
                     round +=1
+
+            datasize += sum(datasizecached.values())
 
             timepast += self.communicationtime
 

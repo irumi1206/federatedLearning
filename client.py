@@ -31,9 +31,6 @@ class Client:
     def local_train(self,queue):
 
         self.model.to(self.args.device)
-        torch.manual_seed(self.args.randomseed)
-        torch.cuda.manual_seed(self.args.randomseed)
-        torch.cuda.manual_seed_all(self.args.randomseed)
 
         # reset optimizer
         self.optimizer = get_optimizer(self.model, self.args.optimizername, self.args.learningrate)
@@ -62,12 +59,11 @@ class Client:
                 self.optimizer.step()
         
         # validate the model after training
-    
         localaccuracyafter, _= validate_model(self.model, self.dataloader, self.args)
         globalaccuracyafter, _= validate_model(self.model, self.args.testdataloader, self.args)
         queue.put(f"{' '*94}<-> Client {self.clientid}, global : from {(100*globalaccuracybefore):.2f}% to {(100*globalaccuracyafter):.2f}%, local : from {(100*localaccuracybefore):.2f}% to {(100*localaccuracyafter):.2f}%, training time : {self.calculate_training_time()}msec")
 
         # calculate the training time
-        trainingtime = self.computationtimeperbatch * self.localepoch * ceil(len(self.dataloader.dataset) / int(self.dataloader.batch_size)) + 2*self.communicationtime
+        trainingtime = self.calculate_training_time()
         datasize = len(self.dataloader.dataset)
         return trainingtime, datasize

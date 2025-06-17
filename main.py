@@ -13,7 +13,7 @@ import queue as q
 
 
 from client import Client
-from utils import get_dataset, calculate_divergence, get_labellist
+from utils import get_dataset, calculate_divergence, get_labellist, get_model, validate_model_detailed
 from partitiondata import partition_data
 from partitionsystem import partition_system
 from clusterclients import cluster_clients
@@ -53,6 +53,9 @@ def setting(args):
 
     # Set testdataloader in arguments for examining accuracy for the global distribution
     args.testdataloader = DataLoader(testdataset, batch_size=128, shuffle=False)
+
+    # model = get_model(args.modelname)
+    # validate_model_detailed(model, args.testdataloader,args)
 
     # Set label list
     args.labellist = get_labellist(args.datasetname)
@@ -186,12 +189,12 @@ if __name__ == "__main__":
     parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     # model and dataset for training including how its partitioned to clients. for specific dataset ex.femnist, the number of clients night be fixed
-    parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10"], default = "cnnmnist")
+    parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10","cnnfemnist"], default = "cnnmnist")
     parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10", "femnist", "shakespeare"], default = "mnist")
     parser.add_argument("-clientnum", type = int, default = 100)
     parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="onelabeldominant")
     # how communication and computation in formed for clients
-    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "custom")
+    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "communicationtimesamecomputationdifferent")
     # how to cluster
     parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "custom"], default = "clusterbyclientorder")
     parser.add_argument("-clusternum", type = int, default = 10)
@@ -241,16 +244,12 @@ if __name__ == "__main__":
     # client's clusterid, clientid, adjustment to local epoch(if needed) is set
     # cluster's clusterid, communicationtime, intraaggregationstrategy, clusterepoch is set
     # centralserver's centralserverepoch, interaggregationstrategy is set
-    # centralserver = cluster_clients(clientlist, args)
-    # logcluster(centralserver,args)
+    centralserver = cluster_clients(clientlist, args)
+    logcluster(centralserver,args)
 
     # # # # training process
-    # centralserver.central_train()
-
-
-
-
+    centralserver.central_train()
 
     # # # save graph file
-    # savegraph(args)
+    savegraph(args)
 

@@ -13,6 +13,7 @@ from datasets import load_dataset
 from random import seed,shuffle
 from dataset.FEMNISTClientDataset import FEMNISTClientDataset
 from torch.utils.data import Subset
+import random
 
 # Return model object based on the model name
 def get_model(modelname):
@@ -21,6 +22,9 @@ def get_model(modelname):
         module = importlib.import_module(f"models.{modelname}")
         return module.get_model()
     elif modelname == "cnncifar10":
+        module = importlib.import_module(f"models.{modelname}")
+        return module.get_model()
+    elif modelname == "cnnfemnist":
         module = importlib.import_module(f"models.{modelname}")
         return module.get_model()
     else :
@@ -36,24 +40,50 @@ def get_dataset(datasetname,args):
         traindataset = datasets.CIFAR10(root = './data', train = True, download = True, transform = transforms.ToTensor() )
         testdataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transforms.ToTensor())
     elif datasetname == "femnist":
+
         # get the dataset
         dataset = load_dataset("flwrlabs/femnist", split = "train")
-        dataset.set_format("torch")
 
-        # shuffle and split
-        seed(args.randomseed)
-        indices = list(range(len(dataset)))
-        shuffle(indices)
+        # get clietnum + testing clients from the dataset
+        writer = dataset.unique("writer_id")
         testratio = 0.2
-        testsize = int(len(indices)*testratio)
-        testindices = indices[:testsize]
-        trainindices = indices[testsize:]
+        clientnumtosample = args.clientnum + int(args.clientnum*testratio)
+        random.seed(args.randomseed)
+        sampledwriter = random.sample(writer,clientnumtosample)
+        testwriter = sampledwriter[args.clientnum:]
+        trainwriter = sampledwriter[:args.clientnum]
+        testwriterset = set(testwriter)
+        trainwriterset = set(trainwriter)
 
-        #dataset = FEMNISTClientDataset(dataset)
-        testdataset = Subset(dataset, testindices)
+        testdataset = dataset.filter(lambda example: example["writer_id"] in testwriterset)
+        traindataset = dataset.filter(lambda example: example["writer_id"] in trainwriterset)
+
+        imagetransform = transforms.Compose([
+            transforms.ToTensor()
+        ])
+
+        testdataset.set_transform(
+            lambda batch: {
+                'image': [imagetransform(img) for img in batch['image']],
+                'writer_id': batch['writer_id'],
+                'character': batch['character']
+                # Add any other columns you want to preserve here
+            }
+        )
+        traindataset.set_transform(
+            lambda batch: {
+                'image': [imagetransform(img) for img in batch['image']],
+                'writer_id': batch['writer_id'],
+                'character': batch['character']
+                # Add any other columns you want to preserve here
+            }
+        )
+
+        print(len(testdataset))
+        
+        print(len(traindataset))
+
         testdataset = FEMNISTClientDataset(testdataset)
-        traindataset = Subset(dataset, trainindices)
-
     
     else:
         raise ValueError("datasetname not supported")
