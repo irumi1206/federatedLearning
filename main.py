@@ -241,16 +241,16 @@ if __name__ == "__main__":
     # client's clusterid, clientid, adjustment to local epoch(if needed) is set
     # cluster's clusterid, communicationtime, intraaggregationstrategy, clusterepoch is set
     # centralserver's centralserverepoch, interaggregationstrategy is set
-    centralserver = cluster_clients(clientlist, args)
-    logcluster(centralserver,args)
+    # centralserver = cluster_clients(clientlist, args)
+    # logcluster(centralserver,args)
 
-    # # # training process
-    centralserver.central_train()
-
-
+    # # # # training process
+    # centralserver.central_train()
 
 
 
-    # # save graph file
-    savegraph(args)
+
+
+    # # # save graph file
+    # savegraph(args)
 

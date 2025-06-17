@@ -24,11 +24,14 @@ def partition_data(args):
 
         for label in dataperlabel.keys():
             args.labelpercentageforglobaldistribution[label] = dataperlabel[label]/totalsample
+        print(args.labelpercentageforglobaldistribution)
         
         for samples in dataperclient.values():
             clientdataset = FEMNISTClientDataset(samples)
             clientdataloader = DataLoader(clientdataset, batch_size=args.batchsize, shuffle =True)
             dataloaderlist.append(clientdataloader)
+
+        args.clientnum = len(dataloaderlist)
 
         return dataloaderlist
             
