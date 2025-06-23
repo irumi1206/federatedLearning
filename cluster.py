@@ -46,6 +46,7 @@ class Cluster:
                 q = Queue()
                 for clientind in selectedclientind:
                     client=self.clientlist[clientind]
+                    client.model.to(self.args.device)
                     client.model.load_state_dict(self.model.state_dict())
                     t, d = client.local_train(q)
                     epochtimepast = max(epochtimepast, t)
@@ -69,6 +70,10 @@ class Cluster:
                         modelstatedict[key] += client.model.state_dict()[key] * weight
                 self.model.load_state_dict(modelstatedict)
                 datasizecached.clear()
+
+                for clientind in selectedclientind:
+                    client=self.clientlist[clientind]
+                    client.model.to("cpu")
 
                 # validate the model after training and log it to overall training log
                 accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)

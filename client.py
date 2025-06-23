@@ -30,7 +30,7 @@ class Client:
     # logging is done by passing the queue due to the possibility of multi processing the clients in case of sync 
     def local_train(self,queue):
 
-        self.model.to(self.args.device)
+        #self.model.to(self.args.device)
 
         # reset optimizer
         self.optimizer = get_optimizer(self.model, self.args.optimizername, self.args.learningrate)
@@ -63,6 +63,7 @@ class Client:
         globalaccuracyafter, _= validate_model(self.model, self.args.testdataloader, self.args)
         queue.put(f"{' '*94}<-> Client {self.clientid}, global : from {(100*globalaccuracybefore):.2f}% to {(100*globalaccuracyafter):.2f}%, local : from {(100*localaccuracybefore):.2f}% to {(100*localaccuracyafter):.2f}%, training time : {self.calculate_training_time()}msec")
 
+        #self.model.to("cpu")
         # calculate the training time
         trainingtime = self.calculate_training_time()
         datasize = len(self.dataloader.dataset)
