@@ -104,6 +104,7 @@ class Cluster:
             for ind in participatingclientind:
                 queue = Queue()
                 client = self.clientlist[ind]
+                client.model.to(self.args.device)
                 client.model.load_state_dict(self.model.state_dict())
                 clientmodelversion[ind] = modelversion
                 t, d = client.local_train(queue)
@@ -138,6 +139,7 @@ class Cluster:
                             modelstatedict[key] = alphatime * client.model.state_dict()[key] + (1-alphatime) * self.model.state_dict()[key]
                         self.model.load_state_dict(modelstatedict)
                         modelversion +=1
+                    client.model.to('cpu')
 
                     # pick one client
                     participatingclientind.remove(arrivedclientind)
@@ -146,6 +148,7 @@ class Cluster:
                     notparticipatingclientind.remove(pickedclientind)
                     participatingclientind.append(pickedclientind)
                     
+                    self.clientlist[pickedclientind].model.to(self.args.device)
                     self.clientlist[pickedclientind].model.load_state_dict(self.model.state_dict())
                     clientmodelversion[pickedclientind] = modelversion
                     q = Queue()
@@ -163,6 +166,9 @@ class Cluster:
                     messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
 
                     round +=1
+
+            for clientind in participatingclientind:
+                self.clientlist[clientind].model.to('cpu')
 
             datasize += sum(datasizecached.values())
 

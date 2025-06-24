@@ -187,18 +187,18 @@ if __name__ == "__main__":
 
     # aggregation type for inter and intra cluster
     parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
-    parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
+    parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "async")
     # model and dataset for training including how its partitioned to clients. for specific dataset ex.femnist, the number of clients night be fixed
     parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10","cnnfemnist"], default = "cnncifar10")
     parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10", "femnist", "shakespeare"], default = "cifar10")
     parser.add_argument("-clientnum", type = int, default = 100)
-    parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="onlyspecificlabel")
+    parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="dirichletdistribution")
     # how communication and computation in formed for clients
-    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "alltimesame")
+    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "communicationtimesamecomputationdifferent")
     # how to cluster
     parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "custom"], default = "clusterbyclientorder")
-    parser.add_argument("-clusternum", type = int, default = 1)
-    parser.add_argument("-clustersize", type = int, default = 100)
+    parser.add_argument("-clusternum", type = int, default = 100)
+    parser.add_argument("-clustersize", type = int, default = 1)
     parser.add_argument("-clustercommunicationtime", type = int, default = 0)
     # how to choose epoch for each client, cluster, centralserver
     parser.add_argument("-centralserverepoch", type = int, default = 100)
@@ -217,11 +217,11 @@ if __name__ == "__main__":
     parser.add_argument("-randomseed", type = int, default = 5)
     parser.add_argument("-device", type = str, default = "cuda")
     parser.add_argument("-dominantpercentage", type = int, default = 95)
-    parser.add_argument("-labelperclient", type = int, default =1)
+    parser.add_argument("-labelperclient", type = int, default =2)
     parser.add_argument("-dirichletalpha", type = float, default = 0.1)
     parser.add_argument("-regularizationcoefficient", type =float, default = 0.0)
     parser.add_argument("-clusterparticipationratio", type = int, default = 100)
-    parser.add_argument("-clientparticipationratio", type = int, default = 10)
+    parser.add_argument("-clientparticipationratio", type = int, default = 100)
     args = parser.parse_args()
 
     # make folder for to track training
