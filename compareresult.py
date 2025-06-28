@@ -16,7 +16,7 @@ for filename in args.filenamelist:
 
 fig, axes = plt.subplots(1,2,figsize=(12,5))
 
-round = 100
+round = 5000
 
 for name, data in dataforeachfile:
     axes[0].plot(data["centralservertimepast"][:round], data["centralserveraccuracy"][:round],label=name)
