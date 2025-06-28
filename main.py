@@ -187,7 +187,7 @@ if __name__ == "__main__":
 
     # aggregation type for inter and intra cluster
     parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
-    parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "async")
+    parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     # model and dataset for training including how its partitioned to clients. for specific dataset ex.femnist, the number of clients night be fixed
     parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10","cnnfemnist"], default = "cnncifar10")
     parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10", "femnist", "shakespeare"], default = "cifar10")
@@ -199,7 +199,7 @@ if __name__ == "__main__":
     parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "custom"], default = "clusterbyclientorder")
     parser.add_argument("-clusternum", type = int, default = 100)
     parser.add_argument("-clustersize", type = int, default = 1)
-    parser.add_argument("-clustercommunicationtime", type = int, default = 0)
+    parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to choose epoch for each client, cluster, centralserver
     parser.add_argument("-centralserverepoch", type = int, default = 100)
     parser.add_argument("-clusterepochtype", type = str, choices = ["fixed", "custom"], default = "fixed")
