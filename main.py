@@ -126,7 +126,10 @@ def logclient(clientlist, args):
     for client in clientlist:
         clientdataloader = client.dataloader
         clientlogger.info(f"Unique id : {client.uniqueid}, dataset size : {len(clientdataloader.dataset)}")
-        clientlogger.info(f"Communication time : {client.communicationtime}, Computation time per batch : {client.computationtimeperbatch}, Training time : {client.calculate_training_time()}")
+        datainfo1 = f", Computation time per batch : {client.computationtime}" if args.computationcapabilitymatric == "bybatch" else ""
+        datainfo2 = f", Computation time per epoch : {client.computationtime}" if args.computationcapabilitymatric == "byepoch" else ""
+        datainfo3 = f", Fixed computation time : {client.computationtime}" if args.computationcapabilitymatric == "fixed" else ""
+        clientlogger.info(f"Communication time : {client.communicationtime}{datainfo1}{datainfo2}{datainfo3}, Training time : {client.calculate_training_time()}")
         cachelabels = []
         for _, labels in clientdataloader:
             cachelabels.extend(labels.tolist())
@@ -193,7 +196,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     # aggregation type for inter and intra cluster
-    parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
+    parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "async")
     parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     # model and dataset for training including how its partitioned to clients. for specific dataset ex.femnist, the number of clients night be fixed
     parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10","cnnfemnist"], default = "cnncifar10")
@@ -201,16 +204,17 @@ if __name__ == "__main__":
     parser.add_argument("-clientnum", type = int, default = 200)
     parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="dirichletdistribution")
     # how communication and computation in formed for clients
-    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "realistic")
+    parser.add_argument("-computationcapabilitymatric", type = str, choices = ["bybatch","byepoch","fixed"], default = "bybatch")
+    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom", "custom2"], default = "realistic")
+    parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to cluster
     parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "clusterbysystemsimilarity","clusterbygradientdisimilarity","custom"], default = "clusterbyrandomshuffle")
     parser.add_argument("-clusternum", type = int, default = 10)
     parser.add_argument("-clustersize", type = int, default = 20)
-    parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to choose epoch for each client, cluster, centralserver
     parser.add_argument("-centralserverepoch", type = int, default = 200)
     parser.add_argument("-clusterepochtype", type = str, choices = ["fixed", "custom"], default = "fixed")
-    parser.add_argument("-clusterepoch", type = int, default = 2)
+    parser.add_argument("-clusterepoch", type = int, default = 10)
     parser.add_argument("-localepochtype", type =str, choices=["fixed", "custom"], default ="fixed")
     parser.add_argument("-localepoch", type = int, default = 5)
     # details

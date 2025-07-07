@@ -8,14 +8,14 @@ import copy
 
 # Class for client, local device
 class Client:
-    def __init__(self, clusterid, clientid, dataloader, communicationtime, computationtimeperbatch, uniqueid, localepoch, args):
+    def __init__(self, clusterid, clientid, dataloader, communicationtime, computationtime, uniqueid, localepoch, args):
 
         self.clusterid = clusterid
         self.clientid = clientid
         self.uniqueid = uniqueid
         self.dataloader = dataloader
         self.communicationtime = communicationtime
-        self.computationtimeperbatch = computationtimeperbatch
+        self.computationtime = computationtime
         self.model = get_model(args.modelname)
         self.optimizer = get_optimizer(self.model, args.optimizername, args.learningrate)
         self.criterion = nn.CrossEntropyLoss()
@@ -24,7 +24,10 @@ class Client:
 
     def calculate_training_time(self):
         # calculate the training time
-        trainingtime = self.computationtimeperbatch * self.localepoch * ceil(len(self.dataloader.dataset) / int(self.dataloader.batch_size)) + 2*self.communicationtime
+        if self.args.computationcapabilitymatric == "bybatch": trainingtime = self.computationtime * self.localepoch * ceil(len(self.dataloader.dataset) / int(self.dataloader.batch_size)) + 2*self.communicationtime
+        elif self.args.computationcapabilitymatric == "byepoch": trainingtime = self.computationtime * self.localepoch + + 2*self.communicationtime
+        elif self.args.computationcapabilitymatric == "fixed": trainingtime = self.computationtime + 2*self.communicationtime
+        else: raise ValueError("not implemented")
         return trainingtime
 
     # logging is done by passing the queue due to the possibility of multi processing the clients in case of sync 

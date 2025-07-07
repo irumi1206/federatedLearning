@@ -71,6 +71,12 @@ def partition_system(args):
             time = clientdevice = rng.choice([100,200], p=[0.5,0.5])
             clientcomputationtimelist.append(time)
 
+    elif args.systemheterogeneity == "custom2":
+        clientcomputationtimelist = [rng.choice([100,200,300,400,500], p=[0.2,0.2,0.2,0.2,0.2]) for _ in range(args.clientnum)]
+        clientcommunicationtimelist = []
+        for i in range(args.clientnum):
+            clientcommunicationtimelist.append(clientcomputationtimelist[i]*3)
+   
     else:
         raise ValueError("")
 
