@@ -68,7 +68,8 @@ def split_iid(args):
     totalsample = len(args.traindataset)
 
     # shuffle the dataset and split it
-    shuffledindices = np.random.permutation(totalsample)
+    rng = np.random.default_rng(args.settingrandomseed)
+    shuffledindices = rng.permutation(totalsample)
     clientindices = np.array_split(shuffledindices, args.clientnum)
     dataloaderlist = [DataLoader(Subset(args.traindataset, indices), batch_size = args.batchsize, shuffle = True) for indices in clientindices]
     
@@ -87,7 +88,7 @@ def split_onelabeldominant(args):
         labeltoindices[label].append(i)
     labellist = [label for label in labeltoindices.keys()]
     if len(labellist) > args.clientnum : raise NotImplementedError("too small clients")
-    rng = np.random.default_rng(args.randomseed)
+    rng = np.random.default_rng(args.settingrandomseed)
 
     # compute client number per label, fair distribution, labels with few get less clients
     sortedlabellist = sorted(labellist, key = lambda x : len(labeltoindices[x]),reverse = True)
@@ -139,7 +140,7 @@ def split_onlyspecificlabelexist(args):
         _, label = args.traindataset[i]
         labeltoindices[label].append(i)
     labellist = [label for label in labeltoindices.keys()]
-    rng = np.random.default_rng(args.randomseed)
+    rng = np.random.default_rng(args.settingrandomseed)
 
     # setting for label partitioning to clients
     labelchosennum = defaultdict(int)
@@ -184,7 +185,7 @@ def split_dirichletdistribution(args):
 
     # get parameter
     alpha = args.dirichletalpha
-    rng = np.random.default_rng(args.randomseed)
+    rng = np.random.default_rng(args.settingrandomseed)
     clientnum = args.clientnum
 
     # get labels

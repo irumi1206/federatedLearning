@@ -3,7 +3,7 @@ import numpy as np
 def partition_system(args):
 
     # fix randomness
-    rng = np.random.default_rng(args.randomseed+5)
+    rng = np.random.default_rng(args.settingrandomseed+5)
 
     # cluster communication time, client communicationtime, and computation time is all set to 100mse
     if args.systemheterogeneity == "alltimesame":
@@ -67,14 +67,9 @@ def partition_system(args):
         ######################################
         clientcommunicationtimelist = [100 for _ in range(args.clientnum)]
         clientcomputationtimelist = []
-        for i in range(args.clustersize):
-            time = 100
-            for j in range(args.clusternum):
-                clientcomputationtimelist.append(time)
-                time +=100
-
-        #######################################
-        ##raise ValueError("customize it plz")
+        for i in range(args.clientnum):
+            time = clientdevice = rng.choice([100,200], p=[0.5,0.5])
+            clientcomputationtimelist.append(time)
 
     else:
         raise ValueError("")

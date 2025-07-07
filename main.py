@@ -68,7 +68,14 @@ def create_client(clientdataloaderlist, clientcommunicationtimelist, clientcompu
 
     # Create clients, -1 for the clusterid  before clustering
     for i in range(args.clientnum):
-        client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, args.localepoch,args)
+        if args.localepochtype == "custom":
+            if i<args.clientnum/2: client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, args.localepoch,args)
+            else: client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, args.localepoch*2,args)
+        elif args.localepochtype == "custom2":
+            if clientcomputationtimelist[i] == 100 : client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, args.localepoch*2,args)
+            else: client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, args.localepoch,args)
+        else:
+            client = Client(-1, -1, clientdataloaderlist[i], clientcommunicationtimelist[i], clientcomputationtimelist[i], i, args.localepoch,args)
         clientlist.append(client)
     
     return clientlist
@@ -102,7 +109,7 @@ def logsetting(args):
     localepochinfo = f", local epoch : {args.localepoch}" if args.localepochtype == "fixed" else f", local epoch : {args.localepoch}"
     logging.info(f"Local epoch type : {args.localepochtype},{localepochinfo}")
     # details
-    logging.info(f"Optimizer name : {args.optimizername}, Lr : {args.learningrate}, Batch size : {args.batchsize}, Random seed : {args.randomseed}, Device : {args.device}, Regularizationcoefficient : {args.regularizationcoefficient}, Clusterparticipationratio : {args.clusterparticipationratio}, Clientparticipationratio : {args.clientparticipationratio}")
+    logging.info(f"Optimizer name : {args.optimizername}, Lr : {args.learningrate}, Batch size : {args.batchsize}, Random seed : {args.randomseed}, Setting random seed :{args.settingrandomseed}, Device : {args.device}, Regularizationcoefficient : {args.regularizationcoefficient}, Clusterparticipationratio : {args.clusterparticipationratio}, Clientparticipationratio : {args.clientparticipationratio}")
 
 # Log client information) and save data distribution for each client in args.labelpercentageperclient
 def logclient(clientlist, args):
@@ -131,6 +138,7 @@ def logclient(clientlist, args):
         clientlogger.info(f"{[f'{label}:{(percentage*100):.2f}%' for label, percentage in labelpercentageperclient.items()]}")
         divergence = calculate_divergence(args.labelpercentageforglobaldistribution, labelpercentageperclient, args)
         clientlogger.info(f"Divergence : jsd {divergence['jsd']:.4f}, tvd {divergence['tvd']:.4f}")
+        clientlogger.info(f"Local epoch : {client.localepoch}")
         first_batch = next(iter(clientdataloader))
         _, labels = first_batch
         clientlogger.info(f"labels from the first batch :{[i.item() for i in labels]}")
@@ -204,7 +212,7 @@ if __name__ == "__main__":
     parser.add_argument("-centralserverepoch", type = int, default = 100)
     parser.add_argument("-clusterepochtype", type = str, choices = ["fixed", "custom"], default = "fixed")
     parser.add_argument("-clusterepoch", type = int, default = 1)
-    parser.add_argument("-localepochtype", type =str, choices=["fixed", "custom"], default ="fixed")
+    parser.add_argument("-localepochtype", type =str, choices=["fixed", "custom", "custom2"], default ="fixed")
     parser.add_argument("-localepoch", type = int, default = 3)
     # details
     parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
@@ -214,6 +222,7 @@ if __name__ == "__main__":
     parser.add_argument("-optimizername", type = str, default = "sgd")
     parser.add_argument("-learningrate", type = float, default = 0.01)
     parser.add_argument("-batchsize", type = int, default =32)
+    parser.add_argument("-settingrandomseed", type = int, default = 5)
     parser.add_argument("-randomseed", type = int, default = 5)
     parser.add_argument("-device", type = str, default = "cuda")
     parser.add_argument("-dominantpercentage", type = int, default = 95)
