@@ -190,7 +190,6 @@ def savegraph(args):
 # Main function
 if __name__ == "__main__":
 
-
     parser = argparse.ArgumentParser()
 
     # aggregation type for inter and intra cluster
@@ -199,25 +198,25 @@ if __name__ == "__main__":
     # model and dataset for training including how its partitioned to clients. for specific dataset ex.femnist, the number of clients night be fixed
     parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10","cnnfemnist"], default = "cnncifar10")
     parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10", "femnist", "shakespeare"], default = "cifar10")
-    parser.add_argument("-clientnum", type = int, default = 100)
+    parser.add_argument("-clientnum", type = int, default = 200)
     parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="dirichletdistribution")
     # how communication and computation in formed for clients
-    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "communicationtimesamecomputationdifferent")
+    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom"], default = "realistic")
     # how to cluster
-    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "custom"], default = "clusterbyclientorder")
-    parser.add_argument("-clusternum", type = int, default = 100)
-    parser.add_argument("-clustersize", type = int, default = 1)
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "clusterbysystemsimilarity","clusterbygradientdisimilarity","custom"], default = "clusterbyrandomshuffle")
+    parser.add_argument("-clusternum", type = int, default = 10)
+    parser.add_argument("-clustersize", type = int, default = 20)
     parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to choose epoch for each client, cluster, centralserver
-    parser.add_argument("-centralserverepoch", type = int, default = 100)
+    parser.add_argument("-centralserverepoch", type = int, default = 200)
     parser.add_argument("-clusterepochtype", type = str, choices = ["fixed", "custom"], default = "fixed")
-    parser.add_argument("-clusterepoch", type = int, default = 1)
-    parser.add_argument("-localepochtype", type =str, choices=["fixed", "custom", "custom2"], default ="fixed")
-    parser.add_argument("-localepoch", type = int, default = 3)
+    parser.add_argument("-clusterepoch", type = int, default = 2)
+    parser.add_argument("-localepochtype", type =str, choices=["fixed", "custom"], default ="fixed")
+    parser.add_argument("-localepoch", type = int, default = 5)
     # details
-    parser.add_argument("-intraasyncalpha", type = float, default = 0.6)
+    parser.add_argument("-intraasyncalpha", type = float, default = 0.5)
     parser.add_argument("-intraasyncthreshold", type = int, default = 10)
-    parser.add_argument("-interasyncalpha", type = float, default = 0.6)
+    parser.add_argument("-interasyncalpha", type = float, default = 0.5)
     parser.add_argument("-interasyncthreshold", type = int, default = 10)
     parser.add_argument("-optimizername", type = str, default = "sgd")
     parser.add_argument("-learningrate", type = float, default = 0.01)
