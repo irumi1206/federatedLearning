@@ -159,6 +159,6 @@ class CentralServer:
                     self.args.centralservertimepast.append(timepast)
                     self.args.centralserverround.append(1+epoch+i/participatingclusternum)
                     self.args.centralserveraccuracy.append(accuracyafter)
-                    self.args.centralserverloss.append(lossafter)   
+                    self.args.centralserverloss.append(lossafter) 
 
 
