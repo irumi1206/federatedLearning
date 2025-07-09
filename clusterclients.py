@@ -16,6 +16,7 @@ import os
 def cluster_clients(clientlist, args):
 
     centralserver = CentralServer(args.interclusteringtype, args.centralserverepoch, args, [])
+    print("model checksum:", sum([p.sum().item() for p in centralserver.model.parameters()]))
 
     # clustering based on client order, clustersize and number is set
     if args.clusteringtype == "clusterbyclientorder":
