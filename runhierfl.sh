@@ -14,7 +14,9 @@ python3 main.py \
         -clusternum 10 \
         -clustersize 10 \
         -centralserverepoch 100 \
+        -clusterepochtype fixed \
         -clusterepoch 5 \
+        -localepochtype fixed \
         -localepoch 5
 
 python3 main.py \
@@ -31,7 +33,9 @@ python3 main.py \
         -clusternum 10 \
         -clustersize 10 \
         -centralserverepoch 100 \
+        -clusterepochtype fixed \
         -clusterepoch 5 \
+        -localepochtype fixed \
         -localepoch 5
 
 python3 main.py \
@@ -48,5 +52,7 @@ python3 main.py \
         -clusternum 10 \
         -clustersize 10 \
         -centralserverepoch 100 \
+       -clusterepochtype fixed \
         -clusterepoch 5 \
+        -localepochtype fixed \
         -localepoch 5
