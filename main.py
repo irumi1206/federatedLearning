@@ -56,8 +56,7 @@ def setting(args):
     # Set testdataloader in arguments for examining accuracy for the global distribution
     args.testdataloader = DataLoader(testdataset, batch_size=128, shuffle=False)
 
-    model = get_model(args.modelname)
-    print("model checksum:", sum([p.sum().item() for p in model.parameters()]))
+    #model = get_model(args.modelname)
     # validate_model_detailed(model, args.testdataloader,args)
 
     # Set label list
