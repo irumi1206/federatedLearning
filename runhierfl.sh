@@ -10,7 +10,7 @@ python3 main.py \
         -computationcapabilitymatric fixed\
         -systemheterogeneity assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3 \
         -clustercommunicationtime 800 \
-        -clusteringtype clusterbyrandomshuffle \
+        -clusteringtype clusterbygradientdisimilarityandsystemsimilarity \
         -clusternum 10 \
         -clustersize 10 \
         -centralserverepoch 100 \
@@ -18,3 +18,5 @@ python3 main.py \
         -clusterepoch 5 \
         -localepochtype fixed \
         -localepoch 5
+
+

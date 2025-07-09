@@ -272,11 +272,6 @@ def cluster_clients(clientlist, args):
                     new_cluster_assignments[clientind] = roundrobincluster
                     roundrobincluster = (roundrobincluster + 1) % args.clusternum
 
-        print(cluster_assignments)
-        print()
-        print(new_cluster_assignments)
-
-
         for clusterind in range(args.clusternum):
             cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
             ind = 0
