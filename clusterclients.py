@@ -63,8 +63,8 @@ def cluster_clients(clientlist, args):
             ).cpu()
 
         # Define PCA and batch size
-        N_COMPONENTS = 10
-        BATCH_SIZE = 10  # Must be >= n_components
+        N_COMPONENTS = 20
+        BATCH_SIZE = 20  # Must be >= n_components
         pca = IncrementalPCA(n_components=N_COMPONENTS, batch_size=BATCH_SIZE)
 
         # Create a temporary directory to store deltas
@@ -177,8 +177,8 @@ def cluster_clients(clientlist, args):
             ).cpu()
 
         # Define PCA and batch size
-        N_COMPONENTS = 10
-        BATCH_SIZE = 10  # Must be >= n_components
+        N_COMPONENTS = 20
+        BATCH_SIZE = 20  # Must be >= n_components
         pca = IncrementalPCA(n_components=N_COMPONENTS, batch_size=BATCH_SIZE)
 
         # Create a temporary directory to store deltas
@@ -281,7 +281,7 @@ def cluster_clients(clientlist, args):
             cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
             ind = 0
             for clientind in range(len(clientlist)):
-                if cluster_assignments[clientind] == clusterind:
+                if new_cluster_assignments[clientind] == clusterind:
                     client = clientlist[clientind]
                     client.clusterid = clusterind
                     client.clientid = ind
