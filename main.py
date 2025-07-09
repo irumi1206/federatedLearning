@@ -40,6 +40,8 @@ def setting(args):
     np.random.seed(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
     torch.use_deterministic_algorithms(True)  
 
     # define list to keep track of accuracy and loss for central server and each cluster
@@ -54,7 +56,8 @@ def setting(args):
     # Set testdataloader in arguments for examining accuracy for the global distribution
     args.testdataloader = DataLoader(testdataset, batch_size=128, shuffle=False)
 
-    # model = get_model(args.modelname)
+    model = get_model(args.modelname)
+    print("model checksum:", sum([p.sum().item() for p in model.parameters()]))
     # validate_model_detailed(model, args.testdataloader,args)
 
     # Set label list

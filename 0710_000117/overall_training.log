@@ -1,0 +1,17 @@
+Intraclustering type : sync
+Interclustering type : async, interasyncalpha : 0.5, interasyncthreshold : 10
+Model name : cnncifar10, Dataset name : cifar10
+Client num : 100
+Data heterogeneity type : onelabeldominant, Dominant percentage : 95
+System heterogeneity : assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3
+Clustering type : clusterbyrandomshuffle, Cluster num : 10, Cluster size : 10
+Cluster communication time : 800
+Central server epoch : 100
+Cluster epoch type : fixed,, Cluster epoch : 5
+Local epoch type : fixed,, local epoch : 5
+Optimizer name : sgd, Lr : 0.01, Batch size : 32, Random seed : 5, Setting random seed :5, Device : cuda, Regularizationcoefficient : 0.0, Clusterparticipationratio : 100, Clientparticipationratio : 100
+
+----------------------------------------------------------------------------------------------------
+
+Central server round 0, loss : 2.30, accuracy :10.51%
+['0:93.70%', '1:0.00%', '2:0.10%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:11.30%', '8:0.00%', '9:0.00%']
