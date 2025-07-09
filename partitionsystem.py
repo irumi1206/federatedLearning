@@ -62,7 +62,7 @@ def partition_system(args):
             clientcommunicationtimelist.append(int(communicationtime * (1 + rng.uniform(-networkvariance, networkvariance))))
             clientcomputationtimelist.append(int(computationtime  * (1 + rng.uniform(-computationvariance, computationvariance))))
 
-    elif args.systemheterogeneity == "custom":
+    elif args.systemheterogeneity == "comp100200random_comm100":
 
         ######################################
         clientcommunicationtimelist = [100 for _ in range(args.clientnum)]
@@ -71,8 +71,15 @@ def partition_system(args):
             time = int(rng.choice([100,200], p=[0.5,0.5]))
             clientcomputationtimelist.append(time)
 
-    elif args.systemheterogeneity == "custom2":
-        clientcomputationtimelist = [int(rng.choice([100,200,300,400,500], p=[0.2,0.2,0.2,0.2,0.2])) for _ in range(args.clientnum)]
+    elif args.systemheterogeneity == "assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3":
+
+        clientcomputationtimelist = []
+        distributionforlabelgroup = [100, 100, 200, 200, 300, 300, 400, 400, 500, 500]
+        for _ in range(10):
+            copied = distributionforlabelgroup.copy()
+            rng.shuffle(copied)  # In-place shuffle
+            clientcomputationtimelist.extend(copied)
+
         clientcommunicationtimelist = []
         for i in range(args.clientnum):
             clientcommunicationtimelist.append(clientcomputationtimelist[i]*3)

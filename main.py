@@ -163,6 +163,7 @@ def logcluster(centralserver, args):
         clusterlogger.info(f"Cluster {cluster.clusterid} with {len(cluster.clientlist)} clients")
         clusterlogger.info(f"Cluster communication time : {cluster.communicationtime}")
         clusterlogger.info(f"Cluster clients : {[client.uniqueid for client in cluster.clientlist]}")
+        clusterlogger.info(f"Straggler within the cluster : {max([client.calculate_training_time() for client in cluster.clientlist])}")
 
         # log the cluster size data distribution and divergence
         labelpercentage = {label : 0 for label in args.labellist}
@@ -205,7 +206,7 @@ if __name__ == "__main__":
     parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="dirichletdistribution")
     # how communication and computation in formed for clients
     parser.add_argument("-computationcapabilitymatric", type = str, choices = ["bybatch","byepoch","fixed"], default = "bybatch")
-    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "custom", "custom2"], default = "realistic")
+    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "comp100200random_comm100", "assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3"], default = "realistic")
     parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to cluster
     parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "clusterbysystemsimilarity","clusterbygradientdisimilarity","custom"], default = "clusterbyrandomshuffle")
