@@ -213,7 +213,7 @@ if __name__ == "__main__":
     parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "comp100200random_comm100", "assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3"], default = "realistic")
     parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to cluster
-    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "clusterbysystemsimilarity","clusterbygradientdisimilarity","clusterbygradientdisimilarityandsystemsimilarity"], default = "clusterbyrandomshuffle")
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "clusterbysystemsimilarity","clusterbygradientdissimilarity","clusterbygradientdissimilarityandsystemsimilarity"], default = "clusterbyrandomshuffle")
     parser.add_argument("-clusternum", type = int, default = 10)
     parser.add_argument("-clustersize", type = int, default = 20)
     # how to choose epoch for each client, cluster, centralserver
@@ -223,8 +223,10 @@ if __name__ == "__main__":
     parser.add_argument("-localepochtype", type =str, choices=["fixed", "custom"], default ="fixed")
     parser.add_argument("-localepoch", type = int, default = 5)
     # details
+    parser.add_argument("-intraasyncthresholdexist", type =bool, default = True)
     parser.add_argument("-intraasyncalpha", type = float, default = 0.5)
     parser.add_argument("-intraasyncthreshold", type = int, default = 10)
+    parser.add_argument("-interasyncthresholdexist", type =bool, default = True)
     parser.add_argument("-interasyncalpha", type = float, default = 0.5)
     parser.add_argument("-interasyncthreshold", type = int, default = 10)
     parser.add_argument("-optimizername", type = str, default = "sgd")

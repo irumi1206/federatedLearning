@@ -130,7 +130,7 @@ class Cluster:
                     # aggregate it
                     alpha = self.args.intraasyncalpha
                     staleness = modelversion - clientmodelversion[arrivedclientind]
-                    if staleness<=self.args.intraasyncthreshold:
+                    if not(self.args.intraasyncthresholdexist) or staleness<=self.args.intraasyncthreshold:
                         stalenessfunction = 1/(1+staleness)
                         alphatime = alpha * stalenessfunction
                         modelstatedict = self.model.state_dict()

@@ -121,7 +121,7 @@ class CentralServer:
                     alpha = self.args.interasyncalpha
                     staleness = modelversion - modelversionforcluster[arrivedclusterind]
 
-                    if staleness <=self.args.interasyncthreshold:
+                    if not(self.args.interasyncthresholdexist) or staleness <=self.args.interasyncthreshold:
                         stalenessfunction = 1/(1+staleness)
                         alphatime = alpha * stalenessfunction
                         logging.info(f"{' '*42}Staleness : {staleness}")

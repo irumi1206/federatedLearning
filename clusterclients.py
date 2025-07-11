@@ -162,11 +162,11 @@ def cluster_clients(clientlist, args):
 
         return centralserver
     
-    elif args.clusteringtype == "clusterbygradientdisimilarity":
+    elif args.clusteringtype == "clusterbygradientdissimilarity":
 
         # Assuming 'centralserver', 'clientlist', and 'args' are defined
 
-        print("Clustering by gradient similarity...")
+        print("Clustering by gradient dissimilarity...")
 
         # --- SETUP ---
         # Get the initial model state
@@ -271,6 +271,133 @@ def cluster_clients(clientlist, args):
                 if cluster_assignments[clientind] == clusterind:
                     new_cluster_assignments[clientind] = roundrobincluster
                     roundrobincluster = (roundrobincluster + 1) % args.clusternum
+
+        for clusterind in range(args.clusternum):
+            cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
+            ind = 0
+            for clientind in range(len(clientlist)):
+                if new_cluster_assignments[clientind] == clusterind:
+                    client = clientlist[clientind]
+                    client.clusterid = clusterind
+                    client.clientid = ind
+                    ind +=1
+                    cluster.clientlist.append(client)
+            centralserver.clusterlist.append(cluster)
+
+        return centralserver
+    
+    elif args.clusteringtype == "clusterbygradientdissimilarityandsystemsimilarity":
+
+        # Assuming 'centralserver', 'clientlist', and 'args' are defined
+
+        print("Clustering by gradient dissimilarity...")
+
+        # --- SETUP ---
+        # Get the initial model state
+        initial_weight_dict = centralserver.model.state_dict()
+        with torch.no_grad():
+            initial_weight_flat = torch.cat(
+                [p.view(-1) for p in initial_weight_dict.values()]
+            ).cpu()
+
+        # Define PCA and batch size
+        N_COMPONENTS = 20
+        BATCH_SIZE = 20  # Must be >= n_components
+        pca = IncrementalPCA(n_components=N_COMPONENTS, batch_size=BATCH_SIZE)
+
+        # Create a temporary directory to store deltas
+        temp_dir = tempfile.mkdtemp()
+        print(f"Using temporary directory for deltas: {temp_dir}")
+
+        try:
+            # --- PASS 1: Fit PCA and Save Deltas to Disk ---
+            print("Fitting PCA model and caching deltas to disk...")
+            delta_batch = []
+            client_num = 0
+            for client in clientlist:
+                client_num += 1
+                print(f"Processing Client {client_num}/{len(clientlist)}...")
+
+                # Perform local training
+                client.model.load_state_dict(initial_weight_dict)
+                client.model.to(args.device)
+                q = Queue()
+                client.local_train(q)
+                with torch.no_grad():
+                    client_weight = torch.cat(
+                        [p.data.view(-1) for p in client.model.parameters()]
+                    ).cpu()
+                    delta_weight = initial_weight_flat - client_weight
+                
+                # Free up GPU memory immediately
+                # Also, we no longer need the trained model state in the client object
+                client.model.to('cpu')
+
+                # Normalize the delta
+                delta_np = delta_weight.numpy()
+                row_norm = np.linalg.norm(delta_np)
+                normalized_delta = delta_np / (row_norm if row_norm > 0 else 1.0)
+                
+                # Save the normalized delta to a temporary file
+                delta_filepath = os.path.join(temp_dir, f"delta_{client_num - 1}.npy")
+                np.save(delta_filepath, normalized_delta)
+
+                # Add the delta to our in-memory batch for fitting
+                delta_batch.append(normalized_delta)
+
+                # When the batch is full, fit it and clear the in-memory batch
+                if len(delta_batch) == BATCH_SIZE:
+                    print(f"  > Fitting PCA with a batch of {len(delta_batch)} deltas...")
+                    pca.partial_fit(np.array(delta_batch))
+                    delta_batch.clear()
+
+            # Process any remaining deltas from the last batch
+            if len(delta_batch) >= N_COMPONENTS:
+                print(f"  > Fitting PCA with the final batch of {len(delta_batch)} deltas...")
+                pca.partial_fit(np.array(delta_batch))
+                delta_batch.clear()
+
+            print("PCA model has been fitted.")
+
+            # --- PASS 2: Load Deltas from Disk and Transform ---
+            print("Loading deltas from disk and transforming...")
+            reduced_deltas = np.zeros((len(clientlist), N_COMPONENTS))
+            for i in range(len(clientlist)):
+                # Load the saved delta from disk
+                delta_filepath = os.path.join(temp_dir, f"delta_{i}.npy")
+                normalized_delta = np.load(delta_filepath).reshape(1, -1)
+                
+                # Transform the single delta and store it
+                reduced_deltas[i] = pca.transform(normalized_delta)
+            
+            print("All deltas have been transformed.")
+
+            # --- Step 3: Run KMeans ---
+            print("Running KMeans on reduced deltas...")
+            k = args.clusternum
+            kmeans = KMeans(n_clusters=k, random_state=0, n_init="auto").fit(reduced_deltas)
+            cluster_assignments = kmeans.labels_
+
+            print("Cluster assignments:", cluster_assignments)
+
+        finally:
+            # --- CLEANUP ---
+            # Always remove the temporary directory and its contents
+            print(f"Cleaning up temporary directory: {temp_dir}")
+            shutil.rmtree(temp_dir)
+
+
+        new_cluster_assignments = [-1] * args.clientnum
+        roundrobincluster = 0
+
+        for clusterind in range(args.clusternum):
+            indices = []
+            for clientind in range(args.clientnum):
+                if cluster_assignments[clientind] == clusterind:
+                    indices.append(clientind)
+            sortedindices = sorted(indices, key=lambda x: clientlist[x].calculate_training_time())
+            for i in range(len(sortedindices)):
+                new_cluster_assignments[sortedindices[i]] = i
 
         for clusterind in range(args.clusternum):
             cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
