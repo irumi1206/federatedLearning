@@ -48,6 +48,41 @@ def cluster_clients(clientlist, args):
 
         return centralserver
     
+    #randomly cluster but, to match same cluster level training time, assuming 100clients with onelabel dominant
+    elif args.clusteringtype == "clusterbyrandomshufflecustom":
+
+        fixedstraggler = [False] * 100
+
+        for i in range(10):
+            for j in range(10):
+                if clientlist[i*10+j].computationtime == 500: 
+                    fixedstraggler[10*j]=True
+                    break
+        
+        tobeshuffledindices = []
+        for i in range(100):
+            if not fixedstraggler[i]: tobeshuffledindices.append(i)
+        random.shuffle(tobeshuffledindices)
+
+        shuffledind = []
+        ind = 0
+        for i in range(100):
+            if fixedstraggler[i]: shuffledind.append(i)
+            else:
+                shuffledind.append(tobeshuffledindices[ind])
+                ind +=1
+
+        for clusterind in range(args.clusternum):
+            cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
+            for clientind in range(args.clustersize):
+                client = clientlist[shuffledind[clusterind*args.clustersize + clientind]]
+                client.clientid = clientind
+                client.clusterid = clusterind
+                cluster.clientlist.append(client)
+            centralserver.clusterlist.append(cluster)
+
+        return centralserver
+    
     elif args.clusteringtype == "clusterbygradientsimilarity":
 
         # Assuming 'centralserver', 'clientlist', and 'args' are defined
