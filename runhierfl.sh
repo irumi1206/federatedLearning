@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#add
+
 python3 main.py \
         -interclusteringtype async \
         -intraclusteringtype sync \
