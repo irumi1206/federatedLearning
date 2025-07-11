@@ -33,14 +33,12 @@ class Client:
     # logging is done by passing the queue due to the possibility of multi processing the clients in case of sync 
     def local_train(self,queue):
 
-        #self.model.to(self.args.device)
-
         # reset optimizer
         self.optimizer = get_optimizer(self.model, self.args.optimizername, self.args.learningrate)
 
         # validate the model before training
-        localaccuracybefore, _ = validate_model(self.model, self.dataloader, self.args)
-        globalaccuracybefore, _= validate_model(self.model, self.args.testdataloader, self.args)
+        localaccuracybefore, locallossbefore = validate_model(self.model, self.dataloader, self.args)
+        globalaccuracybefore, globallossbefore= validate_model(self.model, self.args.testdataloader, self.args)
 
         modelbefore = copy.deepcopy(self.model)
         # train the model
@@ -62,11 +60,10 @@ class Client:
                 self.optimizer.step()
         
         # validate the model after training
-        localaccuracyafter, _= validate_model(self.model, self.dataloader, self.args)
-        globalaccuracyafter, _= validate_model(self.model, self.args.testdataloader, self.args)
-        queue.put(f"{' '*94}<-> Client {self.clientid}, global : from {(100*globalaccuracybefore):.2f}% to {(100*globalaccuracyafter):.2f}%, local : from {(100*localaccuracybefore):.2f}% to {(100*localaccuracyafter):.2f}%, training time : {self.calculate_training_time()}msec")
+        localaccuracyafter, locallossafter= validate_model(self.model, self.dataloader, self.args)
+        globalaccuracyafter, globallossafter= validate_model(self.model, self.args.testdataloader, self.args)
+        queue.put(f"{' '*94}<-> Client {self.clientid}, global : from {(100*globalaccuracybefore):.2f}% to {(100*globalaccuracyafter):.2f}%, local : from {(100*localaccuracybefore):.2f}% to {(100*localaccuracyafter):.2f}%, globalloss : from {globallossbefore:.3f} to {globallossafter:.3f},localloss : from {locallossbefore:.3f} to {locallossafter:.3f}, training time : {self.calculate_training_time()}msec")
 
-        #self.model.to("cpu")
         # calculate the training time
         trainingtime = self.calculate_training_time()
         datasize = len(self.dataloader.dataset)
