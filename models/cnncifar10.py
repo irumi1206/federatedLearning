@@ -5,12 +5,12 @@ import torch.nn.functional as F
 class CNNCIFAR10(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(3, 32, kernel_size=3, padding=1)   # input: [B, 3, 32, 32]
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)  # -> [B, 64, 32, 32]
+        self.conv1 = nn.Conv2d(3, 64, kernel_size=5)   # input: [B, 3, 32, 32]
+        self.conv2 = nn.Conv2d(64, 64, kernel_size=5)  # -> [B, 64, 32, 32]
         self.pool = nn.MaxPool2d(2, 2)                            # -> [B, 64, 16, 16]
-        self.dropout = nn.Dropout(0.25)
-        self.fc1 = nn.Linear(64 * 16 * 16, 512)
+        self.fc1 = nn.Linear(64 * 5 * 5, 384)
         self.fc2 = nn.Linear(512, 10)
+        self.fc3 = 
 
     def forward(self, x):
         x = F.relu(self.conv1(x))      # [B, 32, 32, 32]
