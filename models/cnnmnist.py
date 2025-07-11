@@ -1,4 +1,5 @@
 import torch.nn as nn
+import torch.nn.functional as F
 
 # About 1MB
 class CNNMnist(nn.Module):
@@ -19,9 +20,10 @@ class CNNMnist(nn.Module):
         )
 
     def forward(self, x):
-        x = self.conv(x)
-        x = x.view(-1, 320)
-        x = self.fc(x)
+        x = x.view(-1, 1 * 28 * 28)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
         return x
 
 def get_model():

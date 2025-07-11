@@ -34,11 +34,15 @@ def get_model(modelname):
 def get_dataset(datasetname,args):
 
     if datasetname == "mnist":
-        traindataset = datasets.MNIST(root = './data', train = True, download = True, transform = transforms.ToTensor())      
-        testdataset = datasets.MNIST(root='./data', train=False, download=True, transform=transforms.ToTensor())
+        transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
+        traindataset = datasets.MNIST(root = './data', train = True, download = True, transform = transform)      
+        testdataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
+    
     elif datasetname == "cifar10":
-        traindataset = datasets.CIFAR10(root = './data', train = True, download = True, transform = transforms.ToTensor() )
-        testdataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transforms.ToTensor())
+        transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize(mean=[0.491, 0.482, 0.447], std=[0.247, 0.243, 0.262])])
+        traindataset = datasets.CIFAR10(root = './data', train = True, download = True, transform = transform )
+        testdataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
+    
     elif datasetname == "femnist":
 
         # get the dataset
