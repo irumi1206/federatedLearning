@@ -63,7 +63,8 @@ def get_dataset(datasetname,args):
         traindataset = dataset.filter(lambda example: example["writer_id"] in trainwriterset)
 
         imagetransform = transforms.Compose([
-            transforms.ToTensor()
+            transforms.ToTensor(),
+            transforms.Normalize((0.1307,), (0.3081,))
         ])
 
         testdataset.set_transform(
