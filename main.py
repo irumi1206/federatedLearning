@@ -204,7 +204,7 @@ if __name__ == "__main__":
     parser.add_argument("-intraclusteringtype", type = str, choices = ["sync", "async"], default = "async")
     parser.add_argument("-interclusteringtype", type = str, choices = ["sync", "async"], default = "sync")
     # model and dataset for training including how its partitioned to clients. for specific dataset ex.femnist, the number of clients night be fixed
-    parser.add_argument("-modelname", type = str, choices = ["cnnmnist", "cnncifar10","cnnfemnist"], default = "cnncifar10")
+    parser.add_argument("-modelname", type = str, choices = ["nnmnist", "cnncifar10","cnnfemnist"], default = "cnncifar10")
     parser.add_argument("-datasetname", type = str, choices = ["mnist", "cifar10", "femnist", "shakespeare"], default = "cifar10")
     parser.add_argument("-clientnum", type = int, default = 200)
     parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="dirichletdistribution")

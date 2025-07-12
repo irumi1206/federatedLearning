@@ -45,50 +45,8 @@ def get_dataset(datasetname,args):
     
     elif datasetname == "femnist":
 
-        # get the dataset
-        dataset = load_dataset("flwrlabs/femnist", split = "train")
+        print("to be implemented")
 
-        # get clietnum + testing clients from the dataset
-        writer = dataset.unique("writer_id")
-        testratio = 0.2
-        clientnumtosample = args.clientnum + int(args.clientnum*testratio)
-        random.seed(args.randomseed)
-        sampledwriter = random.sample(writer,clientnumtosample)
-        testwriter = sampledwriter[args.clientnum:]
-        trainwriter = sampledwriter[:args.clientnum]
-        testwriterset = set(testwriter)
-        trainwriterset = set(trainwriter)
-
-        testdataset = dataset.filter(lambda example: example["writer_id"] in testwriterset)
-        traindataset = dataset.filter(lambda example: example["writer_id"] in trainwriterset)
-
-        imagetransform = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize((0.1307,), (0.3081,))
-        ])
-
-        testdataset.set_transform(
-            lambda batch: {
-                'image': [imagetransform(img) for img in batch['image']],
-                'writer_id': batch['writer_id'],
-                'character': batch['character']
-                # Add any other columns you want to preserve here
-            }
-        )
-        traindataset.set_transform(
-            lambda batch: {
-                'image': [imagetransform(img) for img in batch['image']],
-                'writer_id': batch['writer_id'],
-                'character': batch['character']
-                # Add any other columns you want to preserve here
-            }
-        )
-
-        print(len(testdataset))
-        
-        print(len(traindataset))
-
-        testdataset = FEMNISTClientDataset(testdataset)
     
     else:
         raise ValueError("datasetname not supported")
