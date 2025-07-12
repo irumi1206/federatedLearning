@@ -43,6 +43,7 @@ def setting(args):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
     torch.use_deterministic_algorithms(True)
+    torch.set_float32_matmul_precision("high")
     mp.set_start_method('spawn', force=True)
 
 
