@@ -84,10 +84,6 @@ def get_dataset(datasetname,args):
             }
         )
 
-        print(len(testdataset))
-        
-        print(len(traindataset))
-
         testdataset = FEMNISTClientDataset(testdataset)
     
     else:
