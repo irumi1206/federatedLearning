@@ -7,7 +7,7 @@ python3 main.py \
         -datasetname cifar10 \
         -clientnum 100 \
         -dataheterogeneitytype dirichletdistribution \
-        -computationcapabilitymatric fixed\
+        -computationcapabilitymatric bybatch\
         -systemheterogeneity realistic \
         -clustercommunicationtime 800 \
         -clusteringtype clusterbygradientsimilarity \
@@ -26,7 +26,7 @@ python3 main.py \
         -datasetname cifar10 \
         -clientnum 100 \
         -dataheterogeneitytype dirichletdistribution \
-        -computationcapabilitymatric fixed\
+        -computationcapabilitymatric bybatch\
         -systemheterogeneity realistic \
         -clustercommunicationtime 800 \
         -clusteringtype clusterbygradientdissimilarity \
@@ -45,7 +45,7 @@ python3 main.py \
         -datasetname cifar10 \
         -clientnum 100 \
         -dataheterogeneitytype dirichletdistribution \
-        -computationcapabilitymatric fixed\
+        -computationcapabilitymatric bybatch\
         -systemheterogeneity realistic \
         -clustercommunicationtime 800 \
         -clusteringtype clusterbygradientdissimilarityandsystemsimilarity \
@@ -64,7 +64,7 @@ python3 main.py \
         -datasetname cifar10 \
         -clientnum 100 \
         -dataheterogeneitytype dirichletdistribution \
-        -computationcapabilitymatric fixed\
+        -computationcapabilitymatric bybatch\
         -systemheterogeneity realistic \
         -clustercommunicationtime 800 \
         -clusteringtype clusterbyrandomshuffle \
