@@ -25,7 +25,7 @@ python3 main.py \
         -modelname cnncifar10 \
         -datasetname cifar10 \
         -clientnum 10 \
-        -dataheterogeneitytype dirichletdistribution \
+        -dataheterogeneitytype iid \
         -computationcapabilitymatric fixed\
         -systemheterogeneity alltimesame \
         -clustercommunicationtime 800 \
