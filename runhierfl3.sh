@@ -3,8 +3,8 @@
 python3 main.py \
         -interclusteringtype sync \
         -intraclusteringtype sync \
-        -modelname nnmnist \
-        -datasetname mnist \
+        -modelname cnncifar10 \
+        -datasetname cifar10 \
         -clientnum 10 \
         -dataheterogeneitytype onelabeldominant \
         -computationcapabilitymatric fixed\
