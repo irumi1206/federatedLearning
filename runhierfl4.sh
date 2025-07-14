@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# bash script for home machine
+# bash script for collab
 
 python3 main.py \
-        -interclusteringtype sync \
+        -interclusteringtype async \
         -intraclusteringtype sync \
         -modelname cnncifar10 \
         -datasetname cifar10 \
@@ -23,7 +23,7 @@ python3 main.py \
         -learningrate 0.1
 
 python3 main.py \
-        -interclusteringtype sync \
+        -interclusteringtype async \
         -intraclusteringtype sync \
         -modelname cnncifar10 \
         -datasetname cifar10 \
@@ -43,7 +43,7 @@ python3 main.py \
         -learningrate 0.1
 
 python3 main.py \
-        -interclusteringtype sync \
+        -interclusteringtype async \
         -intraclusteringtype sync \
         -modelname cnncifar10 \
         -datasetname cifar10 \
@@ -63,7 +63,7 @@ python3 main.py \
         -learningrate 0.1
 
 python3 main.py \
-        -interclusteringtype sync \
+        -interclusteringtype async \
         -intraclusteringtype sync \
         -modelname cnncifar10 \
         -datasetname cifar10 \
@@ -81,3 +81,6 @@ python3 main.py \
         -localepochtype fixed \
         -localepoch 2 \
         -learningrate 0.1
+
+
+
