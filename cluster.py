@@ -27,7 +27,8 @@ class Cluster:
         datasize = 0
 
         # validate the model before training
-        accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.testdataloader, self.args)
+        if self.args.examinethemodelindetail ==1: accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.testdataloader, self.args)
+        else: accuracybefore, lossbefore, accuracyperlabelbefore = 0,0,0
         messagequeue.put(f"{' '*53}-> Cluster {self.clusterid}, loss : {lossbefore:.2f}, accuracy {(100*accuracybefore):.2f}%, model from round {modelroundnumber+1}")
         messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
 
@@ -76,7 +77,8 @@ class Cluster:
                     client.model.to("cpu")
 
                 # validate the model after training and log it to overall training log
-                accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
+                if self.args.examinethemodelindetail ==1: accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
+                else: accuracyafter, lossafter, accuracyperlabelafter = 0,0,0
                 messagequeue.put(f"{' '*53}Cluster {self.clusterid}, round {i+1}, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}% <-")
                 messagequeue.put(f"{' '*53}Time past : {timepast}msec")
                 messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
@@ -130,7 +132,7 @@ class Cluster:
                     # aggregate it
                     alpha = self.args.intraasyncalpha
                     staleness = modelversion - clientmodelversion[arrivedclientind]
-                    if not(self.args.intraasyncthresholdexist) or staleness<=self.args.intraasyncthreshold:
+                    if self.args.intraasyncthresholdexist==0 or staleness<=self.args.intraasyncthreshold:
                         stalenessfunction = 1/(1+staleness)
                         alphatime = alpha * stalenessfunction
                         modelstatedict = self.model.state_dict()
@@ -160,7 +162,8 @@ class Cluster:
                     clienteventqueue.put((timepast+t, pickedclientind))
 
                     # validate the model after training and log it to overall training log
-                    accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
+                    if self.args.examinethemodelindetail ==1: accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
+                    else: accuracyafter, lossafter, accuracyperlabelafter = 0,0,0
                     messagequeue.put(f"{' '*53}Cluster {self.clusterid}, round {round+1}, accuracy {(100*accuracyafter):.2f}% <-")
                     messagequeue.put(f"{' '*53}Time past : {timepast}msec")
                     messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")

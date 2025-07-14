@@ -20,7 +20,8 @@ python3 main.py \
         -clusterepoch 10 \
         -localepochtype fixed \
         -localepoch 2 \
-        -learningrate 0.1
+        -learningrate 0.1 \
+        -examinethemodelindetail 0
 
 python3 main.py \
         -interclusteringtype async \
@@ -40,7 +41,8 @@ python3 main.py \
         -clusterepoch 10 \
         -localepochtype fixed \
         -localepoch 2 \
-        -learningrate 0.1
+        -learningrate 0.1 \
+        -examinethemodelindetail 0
 
 python3 main.py \
         -interclusteringtype async \
@@ -60,7 +62,8 @@ python3 main.py \
         -clusterepoch 10 \
         -localepochtype fixed \
         -localepoch 2 \
-        -learningrate 0.1
+        -learningrate 0.1 \
+        -examinethemodelindetail 0
 
 python3 main.py \
         -interclusteringtype async \
@@ -80,7 +83,8 @@ python3 main.py \
         -clusterepoch 10 \
         -localepochtype fixed \
         -localepoch 2 \
-        -learningrate 0.1
+        -learningrate 0.1 \
+        -examinethemodelindetail 0
 
 
 

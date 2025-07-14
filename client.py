@@ -37,8 +37,10 @@ class Client:
         self.optimizer = get_optimizer(self.model, self.args.optimizername, self.args.learningrate)
 
         # validate the model before training
-        localaccuracybefore, locallossbefore = validate_model(self.model, self.dataloader, self.args)
-        globalaccuracybefore, globallossbefore= validate_model(self.model, self.args.testdataloader, self.args)
+        if self.args.examinethemodelindetail == 1: 
+            localaccuracybefore, locallossbefore = validate_model(self.model, self.dataloader, self.args)
+            globalaccuracybefore, globallossbefore= validate_model(self.model, self.args.testdataloader, self.args)
+        else: localaccuracybefore, locallossbefore, globalaccuracybefore, globallossbefore = 0,0,0,0
 
         modelbefore = copy.deepcopy(self.model)
         # train the model
@@ -60,8 +62,11 @@ class Client:
                 self.optimizer.step()
         
         # validate the model after training
-        localaccuracyafter, locallossafter= validate_model(self.model, self.dataloader, self.args)
-        globalaccuracyafter, globallossafter= validate_model(self.model, self.args.testdataloader, self.args)
+        if self.args.examinethemodelindetail == 1:
+            localaccuracyafter, locallossafter= validate_model(self.model, self.dataloader, self.args)
+            globalaccuracyafter, globallossafter= validate_model(self.model, self.args.testdataloader, self.args)
+        else:
+            localaccuracyafter, locallossafter, globalaccuracyafter, globallossafter = 0,0,0,0
         queue.put(f"{' '*94}<-> Client {self.clientid}, global : from {(100*globalaccuracybefore):.2f}% to {(100*globalaccuracyafter):.2f}%, local : from {(100*localaccuracybefore):.2f}% to {(100*localaccuracyafter):.2f}%, globalloss : from {globallossbefore:.3f} to {globallossafter:.3f}, localloss : from {locallossbefore:.3f} to {locallossafter:.3f}, training time : {self.calculate_training_time()}msec")
 
         # calculate the training time

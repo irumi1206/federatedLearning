@@ -229,10 +229,10 @@ if __name__ == "__main__":
     parser.add_argument("-localepochtype", type =str, choices=["fixed", "custom"], default ="fixed")
     parser.add_argument("-localepoch", type = int, default = 5)
     # details
-    parser.add_argument("-intraasyncthresholdexist", type =bool, default = True)
+    parser.add_argument("-intraasyncthresholdexist", type =int, default = 1)
     parser.add_argument("-intraasyncalpha", type = float, default = 0.5)
     parser.add_argument("-intraasyncthreshold", type = int, default = 10)
-    parser.add_argument("-interasyncthresholdexist", type =bool, default = True)
+    parser.add_argument("-interasyncthresholdexist", type =int, default = 1)
     parser.add_argument("-interasyncalpha", type = float, default = 0.5)
     parser.add_argument("-interasyncthreshold", type = int, default = 10)
     parser.add_argument("-optimizername", type = str, default = "sgd")
@@ -244,9 +244,10 @@ if __name__ == "__main__":
     parser.add_argument("-dominantpercentage", type = int, default = 95)
     parser.add_argument("-labelperclient", type = int, default =2)
     parser.add_argument("-dirichletalpha", type = float, default = 0.1)
-    parser.add_argument("-regularizationcoefficient", type =float, default = 0.0)
+    parser.add_argument("-regularizationcoefficient", type = float, default = 0.0)
     parser.add_argument("-clusterparticipationratio", type = int, default = 100)
     parser.add_argument("-clientparticipationratio", type = int, default = 100)
+    parser.add_argument("-examinethemodelindetail", type = int, default =1)
     args = parser.parse_args()
 
     # make folder for to track training
