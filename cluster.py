@@ -28,7 +28,7 @@ class Cluster:
 
         # validate the model before training
         if self.args.examinethemodelindetail ==1: accuracybefore, lossbefore, accuracyperlabelbefore = validate_model_detailed(self.model, self.testdataloader, self.args)
-        else: accuracybefore, lossbefore, accuracyperlabelbefore = 0,0,0
+        else: accuracybefore, lossbefore, accuracyperlabelbefore = 0,0,{0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0}
         messagequeue.put(f"{' '*53}-> Cluster {self.clusterid}, loss : {lossbefore:.2f}, accuracy {(100*accuracybefore):.2f}%, model from round {modelroundnumber+1}")
         messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelbefore.items()]}")
 
@@ -78,7 +78,7 @@ class Cluster:
 
                 # validate the model after training and log it to overall training log
                 if self.args.examinethemodelindetail ==1: accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
-                else: accuracyafter, lossafter, accuracyperlabelafter = 0,0,0
+                else: accuracyafter, lossafter, accuracyperlabelafter = 0,0,{0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0}
                 messagequeue.put(f"{' '*53}Cluster {self.clusterid}, round {i+1}, loss : {lossafter:.2f}, accuracy {(100*accuracyafter):.2f}% <-")
                 messagequeue.put(f"{' '*53}Time past : {timepast}msec")
                 messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
@@ -163,7 +163,7 @@ class Cluster:
 
                     # validate the model after training and log it to overall training log
                     if self.args.examinethemodelindetail ==1: accuracyafter, lossafter, accuracyperlabelafter = validate_model_detailed(self.model, self.testdataloader, self.args)
-                    else: accuracyafter, lossafter, accuracyperlabelafter = 0,0,0
+                    else: accuracyafter, lossafter, accuracyperlabelafter = 0,0,{0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0}
                     messagequeue.put(f"{' '*53}Cluster {self.clusterid}, round {round+1}, accuracy {(100*accuracyafter):.2f}% <-")
                     messagequeue.put(f"{' '*53}Time past : {timepast}msec")
                     messagequeue.put(f"{' '*53}{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelafter.items()]}")
