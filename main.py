@@ -120,6 +120,9 @@ def logsetting(args):
     logging.info(f"Local epoch type : {args.localepochtype},{localepochinfo}")
     # details
     logging.info(f"Optimizer name : {args.optimizername}, Lr : {args.learningrate}, Batch size : {args.batchsize}, Random seed : {args.randomseed}, Setting random seed :{args.settingrandomseed}, Device : {args.device}, Regularizationcoefficient : {args.regularizationcoefficient}, Clusterparticipationratio : {args.clusterparticipationratio}, Clientparticipationratio : {args.clientparticipationratio}")
+    logging.info(f"Log in detail accuracy : {args.examinethemodelindetail}")
+    logging.info(f"Interasyncthreshold exist : {args.interasyncthresholdexist}")
+    logging.info(f"Intraasyncthreshold exist : {args.intraasyncthresholdexist}")
 
 # Log client information) and save data distribution for each client in args.labelpercentageperclient
 def logclient(clientlist, args):
