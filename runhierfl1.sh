@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# bash script for machine 2 at the lab
+# bash script for machine 1 at the lab
 
 # python3 main.py \
 #         -interclusteringtype async \
