@@ -453,10 +453,12 @@ def cluster_clients(clientlist, args):
         clienttrainingtimelist = []
         for client in clientlist:
             clienttrainingtimelist.append(client.calculate_training_time())
+        clienttrainingtimearray = np.array(clienttrainingtimelist)
+        clienttrainingtimearrayreshaped = clienttrainingtimearray.reshape(-1, 1)
 
         # Create KMeans instance with 2 clusters
         kmeans = KMeans(n_clusters=args.clusternum, random_state=args.randomseed)
-        kmeans.fit(clienttrainingtimelist)
+        kmeans.fit(clienttrainingtimearrayreshaped)
 
         # Get cluster labels and centroids
         cluster_assignments = kmeans.labels_
