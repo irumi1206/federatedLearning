@@ -172,7 +172,7 @@ def cluster_clients(clientlist, args):
             # --- Step 3: Run KMeans ---
             print("Running KMeans on reduced deltas...")
             k = args.clusternum
-            kmeans = KMeans(n_clusters=k, random_state=0, n_init="auto").fit(reduced_deltas)
+            kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
             cluster_assignments = kmeans.labels_
 
             print("Cluster assignments:", cluster_assignments)
@@ -286,7 +286,7 @@ def cluster_clients(clientlist, args):
             # --- Step 3: Run KMeans ---
             print("Running KMeans on reduced deltas...")
             k = args.clusternum
-            kmeans = KMeans(n_clusters=k, random_state=0, n_init="auto").fit(reduced_deltas)
+            kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
             cluster_assignments = kmeans.labels_
 
             print("Cluster assignments:", cluster_assignments)
@@ -410,7 +410,7 @@ def cluster_clients(clientlist, args):
             # --- Step 3: Run KMeans ---
             print("Running KMeans on reduced deltas...")
             k = args.clusternum
-            kmeans = KMeans(n_clusters=k, random_state=0, n_init="auto").fit(reduced_deltas)
+            kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
             cluster_assignments = kmeans.labels_
 
             print("Cluster assignments:", cluster_assignments)
@@ -450,7 +450,31 @@ def cluster_clients(clientlist, args):
     
     elif args.clusteringtype == "clusterbysystemsimilarity":
 
-        raise ValueError("to be implemented")
+        clienttrainingtimelist = []
+        for client in clientlist:
+            clienttrainingtimelist.append(client.calculate_training_time())
+
+        # Create KMeans instance with 2 clusters
+        kmeans = KMeans(n_clusters=args.clusternum, random_state=args.randomseed)
+        kmeans.fit(clienttrainingtimelist)
+
+        # Get cluster labels and centroids
+        cluster_assignments = kmeans.labels_
+
+        # Assign clusters
+        for clusterind in range(args.clusternum):
+            cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
+            ind = 0
+            for clientind in range(len(clientlist)):
+                if cluster_assignments[clientind] == clusterind:
+                    client = clientlist[clientind]
+                    client.clusterid = clusterind
+                    client.clientid = ind
+                    ind +=1
+                    cluster.clientlist.append(client)
+            centralserver.clusterlist.append(cluster)
+
+        return centralserver
         
     elif args.clusteringtype == "custom":
 
