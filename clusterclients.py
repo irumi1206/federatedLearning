@@ -457,7 +457,7 @@ def cluster_clients(clientlist, args):
         clienttrainingtimearrayreshaped = clienttrainingtimearray.reshape(-1, 1)
 
         # Create KMeans instance with 2 clusters
-        kmeans = KMeans(n_clusters=args.clusternum, random_state=args.randomseed)
+        kmeans = KMeans(n_clusters=args.clusternum, random_state=args.randomseed, n_init="auto")
         kmeans.fit(clienttrainingtimearrayreshaped)
 
         # Get cluster labels and centroids
