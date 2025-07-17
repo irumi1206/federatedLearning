@@ -123,6 +123,7 @@ def logsetting(args):
     logging.info(f"Log in detail accuracy : {args.examinethemodelindetail}")
     logging.info(f"Interasyncthreshold exist : {args.interasyncthresholdexist}")
     logging.info(f"Intraasyncthreshold exist : {args.intraasyncthresholdexist}")
+    logging.info(f"Learningrate decay: {args.learningratedecay}")
 
 # Log client information) and save data distribution for each client in args.labelpercentageperclient
 def logclient(clientlist, args):
@@ -251,6 +252,7 @@ if __name__ == "__main__":
     parser.add_argument("-clusterparticipationratio", type = int, default = 100)
     parser.add_argument("-clientparticipationratio", type = int, default = 100)
     parser.add_argument("-examinethemodelindetail", type = int, default =1)
+    parser.add_argument("-learningratedecay", type = float, default = 1.0)
     args = parser.parse_args()
 
     # make folder for to track training
