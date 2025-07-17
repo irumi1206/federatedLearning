@@ -35,7 +35,6 @@ class Client:
 
         # reset optimizer
         self.optimizer = get_optimizer(self.model, self.args.optimizername, self.args.learningrate)
-        print(self.args.learningrate)
 
         # validate the model before training
         if self.args.examinethemodelindetail == 1: 

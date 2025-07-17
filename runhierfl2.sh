@@ -19,8 +19,10 @@ python3 main.py \
         -clusterepochtype fixed \
         -clusterepoch 10 \
         -localepochtype fixed \
-        -localepoch 5 \
-        -examinethemodelindetail 0
+        -localepoch 2 \
+        -examinethemodelindetail 0 \
+        -learningrate 0.1 \
+        -learningratedecay 0.992
 
 python3 main.py \
         -interclusteringtype sync \
@@ -39,8 +41,10 @@ python3 main.py \
         -clusterepochtype fixed \
         -clusterepoch 10 \
         -localepochtype fixed \
-        -localepoch 5 \
-        -examinethemodelindetail 0
+        -localepoch 2 \
+        -examinethemodelindetail 0 \
+        -learningrate 0.1 \
+        -learningratedecay 0.992
 
 python3 main.py \
         -interclusteringtype sync \
@@ -52,12 +56,14 @@ python3 main.py \
         -computationcapabilitymatric fixed\
         -systemheterogeneity assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3 \
         -clustercommunicationtime 800 \
-        -clusteringtype clusterbyrandomshuffle \
+        -clusteringtype clusterbyrandomshufflecustom \
         -clusternum 10 \
         -clustersize 10 \
         -centralserverepoch 100 \
         -clusterepochtype fixed \
         -clusterepoch 10 \
         -localepochtype fixed \
-        -localepoch 5 \
-        -examinethemodelindetail 0
+        -localepoch 2 \
+        -examinethemodelindetail 0 \
+        -learningrate 0.1 \
+        -learningratedecay 0.992
