@@ -15,7 +15,7 @@ python3 main.py \
         -clusteringtype clusterbygradientsimilarity \
         -clusternum 10 \
         -clustersize 10 \
-        -centralserverepoch 20 \
+        -centralserverepoch 50 \
         -clusterepochtype fixed \
         -clusterepoch 5 \
         -localepochtype fixed \
@@ -36,7 +36,7 @@ python3 main.py \
         -clusteringtype clusterbygradientdissimilarity \
         -clusternum 10 \
         -clustersize 10 \
-        -centralserverepoch 20 \
+        -centralserverepoch 50 \
         -clusterepochtype fixed \
         -clusterepoch 5 \
         -localepochtype fixed \
@@ -57,7 +57,7 @@ python3 main.py \
         -clusteringtype clusterbygradientbetweenassumeonelabeldominant100clients \
         -clusternum 10 \
         -clustersize 10 \
-        -centralserverepoch 20 \
+        -centralserverepoch 50 \
         -clusterepochtype fixed \
         -clusterepoch 5 \
         -localepochtype fixed \
