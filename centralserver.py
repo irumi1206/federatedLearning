@@ -82,16 +82,6 @@ class CentralServer:
                 #decay learning rate
                 self.args.learningrate= self.args.learningrate * self.args.learningratedecay
 
-                
-                nan_or_inf = False
-                for p in self.model.parameters():
-                    if torch.isnan(p).any() or torch.isinf(p).any():
-                        nan_or_inf = True
-                        break
-
-                if nan_or_inf:
-                    logging.info("NaN or Inf detected in model parameters!")
-
                      
         else:
 
