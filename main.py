@@ -10,8 +10,6 @@ import torch
 import random
 import numpy as np
 import queue as q
-
-
 from client import Client
 from utils import get_dataset, calculate_divergence, get_labellist, get_model, validate_model_detailed
 from partitiondata import partition_data
@@ -109,8 +107,7 @@ def logsetting(args):
     # system heterogeneity
     logging.info(f"System heterogeneity : {args.systemheterogeneity}")
     # how to cluster
-    clusteringinfo = f", Cluster num : {args.clusternum}, Cluster size : {args.clustersize}" if args.clusteringtype == "clusterbyclientorder" or args.clusteringtype == "clusterbyrandomshuffle" else ""
-    logging.info(f"Clustering type : {args.clusteringtype}{clusteringinfo}")
+    logging.info(f"Clustering type : {args.clusteringtype}, Cluster num : {args.clusternum}")
     logging.info(f"Cluster communication time : {args.clustercommunicationtime}")
     # how to choose epoch for each client, cluster, and centralserver
     logging.info(f"Central server epoch : {args.centralserverepoch}")
@@ -225,7 +222,6 @@ if __name__ == "__main__":
     # how to cluster
     parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle","clusterbygradientbetweenassumeonelabeldominant100clients", "clusterbygradientsimilarity", "clusterbysystemsimilarity","clusterbygradientdissimilarity", "clusterbygradientdissimilaritygreedy", "clusterbygradientdissimilarityandsystemsimilarity"], default = "clusterbyrandomshuffle")
     parser.add_argument("-clusternum", type = int, default = 10)
-    parser.add_argument("-clustersize", type = int, default = 20)
     # how to choose epoch for each client, cluster, centralserver
     parser.add_argument("-centralserverepoch", type = int, default = 200)
     parser.add_argument("-clusterepochtype", type = str, choices = ["fixed", "custom"], default = "fixed")

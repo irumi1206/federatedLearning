@@ -1,153 +1,119 @@
-from centralserver import CentralServer
-from cluster import Cluster
-from client import Client
-import random
-from queue import Queue
-import torch
 from sklearn.cluster import KMeans
-from sklearn.preprocessing import normalize
-from sklearn.decomposition import PCA
-from sklearn.decomposition import IncrementalPCA
+from queue import Queue
 import numpy as np
-import tempfile
-import shutil
-import os
+import torch
+from sklearn.decomposition import PCA
+from cluster import Cluster
+from centralserver import CentralServer
+import random
 import logging
+
 
 def cluster_clients(clientlist, args):
 
     centralserver = CentralServer(args.interclusteringtype, args.centralserverepoch, args, [])
 
-    # clustering based on client order, clustersize and number is set
     if args.clusteringtype == "clusterbyclientorder":
 
-        for clusterind in range(args.clusternum):
-            cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
-            for clientind in range(args.clustersize):
-                client = clientlist[clusterind*args.clustersize + clientind]
-                client.clientid = clientind
-                client.clusterid = clusterind
-                cluster.clientlist.append(client)
-            centralserver.clusterlist.append(cluster)
-        
-        return centralserver
-
-    # random shuffle the clients once, then cluster by client order
-    elif args.clusteringtype == "clusterbyrandomshuffle":
-
-        shuffledind=[i for i in range(args.clientnum)]
-        random.shuffle(shuffledind)
-
-        for clusterind in range(args.clusternum):
-            cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
-            for clientind in range(args.clustersize):
-                client = clientlist[shuffledind[clusterind*args.clustersize + clientind]]
-                client.clientid = clientind
-                client.clusterid = clusterind
-                cluster.clientlist.append(client)
-            centralserver.clusterlist.append(cluster)
-
-        return centralserver
-    
-    #randomly cluster but, to match same cluster level training time, assuming 100clients with onelabel dominant
-    elif args.clusteringtype == "clusterbygradientbetweenassumeonelabeldominant100clients":
-
-        cluster_assignments = [9] * 5
-
-        for i in range(9):
-            for _ in range(10):
-                cluster_assignments.append(i)
-        cluster_assignments.extend([9,9,9,9,9])
-
-        for clusterind in range(args.clusternum):
-            cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
-            ind = 0
-            for clientind in range(len(clientlist)):
-                if cluster_assignments[clientind] == clusterind:
-                    client = clientlist[clientind]
-                    client.clusterid = clusterind
-                    client.clientid = ind
-                    ind +=1
-                    cluster.clientlist.append(client)
-            centralserver.clusterlist.append(cluster)
-
-        return centralserver
-    
-    if args.clusteringtype == "clusterbygradientsimilarity":
-
-        print("Clustering by 'clusterbygradientsimilarity' using PCA and KMeans...")
-        reduced_deltas, client_datasizes = prepare_and_run_pca(clientlist, centralserver, args)
-        
+        # prepare for clustering
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
         k = args.clusternum
-        print("Running KMeans on reduced deltas...")
+        num_clients = len(clientlist)
+        
+        # clustering, same cluster size
+        cluster_assignments = np.zeros(num_clients, dtype=int)
+        clients_per_cluster = (num_clients + k - 1) // k
+        for client_idx in range(num_clients):
+            cluster_assignments[client_idx] = client_idx // clients_per_cluster
+
+        # evaluate clustering by variance
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
+
+
+    elif args.clusteringtype == "clusterbyrandomshuffle":
+       
+        # prepare for clustering
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
+        k = args.clusternum
+        num_clients = len(clientlist)
+        
+        # clustering, same cluster size
+        cluster_assignments = []
+        assignments_per_cluster = num_clients // k
+        for cluster_id in range(k):
+            cluster_assignments.extend([cluster_id] * assignments_per_cluster)
+        remainder = num_clients % k
+        for i in range(remainder):
+            cluster_assignments.append(i)
+        random.shuffle(cluster_assignments)
+        cluster_assignments = np.array(cluster_assignments)
+        
+        # evaluate clustering by variance
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
+
+
+    elif args.clusteringtype == "clusterbygradientbetweenassumeonelabeldominant100clients":
+       
+        # safety check for assumption
+        if len(clientlist) != 100 or args.clusternum != 10:
+            raise ValueError("This clustering type is hardcoded for 100 clients and 10 clusters.")
+
+        # prepare clustering
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
+        k = args.clusternum
+
+        # clustering, same cluster size
+        cluster_assignments_list = [9] * 5
+        for i in range(9):
+            cluster_assignments_list.extend([i] * 10)
+        cluster_assignments_list.extend([9] * 5)
+        cluster_assignments = np.array(cluster_assignments_list)
+        
+        # evaluation by variance
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
+
+
+    elif args.clusteringtype == "clusterbygradientsimilarity":
+
+        # prepare for clustering
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
+        k = args.clusternum
+        
+        # clustering, kmeans on pca vectors
         kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
         cluster_assignments = kmeans.labels_
-        print("Cluster assignments:", cluster_assignments)
 
-        evaluate_clustering(k, cluster_assignments, reduced_deltas, client_datasizes)
-
-        print("\nFinalizing server's cluster list...")
-        centralserver.clusterlist = []
-        for cluster_id in range(k):
-            cluster = Cluster(cluster_id, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
-            centralserver.clusterlist.append(cluster)
-        for client_idx, cluster_id in enumerate(cluster_assignments):
-            client = clientlist[client_idx]
-            client.clusterid = cluster_id
-            centralserver.clusterlist[cluster_id].clientlist.append(client)
-        for cluster in centralserver.clusterlist:
-            for intra_cluster_id, client in enumerate(cluster.clientlist):
-                client.clientid = intra_cluster_id
-        return centralserver
+        # evaluation by variance
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
 
     elif args.clusteringtype == "clusterbygradientdissimilarity":
-
-        print("Clustering by 'clusterbygradientdissimilarity' using KMeans then Round-Robin...")
-        reduced_deltas, client_datasizes = prepare_and_run_pca(clientlist, centralserver, args)
-
+        
+        # perpare for clustering
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
         k = args.clusternum
-        print("Running KMeans to find initial similarity groups...")
+       
+        # clustering, kmeans on pca vectors, then round-robin assigning different cluster to same groups in kmeans
         kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
         initial_assignments = kmeans.labels_
-        
-        # --- Round-Robin Re-assignment to enforce diversity ---
-        print("Re-assigning clients via round-robin...")
         final_assignments = np.full(len(clientlist), -1, dtype=int)
         round_robin_counter = 0
-        # Process clients group by group from KMeans result
         for group_id in range(k):
             clients_in_group = np.where(initial_assignments == group_id)[0]
             for client_idx in clients_in_group:
                 final_assignments[client_idx] = round_robin_counter
                 round_robin_counter = (round_robin_counter + 1) % k
-        print("Final cluster assignments:", final_assignments)
+        cluster_assignments = final_assignments
 
-        # Evaluate the final assignments after the round-robin step
-        evaluate_clustering(k, final_assignments, reduced_deltas, client_datasizes)
-
-        print("\nFinalizing server's cluster list...")
-        centralserver.clusterlist = []
-        for cluster_id in range(k):
-            cluster = Cluster(cluster_id, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
-            centralserver.clusterlist.append(cluster)
-        for client_idx, cluster_id in enumerate(final_assignments):
-            client = clientlist[client_idx]
-            client.clusterid = cluster_id
-            centralserver.clusterlist[cluster_id].clientlist.append(client)
-        for cluster in centralserver.clusterlist:
-            for intra_cluster_id, client in enumerate(cluster.clientlist):
-                client.clientid = intra_cluster_id
-        return centralserver
+        # evaluation by variance
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
 
     elif args.clusteringtype == "clusterbygradientdissimilaritygreedy":
-
         print("Running a TWO-STAGE HYBRID clustering (Marginal Gain Strategy)...")
         args.balance_lambda = 1.0
-
-        reduced_deltas, client_datasizes = prepare_and_run_pca(clientlist, centralserver, args)
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
         
-        N_COMPONENTS = 20
         k = args.clusternum
+        N_COMPONENTS = reduced_deltas.shape[1] # Use actual number of components from PCA
         
         print("STAGE 1: Running KMeans to find initial similarity groups...")
         M = k 
@@ -214,82 +180,50 @@ def cluster_clients(clientlist, args):
         
         print("Hybrid assignment (marginal gain) complete.")
         print("Final cluster client counts:", cluster_client_counts)
-        
-        evaluate_clustering(k, cluster_assignments, reduced_deltas, client_datasizes)
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
 
-        print("\nFinalizing server's cluster list...")
-        centralserver.clusterlist = []
-        for cluster_id in range(k):
-            cluster = Cluster(cluster_id, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
-            centralserver.clusterlist.append(cluster)
-        for client_idx, cluster_id in enumerate(cluster_assignments):
-            client = clientlist[client_idx]
-            client.clusterid = cluster_id
-            centralserver.clusterlist[cluster_id].clientlist.append(client)
-        for cluster in centralserver.clusterlist:
-            for intra_cluster_id, client in enumerate(cluster.clientlist):
-                client.clientid = intra_cluster_id
-        return centralserver
-
-
-
-                                 
-    elif args.clusteringtype == "clusterbygradientdissimilarityandsystemsimilarity":
-        
-        raise ValueError("to be implemented")
-
-    
     elif args.clusteringtype == "clusterbysystemsimilarity":
-
-        clienttrainingtimelist = []
-        for client in clientlist:
-            clienttrainingtimelist.append(client.calculate_training_time())
-        clienttrainingtimearray = np.array(clienttrainingtimelist)
-        clienttrainingtimearrayreshaped = clienttrainingtimearray.reshape(-1, 1)
-
-        # Create KMeans instance with 2 clusters
-        kmeans = KMeans(n_clusters=args.clusternum, random_state=args.randomseed, n_init="auto")
-        kmeans.fit(clienttrainingtimearrayreshaped)
-
-        # Get cluster labels and centroids
-        cluster_assignments = kmeans.labels_
-
-        # Assign clusters
-        for clusterind in range(args.clusternum):
-            cluster = Cluster(clusterind, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
-            ind = 0
-            for clientind in range(len(clientlist)):
-                if cluster_assignments[clientind] == clusterind:
-                    client = clientlist[clientind]
-                    client.clusterid = clusterind
-                    client.clientid = ind
-                    ind +=1
-                    cluster.clientlist.append(client)
-            centralserver.clusterlist.append(cluster)
-
-        return centralserver
         
-    elif args.clusteringtype == "custom":
+        # perpare for clustering
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
+        k = args.clusternum
+        
+        # clustering, kmeans based on training time
+        client_training_times = []
+        for client in clientlist:
+            # Assuming calculate_training_time is a fast operation
+            client_training_times.append(client.calculate_training_time())
+        client_training_times_np = np.array(client_training_times).reshape(-1, 1)
+        kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto")
+        cluster_assignments = kmeans.fit_predict(client_training_times_np)
+        
+        # evaluation by variance
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
 
-        raise ValueError("customize it plz")
-    
     else:
+        raise ValueError(f"Clustering type '{args.clusteringtype}' not supported")
 
-        raise ValueError("clustering type not supported")
-
-
-
-
-
-
-
+    # actual assignment of clients and clusters
+    centralserver.clusterlist = []
+    for cluster_id in range(k):
+        cluster = Cluster(cluster_id, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
+        centralserver.clusterlist.append(cluster)
+    for client_idx, cluster_id in enumerate(cluster_assignments):
+        client = clientlist[client_idx]
+        client.clusterid = int(cluster_id)
+        centralserver.clusterlist[int(cluster_id)].clientlist.append(client)  
+    for cluster in centralserver.clusterlist:
+        for intra_cluster_id, client in enumerate(cluster.clientlist):
+            client.clientid = intra_cluster_id
+            
+    return centralserver
 
 
 
 def prepare_and_run_pca(clientlist, centralserver, args):
     """
     Performs local training for all clients to get model deltas,
-    then runs PCA to reduce their dimensionality.
+    then runs PCA.
     """
     print("Preparing deltas and running PCA...")
     all_deltas = []
@@ -321,52 +255,54 @@ def prepare_and_run_pca(clientlist, centralserver, args):
 
     all_deltas_np = np.array(all_deltas)
     client_datasizes_np = np.array(client_datasizes)
-    N_COMPONENTS = 20
+    N_COMPONENTS = 100
     pca = PCA(n_components=N_COMPONENTS)
     reduced_deltas = pca.fit_transform(all_deltas_np)
-    print("PCA complete.")
-    return reduced_deltas, client_datasizes_np
+    print(f"PCA complete, using {N_COMPONENTS} components.")
+    
+    return reduced_deltas, client_datasizes_np, all_deltas_np
 
-def evaluate_clustering(k, cluster_assignments, reduced_deltas, client_datasizes):
+def evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes):
     """
     Calculates and prints inter-cluster and intra-cluster variance.
     """
-    # --- INTER-CLUSTER VARIANCE (Variance between clusters) ---
-    print("\n--- Clustering Evaluation Metrics ---")
-    print("1. Inter-Cluster Variance (how different clusters are from each other):")
+    print("\n--- Clustering Evaluation Metrics (on Original Gradients) ---")
+    
+    # --- Inter-Cluster Variance (Weighted) ---
+    print("1. Inter-Cluster Variance (Weighted):")
     cluster_averages = []
+    cluster_total_datasizes = []
     for j in range(k):
         indices_in_cluster = np.where(cluster_assignments == j)[0]
         if len(indices_in_cluster) > 0:
-            deltas_in_cluster = reduced_deltas[indices_in_cluster]
+            deltas_in_cluster = original_deltas[indices_in_cluster]
             datasizes_in_cluster = client_datasizes[indices_in_cluster]
             weighted_avg_grad = np.average(deltas_in_cluster, axis=0, weights=datasizes_in_cluster)
             cluster_averages.append(weighted_avg_grad)
+            cluster_total_datasizes.append(np.sum(datasizes_in_cluster))
 
     if len(cluster_averages) < 2:
-        print("  - N/A (requires at least 2 non-empty clusters)")
+        logging.info("  - N/A (requires at least 2 non-empty clusters)")
     else:
         cluster_averages_np = np.array(cluster_averages)
-        mean_of_cluster_averages = np.mean(cluster_averages_np, axis=0)
-        squared_distances = np.sum((cluster_averages_np - mean_of_cluster_averages)**2, axis=1)
-        inter_cluster_variance = np.mean(squared_distances)
-        logging.info(f"  - Variance of Aggregated Gradients: {inter_cluster_variance:.6f} (lower is better)")
+        global_average_gradient = np.average(cluster_averages_np, axis=0, weights=cluster_total_datasizes)
+        squared_distances = np.sum((cluster_averages_np - global_average_gradient)**2, axis=1)
+        weighted_inter_variance = np.average(squared_distances, weights=cluster_total_datasizes)
+        logging.info(f"  - Weighted Variance of Gradients: {weighted_inter_variance:.6f} (lower is better)")
 
-    # --- INTRA-CLUSTER VARIANCE (Variance within clusters) ---
-    print("2. Intra-Cluster Variance (how similar clients are within each cluster):")
+    # --- Intra-Cluster Variance ---
+    print("2. Intra-Cluster Variance:")
     intra_cluster_variances = []
     for j in range(k):
         indices_in_cluster = np.where(cluster_assignments == j)[0]
         if len(indices_in_cluster) > 1:
-            deltas_in_cluster = reduced_deltas[indices_in_cluster]
+            deltas_in_cluster = original_deltas[indices_in_cluster]
             mean_of_deltas = np.mean(deltas_in_cluster, axis=0)
             squared_distances = np.sum((deltas_in_cluster - mean_of_deltas)**2, axis=1)
             intra_cluster_variances.append(np.mean(squared_distances))
         else:
-            intra_cluster_variances.append(0.0) # Variance is 0 for clusters with 0 or 1 client
+            intra_cluster_variances.append(0.0)
             
     mean_intra_variance = np.mean(intra_cluster_variances)
     logging.info(f"  - Per-Cluster Variances: {[float(f'{v:.6f}') for v in intra_cluster_variances]}")
     logging.info(f"  - Mean Intra-Cluster Variance: {mean_intra_variance:.6f} (lower is better)")
-
-        
