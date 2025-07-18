@@ -312,6 +312,171 @@ def cluster_clients(clientlist, args):
             centralserver.clusterlist.append(cluster)
 
         return centralserver
+    
+
+
+
+
+    elif args.clusteringtype == "clusterbygradientdissimilaritygreedy":
+        print("Clustering by gradient dissimilarity using a WEIGHTED & BALANCED greedy assignment...")
+        args.balance_lambda = 1e-5
+
+        
+
+        # --- SETUP ---
+        initial_weight_dict = centralserver.model.state_dict()
+        with torch.no_grad():
+            initial_weight_flat = torch.cat(
+                [p.view(-1) for p in initial_weight_dict.values()]
+            ).cpu()
+
+        N_COMPONENTS = 20
+        BATCH_SIZE = 20
+        if len(clientlist) < BATCH_SIZE:
+            BATCH_SIZE = max(len(clientlist), N_COMPONENTS)
+            print(f"Warning: Number of clients is less than BATCH_SIZE. Adjusting BATCH_SIZE to {BATCH_SIZE}.")
+        
+        pca = IncrementalPCA(n_components=N_COMPONENTS, batch_size=BATCH_SIZE)
+        temp_dir = tempfile.mkdtemp()
+        print(f"Using temporary directory for deltas: {temp_dir}")
+
+        try:
+            # --- PASS 1: Fit PCA, Save Deltas, and Collect Data Sizes ---
+            print("Fitting PCA, caching deltas, and collecting data sizes...")
+            delta_batch = []
+            client_datasizes = []
+            client_num = 0
+
+            for client in clientlist:
+                client_num += 1
+                print(f"\rProcessing Client {client_num}/{len(clientlist)}...", end='')
+
+                # Get data size directly from the client's dataloader
+                datasize = len(client.dataloader)
+                client_datasizes.append(datasize)
+
+                # Perform local training to get the model delta
+                client.model.load_state_dict(initial_weight_dict)
+                client.model.to(args.device)
+                q = Queue() # The local_train function might expect a queue
+                client.local_train(q)
+
+                with torch.no_grad():
+                    client_weight = torch.cat(
+                        [p.data.view(-1) for p in client.model.parameters()]
+                    ).cpu()
+                    delta_weight = initial_weight_flat - client_weight
+                
+                client.model.to('cpu')
+
+                delta_np = delta_weight.numpy()
+                row_norm = np.linalg.norm(delta_np)
+                normalized_delta = delta_np / (row_norm if row_norm > 0 else 1.0)
+                
+                delta_filepath = os.path.join(temp_dir, f"delta_{client_num - 1}.npy")
+                np.save(delta_filepath, normalized_delta)
+                delta_batch.append(normalized_delta)
+
+                if len(delta_batch) == BATCH_SIZE:
+                    pca.partial_fit(np.array(delta_batch))
+                    delta_batch.clear()
+            
+            print() 
+
+            if len(delta_batch) >= N_COMPONENTS:
+                pca.partial_fit(np.array(delta_batch))
+                delta_batch.clear()
+            
+            client_datasizes = np.array(client_datasizes)
+            print("PCA model fitted and data sizes collected.")
+
+            # --- PASS 2: Load Deltas and Transform ---
+            print("Loading deltas from disk and transforming...")
+            reduced_deltas = np.zeros((len(clientlist), N_COMPONENTS))
+            for i in range(len(clientlist)):
+                delta_filepath = os.path.join(temp_dir, f"delta_{i}.npy")
+                normalized_delta = np.load(delta_filepath).reshape(1, -1)
+                reduced_deltas[i] = pca.transform(normalized_delta)
+            
+            print("All deltas have been transformed.")
+
+            # --- STEP 3: WEIGHTED & BALANCED Greedy Clustering ---
+            print("Running WEIGHTED & BALANCED Greedy Assignment...")
+            k = args.clusternum
+            num_clients = len(clientlist)
+
+            global_avg_reduced_delta = np.average(reduced_deltas, axis=0, weights=client_datasizes)
+            distances_to_global = np.linalg.norm(reduced_deltas - global_avg_reduced_delta, axis=1)
+            ordered_client_indices = np.argsort(distances_to_global)[::-1]
+
+            cluster_assignments = np.full(num_clients, -1, dtype=int)
+            cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS))
+            cluster_sum_datasizes = np.zeros(k)
+            cluster_client_counts = np.zeros(k, dtype=int)
+
+            for client_idx in ordered_client_indices:
+                client_delta = reduced_deltas[client_idx]
+                client_size = client_datasizes[client_idx]
+                costs = np.zeros(k)
+
+                for i in range(k):
+                    # Calculate quality cost
+                    hypothetical_sum_weighted_delta = cluster_sum_weighted_deltas[i] + client_size * client_delta
+                    hypothetical_sum_datasize = cluster_sum_datasizes[i] + client_size
+                    
+                    if hypothetical_sum_datasize == 0:
+                        hypothetical_avg = np.zeros(N_COMPONENTS)
+                    else:
+                        hypothetical_avg = hypothetical_sum_weighted_delta / hypothetical_sum_datasize
+                    
+                    quality_cost = np.linalg.norm(hypothetical_avg - global_avg_reduced_delta)**2
+
+                    # Calculate balance penalty
+                    balance_penalty = cluster_client_counts[i]
+
+                    # Combine costs
+                    costs[i] = quality_cost + args.balance_lambda * balance_penalty
+                
+                best_cluster_idx = np.argmin(costs)
+                cluster_assignments[client_idx] = best_cluster_idx
+                
+                # Update state for the chosen cluster
+                cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+                cluster_sum_datasizes[best_cluster_idx] += client_size
+                cluster_client_counts[best_cluster_idx] += 1
+            
+            print("Balanced greedy assignment complete.")
+            print("Final cluster client counts:", cluster_client_counts)
+            print("Final cluster assignments:", cluster_assignments)
+            
+            # --- Final Step: Create Cluster Objects ---
+            print("Finalizing server's cluster list...")
+            
+            for cluster_id in range(k):
+                cluster = Cluster(cluster_id, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
+                centralserver.clusterlist.append(cluster)
+            
+            for client_idx, cluster_id in enumerate(cluster_assignments):
+                client = clientlist[client_idx]
+                client.clusterid = cluster_id
+                centralserver.clusterlist[cluster_id].clientlist.append(client)
+                
+            for cluster in centralserver.clusterlist:
+                for intra_cluster_id, client in enumerate(cluster.clientlist):
+                    client.clientid = intra_cluster_id
+
+        finally:
+            # --- CLEANUP ---
+            print(f"Cleaning up temporary directory: {temp_dir}")
+            shutil.rmtree(temp_dir)
+
+        return centralserver
+    
+
+
+
+
+
                                  
     elif args.clusteringtype == "clusterbygradientdissimilarityandsystemsimilarity":
         

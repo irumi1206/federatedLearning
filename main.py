@@ -223,7 +223,7 @@ if __name__ == "__main__":
     parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "comp100200random_comm100", "assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3"], default = "realistic")
     parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to cluster
-    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle","clusterbygradientbetweenassumeonelabeldominant100clients", "clusterbygradientsimilarity", "clusterbysystemsimilarity","clusterbygradientdissimilarity","clusterbygradientdissimilarityandsystemsimilarity"], default = "clusterbyrandomshuffle")
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle","clusterbygradientbetweenassumeonelabeldominant100clients", "clusterbygradientsimilarity", "clusterbysystemsimilarity","clusterbygradientdissimilarity", "clusterbygradientdissimilaritygreedy", "clusterbygradientdissimilarityandsystemsimilarity"], default = "clusterbyrandomshuffle")
     parser.add_argument("-clusternum", type = int, default = 10)
     parser.add_argument("-clustersize", type = int, default = 20)
     # how to choose epoch for each client, cluster, centralserver
