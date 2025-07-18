@@ -318,10 +318,8 @@ def cluster_clients(clientlist, args):
 
 
     elif args.clusteringtype == "clusterbygradientdissimilaritygreedy":
-        print("Clustering by gradient dissimilarity using a WEIGHTED & BALANCED greedy assignment...")
-        args.balance_lambda = 1e-5
-
-        
+        print("Running a TWO-STAGE HYBRID clustering algorithm...")
+        args.balance_lambda = 1.0
 
         # --- SETUP ---
         initial_weight_dict = centralserver.model.state_dict()
@@ -341,117 +339,111 @@ def cluster_clients(clientlist, args):
         print(f"Using temporary directory for deltas: {temp_dir}")
 
         try:
-            # --- PASS 1: Fit PCA, Save Deltas, and Collect Data Sizes ---
-            print("Fitting PCA, caching deltas, and collecting data sizes...")
+            # --- PASS 1 & 2: Data Prep & PCA (No Change) ---
+            print("PASS 1: Fitting PCA, caching deltas, and collecting data sizes...")
             delta_batch = []
             client_datasizes = []
-            client_num = 0
-
-            for client in clientlist:
-                client_num += 1
+            for client_num, client in enumerate(clientlist, 1):
                 print(f"\rProcessing Client {client_num}/{len(clientlist)}...", end='')
-
-                # Get data size directly from the client's dataloader
                 datasize = len(client.dataloader)
                 client_datasizes.append(datasize)
-
-                # Perform local training to get the model delta
                 client.model.load_state_dict(initial_weight_dict)
                 client.model.to(args.device)
-                q = Queue() # The local_train function might expect a queue
+                q = Queue()
                 client.local_train(q)
-
                 with torch.no_grad():
-                    client_weight = torch.cat(
-                        [p.data.view(-1) for p in client.model.parameters()]
-                    ).cpu()
+                    client_weight = torch.cat([p.data.view(-1) for p in client.model.parameters()]).cpu()
                     delta_weight = initial_weight_flat - client_weight
-                
                 client.model.to('cpu')
-
                 delta_np = delta_weight.numpy()
                 row_norm = np.linalg.norm(delta_np)
                 normalized_delta = delta_np / (row_norm if row_norm > 0 else 1.0)
-                
                 delta_filepath = os.path.join(temp_dir, f"delta_{client_num - 1}.npy")
                 np.save(delta_filepath, normalized_delta)
                 delta_batch.append(normalized_delta)
-
                 if len(delta_batch) == BATCH_SIZE:
                     pca.partial_fit(np.array(delta_batch))
                     delta_batch.clear()
-            
-            print() 
-
+            print()
             if len(delta_batch) >= N_COMPONENTS:
                 pca.partial_fit(np.array(delta_batch))
-                delta_batch.clear()
-            
             client_datasizes = np.array(client_datasizes)
             print("PCA model fitted and data sizes collected.")
 
-            # --- PASS 2: Load Deltas and Transform ---
-            print("Loading deltas from disk and transforming...")
+            print("PASS 2: Loading deltas from disk and transforming...")
             reduced_deltas = np.zeros((len(clientlist), N_COMPONENTS))
             for i in range(len(clientlist)):
                 delta_filepath = os.path.join(temp_dir, f"delta_{i}.npy")
                 normalized_delta = np.load(delta_filepath).reshape(1, -1)
                 reduced_deltas[i] = pca.transform(normalized_delta)
-            
             print("All deltas have been transformed.")
 
-            # --- STEP 3: WEIGHTED & BALANCED Greedy Clustering ---
-            print("Running WEIGHTED & BALANCED Greedy Assignment...")
+            # --- STAGE 1: Initial Similarity Grouping (KMeans) ---
+            print("STAGE 1: Running KMeans to find initial similarity groups...")
+            # Number of initial groups. Can be same as final clusters or larger.
+            M = args.clusternum 
+            kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+            initial_groups = kmeans.labels_
+
+            # --- STAGE 2: Hybrid Greedy Re-assignment ---
+            print("STAGE 2: Running hybrid greedy assignment...")
             k = args.clusternum
-            num_clients = len(clientlist)
+            
+            # Organize clients by their initial KMeans group
+            organized_clients = [[] for _ in range(M)]
+            for client_idx, group_id in enumerate(initial_groups):
+                organized_clients[group_id].append(client_idx)
 
+            # Initialize state for final clusters
             global_avg_reduced_delta = np.average(reduced_deltas, axis=0, weights=client_datasizes)
-            distances_to_global = np.linalg.norm(reduced_deltas - global_avg_reduced_delta, axis=1)
-            ordered_client_indices = np.argsort(distances_to_global)[::-1]
-
-            cluster_assignments = np.full(num_clients, -1, dtype=int)
+            cluster_assignments = np.full(len(clientlist), -1, dtype=int)
             cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS))
             cluster_sum_datasizes = np.zeros(k)
             cluster_client_counts = np.zeros(k, dtype=int)
 
-            for client_idx in ordered_client_indices:
-                client_delta = reduced_deltas[client_idx]
-                client_size = client_datasizes[client_idx]
-                costs = np.zeros(k)
+            # Iterate round-robin through the initial groups
+            max_group_size = max(len(g) for g in organized_clients) if organized_clients else 0
+            for i in range(max_group_size):
+                for group_id in range(M):
+                    if i < len(organized_clients[group_id]):
+                        client_idx = organized_clients[group_id][i]
+                        
+                        # --- Normalized & Balanced Cost Calculation ---
+                        client_delta = reduced_deltas[client_idx]
+                        client_size = client_datasizes[client_idx]
+                        raw_quality_costs = np.zeros(k)
+                        raw_balance_penalties = np.zeros(k)
 
-                for i in range(k):
-                    # Calculate quality cost
-                    hypothetical_sum_weighted_delta = cluster_sum_weighted_deltas[i] + client_size * client_delta
-                    hypothetical_sum_datasize = cluster_sum_datasizes[i] + client_size
-                    
-                    if hypothetical_sum_datasize == 0:
-                        hypothetical_avg = np.zeros(N_COMPONENTS)
-                    else:
-                        hypothetical_avg = hypothetical_sum_weighted_delta / hypothetical_sum_datasize
-                    
-                    quality_cost = np.linalg.norm(hypothetical_avg - global_avg_reduced_delta)**2
+                        for j in range(k):
+                            hypothetical_sum_weighted_delta = cluster_sum_weighted_deltas[j] + client_size * client_delta
+                            hypothetical_sum_datasize = cluster_sum_datasizes[j] + client_size
+                            hypothetical_avg = hypothetical_sum_weighted_delta / (hypothetical_sum_datasize + 1e-9)
+                            raw_quality_costs[j] = np.linalg.norm(hypothetical_avg - global_avg_reduced_delta)**2
+                            raw_balance_penalties[j] = cluster_client_counts[j]
 
-                    # Calculate balance penalty
-                    balance_penalty = cluster_client_counts[i]
+                        q_min, q_max = raw_quality_costs.min(), raw_quality_costs.max()
+                        norm_quality_costs = (raw_quality_costs - q_min) / (q_max - q_min + 1e-9)
 
-                    # Combine costs
-                    costs[i] = quality_cost + args.balance_lambda * balance_penalty
-                
-                best_cluster_idx = np.argmin(costs)
-                cluster_assignments[client_idx] = best_cluster_idx
-                
-                # Update state for the chosen cluster
-                cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
-                cluster_sum_datasizes[best_cluster_idx] += client_size
-                cluster_client_counts[best_cluster_idx] += 1
+                        b_min, b_max = raw_balance_penalties.min(), raw_balance_penalties.max()
+                        norm_balance_penalties = np.zeros(k)
+                        if b_max - b_min > 1e-9:
+                            norm_balance_penalties = (raw_balance_penalties - b_min) / (b_max - b_min)
+                        
+                        total_costs = norm_quality_costs + args.balance_lambda * norm_balance_penalties
+                        best_cluster_idx = np.argmin(total_costs)
+                        # --- End Cost Calculation ---
+
+                        # Assign client and update stats
+                        cluster_assignments[client_idx] = best_cluster_idx
+                        cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+                        cluster_sum_datasizes[best_cluster_idx] += client_size
+                        cluster_client_counts[best_cluster_idx] += 1
             
-            print("Balanced greedy assignment complete.")
+            print("Hybrid assignment complete.")
             print("Final cluster client counts:", cluster_client_counts)
-            print("Final cluster assignments:", cluster_assignments)
-            
+
             # --- Final Step: Create Cluster Objects ---
             print("Finalizing server's cluster list...")
-            
             for cluster_id in range(k):
                 cluster = Cluster(cluster_id, args.clustercommunicationtime, args.intraclusteringtype, args.clusterepoch, args, [])
                 centralserver.clusterlist.append(cluster)
