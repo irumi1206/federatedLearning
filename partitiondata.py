@@ -180,70 +180,70 @@ def split_onlyspecificlabelexist(args):
     return dataloaderlist
 
 
-def split_dirichletdistribution(args):
-    """
-    Splits data using a client-skewed Dirichlet distribution, ensuring
-    each client has an equal total number of data samples.
-    """
-    # 1. Get parameters
-    alpha = args.dirichletalpha
-    rng = np.random.default_rng(args.settingrandomseed)
-    num_clients = args.clientnum
+# def split_dirichletdistribution(args):
+#     """
+#     Splits data using a client-skewed Dirichlet distribution, ensuring
+#     each client has an equal total number of data samples.
+#     """
+#     # 1. Get parameters
+#     alpha = args.dirichletalpha
+#     rng = np.random.default_rng(args.settingrandomseed)
+#     num_clients = args.clientnum
     
-    # 2. Get labels and data indices sorted by label
-    labels = np.array(args.traindataset.targets)
-    num_classes = len(np.unique(labels))
-    indices_by_label = [np.where(labels == i)[0] for i in range(num_classes)]
+#     # 2. Get labels and data indices sorted by label
+#     labels = np.array(args.traindataset.targets)
+#     num_classes = len(np.unique(labels))
+#     indices_by_label = [np.where(labels == i)[0] for i in range(num_classes)]
     
-    # Shuffle the indices within each label pool for random drawing
-    for idx_list in indices_by_label:
-        rng.shuffle(idx_list)
+#     # Shuffle the indices within each label pool for random drawing
+#     for idx_list in indices_by_label:
+#         rng.shuffle(idx_list)
     
-    # 3. Determine the fixed number of data points per client
-    total_data_size = len(labels)
-    data_per_client = total_data_size // num_clients
+#     # 3. Determine the fixed number of data points per client
+#     total_data_size = len(labels)
+#     data_per_client = total_data_size // num_clients
     
-    # 4. For each client, generate its unique "recipe" of label proportions
-    client_proportions = rng.dirichlet(alpha=[alpha] * num_classes, size=num_clients)
+#     # 4. For each client, generate its unique "recipe" of label proportions
+#     client_proportions = rng.dirichlet(alpha=[alpha] * num_classes, size=num_clients)
     
-    client_indices = [[] for _ in range(num_clients)]
+#     client_indices = [[] for _ in range(num_clients)]
     
-    # Pointers to track the current position in each label's index pool
-    label_pool_pointers = np.zeros(num_classes, dtype=int)
+#     # Pointers to track the current position in each label's index pool
+#     label_pool_pointers = np.zeros(num_classes, dtype=int)
     
-    # 5. For each client, "draw" data from the pools according to its recipe
-    for client_id in range(num_clients):
-        proportions = client_proportions[client_id]
+#     # 5. For each client, "draw" data from the pools according to its recipe
+#     for client_id in range(num_clients):
+#         proportions = client_proportions[client_id]
         
-        # Calculate how many samples of each label this client should get
-        samples_per_label = (proportions * data_per_client).astype(int)
+#         # Calculate how many samples of each label this client should get
+#         samples_per_label = (proportions * data_per_client).astype(int)
         
-        # Correct for rounding errors to ensure client gets exactly data_per_client samples
-        remainder = data_per_client - samples_per_label.sum()
-        samples_per_label[np.argmax(proportions)] += remainder
+#         # Correct for rounding errors to ensure client gets exactly data_per_client samples
+#         remainder = data_per_client - samples_per_label.sum()
+#         samples_per_label[np.argmax(proportions)] += remainder
         
-        # Draw the required number of samples for each label
-        for label_idx, num_samples in enumerate(samples_per_label):
-            # Check if there are enough samples left in the pool
-            if label_pool_pointers[label_idx] + num_samples > len(indices_by_label[label_idx]):
-                num_samples = len(indices_by_label[label_idx]) - label_pool_pointers[label_idx]
+#         # Draw the required number of samples for each label
+#         for label_idx, num_samples in enumerate(samples_per_label):
+#             # Check if there are enough samples left in the pool
+#             if label_pool_pointers[label_idx] + num_samples > len(indices_by_label[label_idx]):
+#                 num_samples = len(indices_by_label[label_idx]) - label_pool_pointers[label_idx]
 
-            start_pos = label_pool_pointers[label_idx]
-            end_pos = start_pos + num_samples
+#             start_pos = label_pool_pointers[label_idx]
+#             end_pos = start_pos + num_samples
             
-            client_indices[client_id].extend(indices_by_label[label_idx][start_pos:end_pos])
+#             client_indices[client_id].extend(indices_by_label[label_idx][start_pos:end_pos])
             
-            # Move the pointer for the next client
-            label_pool_pointers[label_idx] = end_pos
+#             # Move the pointer for the next client
+#             label_pool_pointers[label_idx] = end_pos
 
-    # 6. Create a dataloader for each client
-    dataloaderlist = []
-    for i in range(num_clients):
-        subset = Subset(args.traindataset, client_indices[i])
-        loader = DataLoader(subset, batch_size=args.batchsize, shuffle=True)
-        dataloaderlist.append(loader)
+#     # 6. Create a dataloader for each client
+#     dataloaderlist = []
+#     for i in range(num_clients):
+#         subset = Subset(args.traindataset, client_indices[i])
+#         loader = DataLoader(subset, batch_size=args.batchsize, shuffle=True)
+#         dataloaderlist.append(loader)
 
-    return dataloaderlist
+#     return dataloaderlist
 
 
 
@@ -281,68 +281,68 @@ def split_dirichletdistribution(args):
 
 #     return dataloaderlist
 
-# def split_dirichletdistribution(args):
-#     """
-#     Splits data among clients using a client-skewed Dirichlet distribution.
-#     Each client receives a unique distribution of labels.
-#     """
-#     # get parameters
-#     alpha = args.dirichletalpha
-#     rng = np.random.default_rng(args.settingrandomseed)
-#     clientnum = args.clientnum
+def split_dirichletdistribution(args):
+    """
+    Splits data among clients using a client-skewed Dirichlet distribution.
+    Each client receives a unique distribution of labels.
+    """
+    # get parameters
+    alpha = args.dirichletalpha
+    rng = np.random.default_rng(args.settingrandomseed)
+    clientnum = args.clientnum
     
-#     # get labels and sort all data indices by their label
-#     labels = np.array(args.traindataset.targets)
-#     uniquelabels, label_counts = np.unique(labels, return_counts=True)
-#     num_labels = len(uniquelabels)
-#     indices_by_label = [np.where(labels == i)[0] for i in uniquelabels]
+    # get labels and sort all data indices by their label
+    labels = np.array(args.traindataset.targets)
+    uniquelabels, label_counts = np.unique(labels, return_counts=True)
+    num_labels = len(uniquelabels)
+    indices_by_label = [np.where(labels == i)[0] for i in uniquelabels]
     
-#     # --- Main Logic for Client-Skewed Partitioning ---
+    # --- Main Logic for Client-Skewed Partitioning ---
     
-#     # 1. For each client, generate a probability distribution over the labels
-#     client_proportions = rng.dirichlet([alpha] * num_labels, size=clientnum)
+    # 1. For each client, generate a probability distribution over the labels
+    client_proportions = rng.dirichlet([alpha] * num_labels, size=clientnum)
     
-#     # 2. Balance the client proportions to ensure all data is used
-#     #    This prevents some labels from being over-assigned while others are under-assigned
-#     #    by scaling each client's proportion for a label by the total number of clients
-#     #    that will be assigned that label.
-#     client_proportions = client_proportions / client_proportions.sum(axis=0)
+    # 2. Balance the client proportions to ensure all data is used
+    #    This prevents some labels from being over-assigned while others are under-assigned
+    #    by scaling each client's proportion for a label by the total number of clients
+    #    that will be assigned that label.
+    client_proportions = client_proportions / client_proportions.sum(axis=0)
     
-#     clientindices = [[] for _ in range(clientnum)]
+    clientindices = [[] for _ in range(clientnum)]
     
-#     # 3. For each label, distribute its data indices to clients based on the generated proportions
-#     for label_idx, indices in enumerate(indices_by_label):
-#         proportions_for_label = client_proportions[:, label_idx]
+    # 3. For each label, distribute its data indices to clients based on the generated proportions
+    for label_idx, indices in enumerate(indices_by_label):
+        proportions_for_label = client_proportions[:, label_idx]
         
-#         # Calculate how many samples of this label each client gets
-#         samples_per_client = (proportions_for_label * len(indices)).astype(int)
+        # Calculate how many samples of this label each client gets
+        samples_per_client = (proportions_for_label * len(indices)).astype(int)
         
-#         # Correct for rounding errors by assigning remainder to the client with the largest proportion
-#         remainder = len(indices) - samples_per_client.sum()
-#         samples_per_client[np.argmax(proportions_for_label)] += remainder
+        # Correct for rounding errors by assigning remainder to the client with the largest proportion
+        remainder = len(indices) - samples_per_client.sum()
+        samples_per_client[np.argmax(proportions_for_label)] += remainder
         
-#         # Split the label's data and assign to clients
-#         current_pos = 0
-#         for client_id in range(clientnum):
-#             num_samples = samples_per_client[client_id]
-#             client_indices_for_label = indices[current_pos : current_pos + num_samples]
-#             clientindices[client_id].extend(client_indices_for_label)
-#             current_pos += num_samples
+        # Split the label's data and assign to clients
+        current_pos = 0
+        for client_id in range(clientnum):
+            num_samples = samples_per_client[client_id]
+            client_indices_for_label = indices[current_pos : current_pos + num_samples]
+            clientindices[client_id].extend(client_indices_for_label)
+            current_pos += num_samples
 
-#     # create dataloader for each client
-#     dataloaderlist = []
-#     for i in range(clientnum):
-#         # It's possible a client gets 0 samples in extreme non-IID, handle this
-#         if not clientindices[i]:
-#             # Create an empty dataloader or handle as needed
-#             # For now, we can skip creating a loader for an empty client
-#             print(f"Warning: Client {i} has no data after partitioning.")
-#             continue
+    # create dataloader for each client
+    dataloaderlist = []
+    for i in range(clientnum):
+        # It's possible a client gets 0 samples in extreme non-IID, handle this
+        if not clientindices[i]:
+            # Create an empty dataloader or handle as needed
+            # For now, we can skip creating a loader for an empty client
+            print(f"Warning: Client {i} has no data after partitioning.")
+            continue
 
-#         subset = Subset(args.traindataset, clientindices[i])
-#         loader = DataLoader(subset, batch_size=args.batchsize, shuffle=True)
-#         dataloaderlist.append(loader)
+        subset = Subset(args.traindataset, clientindices[i])
+        loader = DataLoader(subset, batch_size=args.batchsize, shuffle=True)
+        dataloaderlist.append(loader)
 
-#     return dataloaderlist
+    return dataloaderlist
 
 

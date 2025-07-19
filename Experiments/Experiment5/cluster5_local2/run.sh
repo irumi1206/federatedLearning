@@ -1,6 +1,6 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 
-bash script for lab machine 2
+# bash script for lab machine 2
 
 python3 main.py \
         -interclusteringtype sync \
