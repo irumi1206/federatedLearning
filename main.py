@@ -225,7 +225,7 @@ if __name__ == "__main__":
     parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "comp100200random_comm100", "assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3"], default = "realistic")
     parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to cluster
-    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle","clusterbygradientbetweenassumeonelabeldominant100clients", "clusterbygradientsimilarity", "clusterbysystemsimilarity","clusterbygradientdissimilarity", "clusterbygradientdissimilaritygreedy", "clusterbygradientdissimilarityandsystemsimilarity"], default = "clusterbyrandomshuffle")
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle","clusterbygradientbetweenassumeonelabeldominant100clients", "clusterbygradientsimilarity", "clusterbysystemsimilarity", "clusterbygradientbetween", "clusterbygradientdissimilarity", "clusterbygradientdissimilaritygreedy", "clusterbygradientdissimilarityandsystemsimilarity"], default = "clusterbyrandomshuffle")
     parser.add_argument("-clusternum", type = int, default = 10)
     # how to choose epoch for each client, cluster, centralserver
     parser.add_argument("-centralserverepoch", type = int, default = 200)
@@ -255,6 +255,7 @@ if __name__ == "__main__":
     parser.add_argument("-examinethemodelindetail", type = int, default =1)
     parser.add_argument("-learningratedecay", type = float, default = 1.0)
     parser.add_argument("-clusterfrequency", type = int, default = 200)
+    parser.add_argument("-roundrobinlevel", type = int, default =1)
     args = parser.parse_args()
 
     # make folder for to track training

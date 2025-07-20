@@ -86,6 +86,33 @@ def cluster_clients(centralserver, clientlist, args):
         # evaluation by variance
         evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
 
+    elif args.clusteringtype == "clusterbygradientbetween":
+        
+        # perpare for clustering
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
+        k = args.clusternum
+        level = args.roundrobinlevel
+       
+        # clustering, kmeans on pca vectors, then round-robin assigning different cluster to same groups in kmeans
+        kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+        initial_assignments = kmeans.labels_
+        final_assignments = np.full(len(clientlist), -1, dtype=int)
+        round_robin_counter = 0
+        clusterassignflag = level
+        for group_id in range(k):
+            clients_in_group = np.where(initial_assignments == group_id)[0]
+            for client_idx in clients_in_group:
+                final_assignments[client_idx] = round_robin_counter
+                clusterassignflag = clusterassignflag -1
+                if clusterassignflag ==0:
+                    clusterassignflag = level
+                    round_robin_counter = (round_robin_counter + 1) % k
+
+        cluster_assignments = final_assignments
+
+        # evaluation by variance
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
+
     elif args.clusteringtype == "clusterbygradientdissimilarity":
         
         # perpare for clustering
