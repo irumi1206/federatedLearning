@@ -15,6 +15,7 @@ from utils import get_dataset, calculate_divergence, get_labellist, get_model, v
 from partitiondata import partition_data
 from partitionsystem import partition_system
 from clusterclients import cluster_clients
+from centralserver import CentralServer
 
 # Setting and add additional arguments(args.testdataloader, args.labellist)
 def setting(args):
@@ -29,6 +30,15 @@ def setting(args):
         level=logging.INFO,
         format="%(message)s"
     )
+
+    # logger for cluster setting
+    clusterlogger = logging.getLogger("cluster")
+    handler = logging.FileHandler(f"{args.timestamp}/cluster_setting.log", mode = "w")
+    formatter = logging.Formatter("%(message)s")
+    handler.setFormatter(formatter)
+    clusterlogger.addHandler(handler)
+    clusterlogger.propagate = False
+    args.clusterlogger = clusterlogger
 
     # fix randomness
     seed = args.randomseed
@@ -121,6 +131,7 @@ def logsetting(args):
     logging.info(f"Interasyncthreshold exist : {args.interasyncthresholdexist}")
     logging.info(f"Intraasyncthreshold exist : {args.intraasyncthresholdexist}")
     logging.info(f"Learningrate decay: {args.learningratedecay}")
+    logging.info(f"cluster frequency : {args.clusterfrequency}")
 
 # Log client information) and save data distribution for each client in args.labelpercentageperclient
 def logclient(clientlist, args):
@@ -161,13 +172,7 @@ def logclient(clientlist, args):
 # Log cluster information
 def logcluster(centralserver, args):
 
-    # logger for cluster setting
-    clusterlogger = logging.getLogger("cluster")
-    handler = logging.FileHandler(f"{args.timestamp}/cluster_setting.log", mode = "w")
-    formatter = logging.Formatter("%(message)s")
-    handler.setFormatter(formatter)
-    clusterlogger.addHandler(handler)
-    clusterlogger.propagate = False
+    clusterlogger = args.clusterlogger
 
     # log cluster information
     for cluster in centralserver.clusterlist:
@@ -249,6 +254,7 @@ if __name__ == "__main__":
     parser.add_argument("-clientparticipationratio", type = int, default = 100)
     parser.add_argument("-examinethemodelindetail", type = int, default =1)
     parser.add_argument("-learningratedecay", type = float, default = 1.0)
+    parser.add_argument("-clusterfrequency", type = int, default = 200)
     args = parser.parse_args()
 
     # make folder for to track training
@@ -271,11 +277,16 @@ if __name__ == "__main__":
     # client's clusterid, clientid, adjustment to local epoch(if needed) is set
     # cluster's clusterid, communicationtime, intraaggregationstrategy, clusterepoch is set
     # centralserver's centralserverepoch, interaggregationstrategy is set
-    centralserver = cluster_clients(clientlist, args)
-    logcluster(centralserver,args)
+    centralserver = CentralServer(args.interclusteringtype, 0, args.clusterfrequency, args, [])
 
-    # # # # training process
-    centralserver.central_train()
+    for _ in range(int(args.centralserverepoch/args.clusterfrequency)):
+        cluster_clients(centralserver, clientlist, args)
+        logcluster(centralserver,args)
+
+        # # # # training process
+        centralserver.central_train()
+        centralserver.centralserverepochstart = centralserver.centralserverepochstart + args.clusterfrequency
+        centralserver.centralserverepochend = centralserver.centralserverepochend + args.clusterfrequency
 
     # # # save graph file
     savegraph(args)

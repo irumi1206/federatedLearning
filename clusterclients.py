@@ -9,9 +9,9 @@ import random
 import logging
 
 
-def cluster_clients(clientlist, args):
+def cluster_clients(centralserver, clientlist, args):
 
-    centralserver = CentralServer(args.interclusteringtype, args.centralserverepoch, args, [])
+    # centralserver = CentralServer(args.interclusteringtype, args.centralserverepoch, args, [])
 
     if args.clusteringtype == "clusterbyclientorder":
 

@@ -8,10 +8,11 @@ from queue import Queue
 from collections import defaultdict
 
 class CentralServer:
-    def __init__(self, interclusteringtype, centralserverepoch, args, clusterlist):
+    def __init__(self, interclusteringtype, centralserverepochstart, centralserverepochend, args, clusterlist):
 
         self.interclusteringtype = interclusteringtype
-        self.centralserverepoch = centralserverepoch
+        self.centralserverepochstart = centralserverepochstart
+        self.centralserverepochend = centralserverepochend
         self.clusterlist = clusterlist
         self.model = get_model(args.modelname)
         self.model.to(args.device)
@@ -27,13 +28,13 @@ class CentralServer:
         logging.info(f"Central server round 0, loss : {lossinitial:.2f}, accuracy :{(100*accuracyinitial):.2f}%")
         logging.info(f"{[f'{label}:{(accuracy*100):.2f}%' for label, accuracy in accuracyperlabelinitial.items()]}")
         self.args.centralservertimepast.append(timepast)
-        self.args.centralserverround.append(0)
+        self.args.centralserverround.append(self.centralserverepochstart)
         self.args.centralserveraccuracy.append(accuracyinitial)
         self.args.centralserverloss.append(lossinitial)
 
         if self.interclusteringtype == "sync":
 
-            for i in range(self.centralserverepoch):
+            for i in range(self.centralserverepochstart,self.centralserverepochend):
                 
                 clusternum = len(self.clusterlist)
                 participatingclusternum = max(1,int(clusternum * self.args.clusterparticipationratio/100))
@@ -109,7 +110,7 @@ class CentralServer:
 
             round = 0
 
-            for epoch in range(self.centralserverepoch):
+            for epoch in range(self.centralserverepochstart, self.centralserverepochend):
                 for i in range(participatingclusternum):
                     # get the cluster that fast arrived
                     arrivedtime, arrivedclusterind = clustereventqueue.get()
