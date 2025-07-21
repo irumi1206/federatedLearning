@@ -1,1 +1,2 @@
 overall_training.log filter=lfs diff=lfs merge=lfs -text
+*/overall_training.log filter=lfs diff=lfs merge=lfs -text
