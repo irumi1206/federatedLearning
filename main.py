@@ -131,7 +131,8 @@ def logsetting(args):
     logging.info(f"Interasyncthreshold exist : {args.interasyncthresholdexist}")
     logging.info(f"Intraasyncthreshold exist : {args.intraasyncthresholdexist}")
     logging.info(f"Learningrate decay: {args.learningratedecay}")
-    logging.info(f"cluster frequency : {args.clusterfrequency}")
+    logging.info(f"Cluster frequency : {args.clusterfrequency}")
+    logging.info(f"Roundrobinlevel : {args.roundrobinlevel}")
 
 # Log client information) and save data distribution for each client in args.labelpercentageperclient
 def logclient(clientlist, args):
