@@ -133,6 +133,7 @@ def logsetting(args):
     logging.info(f"Learningrate decay: {args.learningratedecay}")
     logging.info(f"Cluster frequency : {args.clusterfrequency}")
     logging.info(f"Roundrobinlevel : {args.roundrobinlevel}")
+    logging.info(f"Balance lambda : {args.balancelambda}")
 
 # Log client information) and save data distribution for each client in args.labelpercentageperclient
 def logclient(clientlist, args):
@@ -257,6 +258,7 @@ if __name__ == "__main__":
     parser.add_argument("-learningratedecay", type = float, default = 1.0)
     parser.add_argument("-clusterfrequency", type = int, default = 200)
     parser.add_argument("-roundrobinlevel", type = int, default =1)
+    parser.add_argument("-balancelambda", type = float, default = 1.0)
     args = parser.parse_args()
 
     # make folder for to track training

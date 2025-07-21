@@ -136,7 +136,6 @@ def cluster_clients(centralserver, clientlist, args):
     
     elif args.clusteringtype == "clusterbygradientdissimilaritygreedy":
         print("Running a TWO-STAGE HYBRID clustering (Marginal Gain Strategy)...")
-        args.balance_lambda = 1.0
 
         # Standard prep step
         reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
@@ -206,7 +205,7 @@ def cluster_clients(centralserver, clientlist, args):
                 if b_max - b_min > 1e-9:
                     norm_balance_penalties = (raw_balance_penalties - b_min) / (b_max - b_min)
                 
-                total_costs = norm_quality_costs + args.balance_lambda * norm_balance_penalties
+                total_costs = norm_quality_costs + args.balancelambda * norm_balance_penalties
                 
                 # Apply diversity penalty
                 is_from_small_group = len(organized_clients[group_id]) <= k
