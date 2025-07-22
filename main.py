@@ -134,6 +134,7 @@ def logsetting(args):
     logging.info(f"Cluster frequency : {args.clusterfrequency}")
     logging.info(f"Roundrobinlevel : {args.roundrobinlevel}")
     logging.info(f"Balance lambda : {args.balancelambda}")
+    logging.info(f"Diversity lambda : {args.diversitylambda}")
 
 # Log client information) and save data distribution for each client in args.labelpercentageperclient
 def logclient(clientlist, args):
@@ -227,7 +228,7 @@ if __name__ == "__main__":
     parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "comp100200random_comm100", "assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3"], default = "realistic")
     parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to cluster
-    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle","clusterbygradientbetweenassumeonelabeldominant100clients", "clusterbygradientsimilarity", "clusterbysystemsimilarity", "clusterbygradientbetween", "clusterbygradientdissimilarity", "clusterbygradientdissimilaritygreedy", "clusterbygradientdissimilarityandsystemsimilarity"], default = "clusterbyrandomshuffle")
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle","clusterbygradientbetweenassumeonelabeldominant100clients", "clusterbygradientsimilarity", "clusterbysystemsimilarity", "clusterbygradientbetween", "clusterbygradientdissimilarity", "clusterbygradientdissimilaritygreedy", "clusterbygradientdissimilarityandsystemsimilarity", "greedy_variance_minmax", "greedy_variance_zscore", "greedy_margin_minmax", "greedy_margin_zscore"], default = "clusterbyrandomshuffle")
     parser.add_argument("-clusternum", type = int, default = 10)
     # how to choose epoch for each client, cluster, centralserver
     parser.add_argument("-centralserverepoch", type = int, default = 200)
