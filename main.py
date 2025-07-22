@@ -258,7 +258,8 @@ if __name__ == "__main__":
     parser.add_argument("-learningratedecay", type = float, default = 1.0)
     parser.add_argument("-clusterfrequency", type = int, default = 200)
     parser.add_argument("-roundrobinlevel", type = int, default =1)
-    parser.add_argument("-balancelambda", type = float, default = 1.0)
+    parser.add_argument("-balancelambda", type = float, default = 0.0)
+    parser.add_argument("-diversitylambda", type = float, default = 1.0)
     args = parser.parse_args()
 
     # make folder for to track training

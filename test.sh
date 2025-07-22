@@ -4,7 +4,12 @@ python3 main.py \
         -modelname cnncifar10 \
         -datasetname cifar10 \
         -clientnum 100 \
+<<<<<<< HEAD
         -dataheterogeneitytype onlyspecificlabel \
+=======
+        -dataheterogeneitytype onelabeldominant \
+        -dirichletalpha 0.01 \
+>>>>>>> 791c875 (cluster)
         -computationcapabilitymatric fixed\
         -systemheterogeneity alltimesame \
         -clustercommunicationtime 800 \
@@ -17,7 +22,13 @@ python3 main.py \
         -localepoch 2 \
         -examinethemodelindetail 0 \
         -learningrate 0.01 \
+<<<<<<< HEAD
         -clusterfrequency 200
+=======
+        -clusterfrequency 200 \
+        -balancelambda 0.0 \
+        -diversitylambda
+>>>>>>> 791c875 (cluster)
 
 python3 main.py \
         -interclusteringtype sync \
@@ -25,6 +36,7 @@ python3 main.py \
         -modelname cnncifar10 \
         -datasetname cifar10 \
         -clientnum 100 \
+<<<<<<< HEAD
         -dataheterogeneitytype onlyspecificlabel \
         -computationcapabilitymatric fixed\
         -systemheterogeneity alltimesame \
@@ -72,6 +84,14 @@ python3 main.py \
         -systemheterogeneity alltimesame \
         -clustercommunicationtime 800 \
         -clusteringtype clusterbygradientbetween \
+=======
+        -dataheterogeneitytype dirichletdistribution \
+        -dirichletalpha 0.01 \
+        -computationcapabilitymatric fixed\
+        -systemheterogeneity alltimesame \
+        -clustercommunicationtime 800 \
+        -clusteringtype clusterbygradientdissimilaritygreedy \
+>>>>>>> 791c875 (cluster)
         -clusternum 10 \
         -centralserverepoch 200 \
         -clusterepochtype fixed \
@@ -81,6 +101,7 @@ python3 main.py \
         -examinethemodelindetail 0 \
         -learningrate 0.01 \
         -clusterfrequency 200 \
+<<<<<<< HEAD
         -roundrobinlevel 2
 
 python3 main.py \
@@ -125,3 +146,7 @@ python3 main.py \
         -examinethemodelindetail 0 \
         -learningrate 0.01 \
         -clusterfrequency 200
+=======
+        -balancelambda 0.0 \
+        -diversitylambda 0.5
+>>>>>>> 791c875 (cluster)

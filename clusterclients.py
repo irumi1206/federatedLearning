@@ -7,6 +7,7 @@ from cluster import Cluster
 from centralserver import CentralServer
 import random
 import logging
+from collections import defaultdict
 
 
 def cluster_clients(centralserver, clientlist, args):
@@ -133,25 +134,149 @@ def cluster_clients(centralserver, clientlist, args):
 
         # evaluation by variance
         evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
-    
+
+
+
+
+
+
+    # elif args.clusteringtype == "clusterbygradientdissimilaritygreedy":
+    #     print("Running a FIVE-ASPECT HYBRID clustering...")
+
+    #     # Standard prep step
+    #     reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
+        
+    #     k = args.clusternum
+    #     N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+    #     num_clients = len(clientlist)
+        
+    #     # --- STAGE 1: Initial Similarity Grouping (KMeans on PCA space) ---
+    #     print("STAGE 1: Running KMeans on reduced deltas to determine processing ORDER...")
+    #     M = k 
+    #     kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+    #     initial_groups = kmeans.labels_ 
+    #     group_centroids = kmeans.cluster_centers_
+
+    #     # --- STAGE 2: Hybrid Greedy Assignment ---
+    #     print("STAGE 2: Running hybrid greedy assignment...")
+        
+    #     # Organize clients by group and sort by distance to their centroid
+    #     organized_clients = [[] for _ in range(M)]
+    #     for client_idx, group_id in enumerate(initial_groups):
+    #         organized_clients[group_id].append(client_idx)
+    #     for group_id in range(M):
+    #         clients_in_group = organized_clients[group_id]
+    #         if not clients_in_group: continue
+    #         centroid = group_centroids[group_id]
+    #         distances = [np.linalg.norm(reduced_deltas[c_idx] - centroid) for c_idx in clients_in_group]
+    #         sorted_clients = [c_idx for _, c_idx in sorted(zip(distances, clients_in_group))]
+    #         organized_clients[group_id] = sorted_clients
+
+    #     # Initialize state for final clusters
+    #     cluster_assignments = np.full(num_clients, -1, dtype=int)
+    #     cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
+    #     cluster_sum_datasizes = np.zeros(k)
+    #     cluster_client_counts = np.zeros(k, dtype=int)
+    #     final_cluster_group_counts = [defaultdict(int) for _ in range(k)]
+
+    #     # 5. Process clients sequentially by KMeans group
+    #     for group_id in range(M):
+    #         for client_idx in organized_clients[group_id]:
+    #             print(f"\rAssigning client {client_idx+1}/{num_clients}...", end='')
+                
+    #             client_delta = original_deltas[client_idx]
+    #             client_size = client_datasizes[client_idx]
+                
+    #             raw_quality_scores = np.zeros(k)
+    #             raw_balance_scores = np.zeros(k)
+    #             raw_diversity_scores = np.zeros(k)
+
+    #             for j in range(k):
+    #                 hypothetical_counts = cluster_client_counts.copy()
+    #                 hypothetical_counts[j] += 1
+                    
+    #                 # 1. Calculate the Quality Score (Variance of ORIGINAL Gradients)
+    #                 hypothetical_cluster_avgs = []
+    #                 for cluster_id in range(k):
+    #                     if hypothetical_counts[cluster_id] > 0:
+    #                         current_sum_deltas = cluster_sum_weighted_deltas[cluster_id]
+    #                         current_sum_sizes = cluster_sum_datasizes[cluster_id]
+    #                         if cluster_id == j:
+    #                             new_sum_deltas = current_sum_deltas + (client_size * client_delta)
+    #                             new_sum_sizes = current_sum_sizes + client_size
+    #                             hypothetical_cluster_avgs.append(new_sum_deltas / new_sum_sizes)
+    #                         else:
+    #                             hypothetical_cluster_avgs.append(current_sum_deltas / current_sum_sizes)
+                    
+    #                 raw_quality_scores[j] = np.var(np.array(hypothetical_cluster_avgs), axis=0).sum() if len(hypothetical_cluster_avgs) > 1 else 0
+
+    #                 # 2. Calculate the Balance Score (Variance of Sizes)
+    #                 raw_balance_scores[j] = np.var(hypothetical_counts)
+                    
+    #                 # 3. Calculate the Diversity Score (Linear penalty for same-group clients)
+    #                 raw_diversity_scores[j] = final_cluster_group_counts[j][group_id]
+                
+    #             # 4. Normalize all three scores using Min-Max Scaling
+    #             q_min, q_max = raw_quality_scores.min(), raw_quality_scores.max()
+    #             norm_quality_scores = (raw_quality_scores - q_min) / (q_max - q_min + 1e-9)
+
+    #             b_min, b_max = raw_balance_scores.min(), raw_balance_scores.max()
+    #             norm_balance_scores = (raw_balance_scores - b_min) / (b_max - b_min + 1e-9)
+                
+    #             d_min, d_max = raw_diversity_scores.min(), raw_diversity_scores.max()
+    #             norm_diversity_scores = (raw_diversity_scores - d_min) / (d_max - d_min + 1e-9) if d_max > d_min else np.zeros(k)
+                
+    #             total_costs = (norm_quality_scores + 
+    #                         args.balancelambda * norm_balance_scores + args.diversitylambda * norm_diversity_scores)
+                
+    #             # --- ADDED: Print statements for debugging ---
+    #             print(f"\n--- Assigning Client {client_idx} (from KMeans group {group_id}) ---")
+    #             print(f"Raw Quality Scores : {np.round(raw_quality_scores, 4)}")
+    #             print(f"Raw Balance Scores : {np.round(raw_balance_scores, 4)}")
+    #             print(f"Raw Diversity Scores: {np.round(raw_diversity_scores, 4)}")
+    #             print(f"Norm Quality Scores: {np.round(norm_quality_scores, 4)}")
+    #             print(f"Norm Balance Scores: {np.round(norm_balance_scores, 4)}")
+    #             print(f"Norm Diversity Scores: {np.round(norm_diversity_scores, 4)}")
+    #             print(f"Total Costs        : {np.round(total_costs, 4)}")
+    #             # --- End of added prints ---
+
+
+    #             best_cluster_idx = np.argmin(total_costs)
+    #             cluster_assignments[client_idx] = best_cluster_idx
+                
+    #             # Permanently update the state
+    #             cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+    #             cluster_sum_datasizes[best_cluster_idx] += client_size
+    #             cluster_client_counts[best_cluster_idx] += 1
+    #             final_cluster_group_counts[best_cluster_idx][group_id] += 1
+                    
+    #     print("\nHybrid assignment complete.")
+    #     print("Final cluster client counts:", cluster_client_counts)
+        
+    #     evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
+
+    #     # ... (code to create final cluster objects) ...
+
+
     elif args.clusteringtype == "clusterbygradientdissimilaritygreedy":
-        print("Running a TWO-STAGE HYBRID clustering (Marginal Gain Strategy)...")
+        print("Running a FIVE-ASPECT HYBRID clustering (Marginal Gain)...")
 
         # Standard prep step
         reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
         
         k = args.clusternum
-        N_COMPONENTS = reduced_deltas.shape[1]
+        N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+        num_clients = len(clientlist)
         
-        # --- STAGE 1: Initial Similarity Grouping (KMeans) ---
-        print("STAGE 1: Running KMeans to find initial similarity groups...")
+        # --- STAGE 1: Initial Similarity Grouping (KMeans on PCA space) ---
+        print("STAGE 1: Running KMeans on reduced deltas to determine processing ORDER...")
         M = k 
         kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
         initial_groups = kmeans.labels_ 
         group_centroids = kmeans.cluster_centers_
 
-        # --- STAGE 2: Hybrid Greedy Assignment (Client by Client) ---
-        print("STAGE 2: Running hybrid greedy assignment (one client at a time)...")
+        # --- STAGE 2: Hybrid Greedy Assignment ---
+        print("STAGE 2: Running hybrid greedy assignment...")
         
         # Organize clients by group and sort by distance to their centroid
         organized_clients = [[] for _ in range(M)]
@@ -166,145 +291,94 @@ def cluster_clients(centralserver, clientlist, args):
             organized_clients[group_id] = sorted_clients
 
         # Initialize state for final clusters
-        global_avg_reduced_delta = np.average(reduced_deltas, axis=0, weights=client_datasizes)
-        cluster_assignments = np.full(len(clientlist), -1, dtype=int)
-        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS))
+        # Use the global average of the ORIGINAL gradients as the fixed target
+        global_avg_original_delta = np.average(original_deltas, axis=0, weights=client_datasizes)
+        cluster_assignments = np.full(num_clients, -1, dtype=int)
+        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
         cluster_sum_datasizes = np.zeros(k)
         cluster_client_counts = np.zeros(k, dtype=int)
-        final_cluster_small_group_origins = [set() for _ in range(k)]
+        final_cluster_group_counts = [defaultdict(int) for _ in range(k)]
 
-        # Sequentially process each client from the sorted groups
+        # 5. Process clients sequentially by KMeans group
         for group_id in range(M):
             for client_idx in organized_clients[group_id]:
-                client_delta = reduced_deltas[client_idx]
+                
+                client_delta = original_deltas[client_idx]
                 client_size = client_datasizes[client_idx]
-                raw_delta_quality_costs = np.zeros(k) 
-                raw_balance_penalties = np.zeros(k)
-
+                
+                raw_quality_scores = np.zeros(k)
+                raw_balance_scores = np.zeros(k)
+                raw_diversity_scores = np.zeros(k)
+                
+                # --- MODIFIED: Quality score is now Marginal Gain ---
+                # Calculate the current quality cost of each cluster before the move
                 current_cluster_quality_costs = np.zeros(k)
                 for j in range(k):
                     if cluster_client_counts[j] > 0:
                         current_avg = cluster_sum_weighted_deltas[j] / cluster_sum_datasizes[j]
-                        current_cluster_quality_costs[j] = np.linalg.norm(current_avg - global_avg_reduced_delta)**2
-                
+                        current_cluster_quality_costs[j] = np.linalg.norm(current_avg - global_avg_original_delta)**2
+
                 for j in range(k):
+                    # 1. Calculate the Quality Score based on Marginal Gain
                     hypothetical_sum_weighted_delta = cluster_sum_weighted_deltas[j] + client_size * client_delta
                     hypothetical_sum_datasize = cluster_sum_datasizes[j] + client_size
                     hypothetical_avg = hypothetical_sum_weighted_delta / (hypothetical_sum_datasize + 1e-9)
-                    new_quality_cost = np.linalg.norm(hypothetical_avg - global_avg_reduced_delta)**2
+                    new_quality_cost = np.linalg.norm(hypothetical_avg - global_avg_original_delta)**2
+                    raw_quality_scores[j] = new_quality_cost - current_cluster_quality_costs[j]
+
+                    # 2. Calculate the Balance Score (Variance of Sizes)
+                    hypothetical_counts = cluster_client_counts.copy()
+                    hypothetical_counts[j] += 1
+                    raw_balance_scores[j] = np.var(hypothetical_counts)
                     
-                    raw_delta_quality_costs[j] = new_quality_cost - current_cluster_quality_costs[j]
-                    raw_balance_penalties[j] = cluster_client_counts[j]
+                    # 3. Calculate the Diversity Score
+                    raw_diversity_scores[j] = final_cluster_group_counts[j][group_id]
+                # --- End of Modification ---
+                
+                # 4. Normalize all three scores using Min-Max Scaling
+                q_min, q_max = raw_quality_scores.min(), raw_quality_scores.max()
+                norm_quality_scores = (raw_quality_scores - q_min) / (q_max - q_min + 1e-9)
 
-                # Normalize and combine costs
-                q_min, q_max = raw_delta_quality_costs.min(), raw_delta_quality_costs.max()
-                norm_quality_costs = (raw_delta_quality_costs - q_min) / (q_max - q_min + 1e-9)
+                b_min, b_max = raw_balance_scores.min(), raw_balance_scores.max()
+                norm_balance_scores = (raw_balance_scores - b_min) / (b_max - b_min + 1e-9)
+                
+                d_min, d_max = raw_diversity_scores.min(), raw_diversity_scores.max()
+                norm_diversity_scores = (raw_diversity_scores - d_min) / (d_max - d_min + 1e-9) if d_max > d_min else np.zeros(k)
+                
+                total_costs = (norm_quality_scores + 
+                            args.balancelambda * norm_balance_scores +
+                            args.diversitylambda * norm_diversity_scores)
+                
+                # --- Print statements for debugging ---
+                # (You can uncomment these if needed)
+                print(f"\n--- Assigning Client {client_idx} (from KMeans group {group_id}) ---")
+                print(f"Raw Quality Scores : {np.round(raw_quality_scores, 4)}")
+                print(f"Raw Balance Scores : {np.round(raw_balance_scores, 4)}")
+                print(f"Raw Diversity Scores: {np.round(raw_diversity_scores, 4)}")
+                print(f"Total Costs        : {np.round(total_costs, 4)}")
 
-                b_min, b_max = raw_balance_penalties.min(), raw_balance_penalties.max()
-                norm_balance_penalties = np.zeros(k)
-                if b_max - b_min > 1e-9:
-                    norm_balance_penalties = (raw_balance_penalties - b_min) / (b_max - b_min)
-                
-                total_costs = norm_quality_costs + args.balancelambda * norm_balance_penalties
-                
-                # Apply diversity penalty
-                is_from_small_group = len(organized_clients[group_id]) <= k
-                if is_from_small_group:
-                    for j in range(k):
-                        if len(final_cluster_small_group_origins[j]) > 0 and group_id not in final_cluster_small_group_origins[j]:
-                            total_costs[j] += 1.0 
-                
                 best_cluster_idx = np.argmin(total_costs)
                 cluster_assignments[client_idx] = best_cluster_idx
                 
-                # Update cluster stats
+                # Permanently update the state
                 cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
                 cluster_sum_datasizes[best_cluster_idx] += client_size
                 cluster_client_counts[best_cluster_idx] += 1
-                if is_from_small_group:
-                    final_cluster_small_group_origins[best_cluster_idx].add(group_id)
-        
-        print("Hybrid assignment (marginal gain) complete.")
+                final_cluster_group_counts[best_cluster_idx][group_id] += 1
+                    
+        print("\nHybrid assignment complete.")
         print("Final cluster client counts:", cluster_client_counts)
         
         evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
+
+        # ... (code to create final cluster objects) ...
+
+
+
     
 
 
-    # elif args.clusteringtype == "clusterbygradientdissimilaritygreedy":
-    #     print("Running a TWO-STAGE HYBRID clustering (Marginal Gain Strategy)...")
-    #     args.balance_lambda = 1.0
-    #     reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
-        
-    #     k = args.clusternum
-    #     N_COMPONENTS = reduced_deltas.shape[1] # Use actual number of components from PCA
-        
-    #     print("STAGE 1: Running KMeans to find initial similarity groups...")
-    #     M = k 
-    #     kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
-    #     initial_groups = kmeans.labels_ 
-    #     group_centroids = kmeans.cluster_centers_
-
-    #     print("STAGE 2: Running hybrid greedy assignment (marginal gain strategy)...")
-    #     organized_clients = [[] for _ in range(M)]
-    #     for client_idx, group_id in enumerate(initial_groups):
-    #         organized_clients[group_id].append(client_idx)
-    #     for group_id in range(M):
-    #         clients_in_group = organized_clients[group_id]
-    #         if not clients_in_group: continue
-    #         centroid = group_centroids[group_id]
-    #         distances = [np.linalg.norm(reduced_deltas[c_idx] - centroid) for c_idx in clients_in_group]
-    #         sorted_clients = [c_idx for _, c_idx in sorted(zip(distances, clients_in_group))]
-    #         organized_clients[group_id] = sorted_clients
-
-    #     global_avg_reduced_delta = np.average(reduced_deltas, axis=0, weights=client_datasizes)
-    #     cluster_assignments = np.full(len(clientlist), -1, dtype=int)
-    #     cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS))
-    #     cluster_sum_datasizes = np.zeros(k)
-    #     cluster_client_counts = np.zeros(k, dtype=int)
-    #     final_cluster_small_group_origins = [set() for _ in range(k)]
-
-    #     for group_id in range(M):
-    #         for client_idx in organized_clients[group_id]:
-    #             client_delta = reduced_deltas[client_idx]
-    #             client_size = client_datasizes[client_idx]
-    #             raw_delta_quality_costs = np.zeros(k) 
-    #             raw_balance_penalties = np.zeros(k)
-    #             current_cluster_quality_costs = np.zeros(k)
-    #             for j in range(k):
-    #                 if cluster_client_counts[j] > 0:
-    #                     current_avg = cluster_sum_weighted_deltas[j] / cluster_sum_datasizes[j]
-    #                     current_cluster_quality_costs[j] = np.linalg.norm(current_avg - global_avg_reduced_delta)**2
-    #             for j in range(k):
-    #                 hypothetical_sum_weighted_delta = cluster_sum_weighted_deltas[j] + client_size * client_delta
-    #                 hypothetical_sum_datasize = cluster_sum_datasizes[j] + client_size
-    #                 hypothetical_avg = hypothetical_sum_weighted_delta / (hypothetical_sum_datasize + 1e-9)
-    #                 new_quality_cost = np.linalg.norm(hypothetical_avg - global_avg_reduced_delta)**2
-    #                 raw_delta_quality_costs[j] = new_quality_cost - current_cluster_quality_costs[j]
-    #                 raw_balance_penalties[j] = cluster_client_counts[j]
-    #             q_min, q_max = raw_delta_quality_costs.min(), raw_delta_quality_costs.max()
-    #             norm_quality_costs = (raw_delta_quality_costs - q_min) / (q_max - q_min + 1e-9)
-    #             b_min, b_max = raw_balance_penalties.min(), raw_balance_penalties.max()
-    #             norm_balance_penalties = np.zeros(k)
-    #             if b_max - b_min > 1e-9:
-    #                 norm_balance_penalties = (raw_balance_penalties - b_min) / (b_max - b_min)
-    #             total_costs = norm_quality_costs + args.balance_lambda * norm_balance_penalties
-    #             is_from_small_group = len(organized_clients[group_id]) <= k
-    #             if is_from_small_group:
-    #                 for j in range(k):
-    #                     if len(final_cluster_small_group_origins[j]) > 0 and group_id not in final_cluster_small_group_origins[j]:
-    #                         total_costs[j] += 1.0 
-    #             best_cluster_idx = np.argmin(total_costs)
-    #             cluster_assignments[client_idx] = best_cluster_idx
-    #             cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
-    #             cluster_sum_datasizes[best_cluster_idx] += client_size
-    #             cluster_client_counts[best_cluster_idx] += 1
-    #             if is_from_small_group:
-    #                 final_cluster_small_group_origins[best_cluster_idx].add(group_id)
-        
-    #     print("Hybrid assignment (marginal gain) complete.")
-    #     print("Final cluster client counts:", cluster_client_counts)
-    #     evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes)
+    
 
     elif args.clusteringtype == "clusterbysystemsimilarity":
         
