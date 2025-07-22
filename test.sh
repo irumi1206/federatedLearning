@@ -1,0 +1,127 @@
+python3 main.py \
+        -interclusteringtype sync \
+        -intraclusteringtype sync \
+        -modelname cnncifar10 \
+        -datasetname cifar10 \
+        -clientnum 100 \
+        -dataheterogeneitytype onlyspecificlabel \
+        -computationcapabilitymatric fixed\
+        -systemheterogeneity alltimesame \
+        -clustercommunicationtime 800 \
+        -clusteringtype clusterbygradientdissimilaritygreedy \
+        -clusternum 10 \
+        -centralserverepoch 200 \
+        -clusterepochtype fixed \
+        -clusterepoch 10 \
+        -localepochtype fixed \
+        -localepoch 2 \
+        -examinethemodelindetail 0 \
+        -learningrate 0.01 \
+        -clusterfrequency 200
+
+python3 main.py \
+        -interclusteringtype sync \
+        -intraclusteringtype sync \
+        -modelname cnncifar10 \
+        -datasetname cifar10 \
+        -clientnum 100 \
+        -dataheterogeneitytype onlyspecificlabel \
+        -computationcapabilitymatric fixed\
+        -systemheterogeneity alltimesame \
+        -clustercommunicationtime 800 \
+        -clusteringtype clusterbygradientdissimilarity \
+        -clusternum 10 \
+        -centralserverepoch 200 \
+        -clusterepochtype fixed \
+        -clusterepoch 10 \
+        -localepochtype fixed \
+        -localepoch 2 \
+        -examinethemodelindetail 0 \
+        -learningrate 0.01 \
+        -clusterfrequency 200
+
+python3 main.py \
+        -interclusteringtype sync \
+        -intraclusteringtype sync \
+        -modelname cnncifar10 \
+        -datasetname cifar10 \
+        -clientnum 100 \
+        -dataheterogeneitytype onlyspecificlabel \
+        -computationcapabilitymatric fixed\
+        -systemheterogeneity alltimesame \
+        -clustercommunicationtime 800 \
+        -clusteringtype clusterbyrandomshuffle \
+        -clusternum 10 \
+        -centralserverepoch 200 \
+        -clusterepochtype fixed \
+        -clusterepoch 10 \
+        -localepochtype fixed \
+        -localepoch 2 \
+        -examinethemodelindetail 0 \
+        -learningrate 0.01 \
+        -clusterfrequency 200
+
+python3 main.py \
+        -interclusteringtype sync \
+        -intraclusteringtype sync \
+        -modelname cnncifar10 \
+        -datasetname cifar10 \
+        -clientnum 100 \
+        -dataheterogeneitytype onlyspecificlabel \
+        -computationcapabilitymatric fixed\
+        -systemheterogeneity alltimesame \
+        -clustercommunicationtime 800 \
+        -clusteringtype clusterbygradientbetween \
+        -clusternum 10 \
+        -centralserverepoch 200 \
+        -clusterepochtype fixed \
+        -clusterepoch 10 \
+        -localepochtype fixed \
+        -localepoch 2 \
+        -examinethemodelindetail 0 \
+        -learningrate 0.01 \
+        -clusterfrequency 200 \
+        -roundrobinlevel 2
+
+python3 main.py \
+        -interclusteringtype sync \
+        -intraclusteringtype sync \
+        -modelname cnncifar10 \
+        -datasetname cifar10 \
+        -clientnum 100 \
+        -dataheterogeneitytype onlyspecificlabel \
+        -computationcapabilitymatric fixed\
+        -systemheterogeneity alltimesame \
+        -clustercommunicationtime 800 \
+        -clusteringtype clusterbygradientbetween \
+        -clusternum 10 \
+        -centralserverepoch 200 \
+        -clusterepochtype fixed \
+        -clusterepoch 10 \
+        -localepochtype fixed \
+        -localepoch 2 \
+        -examinethemodelindetail 0 \
+        -learningrate 0.01 \
+        -clusterfrequency 200 \
+        -roundrobinlevel 5
+
+python3 main.py \
+        -interclusteringtype sync \
+        -intraclusteringtype sync \
+        -modelname cnncifar10 \
+        -datasetname cifar10 \
+        -clientnum 100 \
+        -dataheterogeneitytype onlyspecificlabel \
+        -computationcapabilitymatric fixed\
+        -systemheterogeneity alltimesame \
+        -clustercommunicationtime 800 \
+        -clusteringtype clusterbygradientsimilarity \
+        -clusternum 10 \
+        -centralserverepoch 200 \
+        -clusterepochtype fixed \
+        -clusterepoch 10 \
+        -localepochtype fixed \
+        -localepoch 2 \
+        -examinethemodelindetail 0 \
+        -learningrate 0.01 \
+        -clusterfrequency 200
