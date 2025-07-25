@@ -135,6 +135,7 @@ def logsetting(args):
     logging.info(f"Roundrobinlevel : {args.roundrobinlevel}")
     logging.info(f"Balance lambda : {args.balancelambda}")
     logging.info(f"Diversity lambda : {args.diversitylambda}")
+    logging.info(f"System lambda : {args.systemlambda}")
 
 # Log client information) and save data distribution for each client in args.labelpercentageperclient
 def logclient(clientlist, args):
@@ -225,10 +226,10 @@ if __name__ == "__main__":
     parser.add_argument("-dataheterogeneitytype", type = str, choices = ["iid", "onelabeldominant", "onlyspecificlabel", "dirichletdistribution"], default="dirichletdistribution")
     # how communication and computation in formed for clients
     parser.add_argument("-computationcapabilitymatric", type = str, choices = ["bybatch","byepoch","fixed"], default = "bybatch")
-    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "comp100200random_comm100", "assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3"], default = "realistic")
+    parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "comp100200random_comm100", "assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3", "uniformdistribution", "uniformdistribution2", "uniformdistribution3"], default = "realistic")
     parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to cluster
-    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle","clusterbygradientbetweenassumeonelabeldominant100clients", "clusterbygradientsimilarity", "clusterbysystemsimilarity", "clusterbygradientbetween", "clusterbygradientdissimilarity", "clusterbygradientdissimilaritygreedy", "clusterbygradientdissimilarityandsystemsimilarity", "greedy_variance_minmax", "greedy_variance_zscore", "greedy_margin_minmax", "greedy_margin_zscore"], default = "clusterbyrandomshuffle")
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle","clusterbygradientbetweenassumeonelabeldominant100clients", "clusterbygradientsimilarity", "clusterbysystemsimilarity", "clusterbygradientbetween", "clusterbygradientdissimilarity", "clusterbygradientdissimilaritygreedy", "clusterbygradientdissimilarityandsystemsimilarity", "greedy_variance_minmax", "greedy_variance_zscore", "greedy_margin_minmax", "greedy_margin_zscore", "clusterbygradientdissimilaritysystemsimilarity", "greedy_large_grad_seed", "clusterbygradientdissimilaritysystemsimilarityvariance"], default = "clusterbyrandomshuffle")
     parser.add_argument("-clusternum", type = int, default = 10)
     # how to choose epoch for each client, cluster, centralserver
     parser.add_argument("-centralserverepoch", type = int, default = 200)
@@ -260,7 +261,8 @@ if __name__ == "__main__":
     parser.add_argument("-clusterfrequency", type = int, default = 200)
     parser.add_argument("-roundrobinlevel", type = int, default =1)
     parser.add_argument("-balancelambda", type = float, default = 0.0)
-    parser.add_argument("-diversitylambda", type = float, default = 1.0)
+    parser.add_argument("-diversitylambda", type = float, default = 0.0)
+    parser.add_argument("-systemlambda", type = float, default = 0.0)
     args = parser.parse_args()
 
     # make folder for to track training

@@ -83,6 +83,44 @@ def partition_system(args):
         clientcommunicationtimelist = []
         for i in range(args.clientnum):
             clientcommunicationtimelist.append(clientcomputationtimelist[i]*3)
+
+    elif args.systemheterogeneity == "uniformdistribution":
+
+        clientcomputationtimelist = []
+        clientcommunicationtimelist = []
+        
+        for i in range(args.clientnum):
+            clientcomputationtimelist.append(int(rng.uniform(low=100.0, high=500.0)))
+        for i in range(args.clientnum):
+            clientcommunicationtimelist.append(clientcomputationtimelist[i]*2)
+
+    elif args.systemheterogeneity == "uniformdistribution2":
+
+        computationvariance = 0.2
+
+        #Device trainigtime per batch (msec)
+        devicetrainingtime={
+            "highend recent smartphones(gpubounded)" : 100,
+            "midrange recent smartphones(gpubounded)" : 200,
+            "low range recent smartphones(gpubounded)" : 300,
+            "old smartphones(cpubounded))" : 400,
+            "iot devices(cpubounded))" : 500
+        }
+
+        # distribution for each device
+        devicedistribution = [0.2,0.2,0.2,0.2,0.2]
+
+        clientcommunicationtimelist = []
+        clientcomputationtimelist = []
+        
+        # assign communication and computation time for each client
+        for i in range(args.clientnum):
+            clientdevice = rng.choice([0,1,2,3,4], p=devicedistribution)
+            computationtime = list(devicetrainingtime.values())[clientdevice]
+            time = int(computationtime * (1 + rng.uniform(-computationvariance, computationvariance)))
+
+            clientcomputationtimelist.append(time)
+            clientcommunicationtimelist.append(time*2)
    
     else:
         raise ValueError("")

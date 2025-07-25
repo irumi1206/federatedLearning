@@ -1,0 +1,70 @@
+Cluster 0 with 11 clients
+Cluster communication time : 800
+Cluster clients : [12, 22, 23, 29, 34, 38, 39, 70, 90, 94, 98]
+Straggler within the cluster : 1525
+Label percentage: ['0 : 15.41%', '1 : 7.58%', '2 : 23.85%', '3 : 8.64%', '4 : 0.04%', '5 : 14.57%', '6 : 0.00%', '7 : 0.00%', '8 : 1.74%', '9 : 28.17%']%
+Divergence : jsd 0.2338, tvd 0.4199
+
+Cluster 1 with 8 clients
+Cluster communication time : 800
+Cluster clients : [7, 16, 20, 26, 27, 67, 71, 88]
+Straggler within the cluster : 2955
+Label percentage: ['0 : 10.92%', '1 : 11.03%', '2 : 11.46%', '3 : 23.93%', '4 : 25.37%', '5 : 0.00%', '6 : 0.00%', '7 : 0.00%', '8 : 2.76%', '9 : 14.54%']%
+Divergence : jsd 0.2156, tvd 0.3724
+
+Cluster 2 with 19 clients
+Cluster communication time : 800
+Cluster clients : [8, 9, 15, 18, 31, 35, 40, 43, 46, 49, 52, 57, 63, 74, 76, 77, 87, 95, 99]
+Straggler within the cluster : 580
+Label percentage: ['0 : 14.05%', '1 : 6.37%', '2 : 3.72%', '3 : 2.75%', '4 : 7.26%', '5 : 17.72%', '6 : 22.60%', '7 : 10.79%', '8 : 14.68%', '9 : 0.07%']%
+Divergence : jsd 0.1102, tvd 0.2984
+
+Cluster 3 with 5 clients
+Cluster communication time : 800
+Cluster clients : [0, 3, 45, 56, 65]
+Straggler within the cluster : 2270
+Label percentage: ['0 : 1.17%', '1 : 43.11%', '2 : 0.00%', '3 : 0.00%', '4 : 0.17%', '5 : 8.64%', '6 : 0.13%', '7 : 27.21%', '8 : 0.00%', '9 : 19.57%']%
+Divergence : jsd 0.3909, tvd 0.5989
+
+Cluster 4 with 14 clients
+Cluster communication time : 800
+Cluster clients : [13, 14, 19, 25, 36, 47, 51, 53, 59, 62, 83, 91, 92, 93]
+Straggler within the cluster : 1105
+Label percentage: ['0 : 3.84%', '1 : 4.92%', '2 : 14.55%', '3 : 13.24%', '4 : 13.35%', '5 : 9.95%', '6 : 2.89%', '7 : 8.25%', '8 : 14.39%', '9 : 14.63%']%
+Divergence : jsd 0.0447, tvd 0.2015
+
+Cluster 5 with 11 clients
+Cluster communication time : 800
+Cluster clients : [4, 6, 24, 28, 41, 42, 58, 66, 72, 80, 86]
+Straggler within the cluster : 1820
+Label percentage: ['0 : 16.83%', '1 : 12.82%', '2 : 14.84%', '3 : 0.17%', '4 : 14.65%', '5 : 14.61%', '6 : 15.94%', '7 : 0.55%', '8 : 0.02%', '9 : 9.58%']%
+Divergence : jsd 0.1532, tvd 0.2968
+
+Cluster 6 with 5 clients
+Cluster communication time : 800
+Cluster clients : [1, 37, 48, 78, 81]
+Straggler within the cluster : 2145
+Label percentage: ['0 : 0.17%', '1 : 0.00%', '2 : 16.99%', '3 : 52.98%', '4 : 0.00%', '5 : 29.86%', '6 : 0.00%', '7 : 0.00%', '8 : 0.00%', '9 : 0.00%']%
+Divergence : jsd 0.5046, tvd 0.6983
+
+Cluster 7 with 7 clients
+Cluster communication time : 800
+Cluster clients : [17, 21, 44, 73, 75, 79, 84]
+Straggler within the cluster : 915
+Label percentage: ['0 : 0.00%', '1 : 20.54%', '2 : 10.66%', '3 : 11.30%', '4 : 0.00%', '5 : 0.00%', '6 : 0.00%', '7 : 15.46%', '8 : 41.99%', '9 : 0.05%']%
+Divergence : jsd 0.3422, tvd 0.4995
+
+Cluster 8 with 11 clients
+Cluster communication time : 800
+Cluster clients : [2, 10, 11, 30, 50, 54, 55, 68, 89, 96, 97]
+Straggler within the cluster : 1305
+Label percentage: ['0 : 7.29%', '1 : 6.92%', '2 : 7.29%', '3 : 7.60%', '4 : 21.48%', '5 : 0.00%', '6 : 13.84%', '7 : 26.48%', '8 : 0.00%', '9 : 9.10%']%
+Divergence : jsd 0.1520, tvd 0.3181
+
+Cluster 9 with 9 clients
+Cluster communication time : 800
+Cluster clients : [5, 32, 33, 60, 61, 64, 69, 82, 85]
+Straggler within the cluster : 2575
+Label percentage: ['0 : 16.41%', '1 : 8.38%', '2 : 0.17%', '3 : 9.05%', '4 : 9.66%', '5 : 0.00%', '6 : 16.76%', '7 : 12.46%', '8 : 14.26%', '9 : 12.85%']%
+Divergence : jsd 0.1121, tvd 0.2274
+
