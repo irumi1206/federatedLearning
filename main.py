@@ -41,10 +41,10 @@ def setting(args):
     args.clusterlogger = clusterlogger
 
     # fix randomness
-    seed = args.randomseed
+    seed = args.settingrandomseed
     os.environ["PYTHONHASHSEED"] = str(seed)
     os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"  
-    random.seed(seed)
+    random.seed(args.randomseed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
@@ -169,7 +169,7 @@ def logclient(clientlist, args):
         clientlogger.info(f"Divergence : jsd {divergence['jsd']:.4f}, tvd {divergence['tvd']:.4f}")
         clientlogger.info(f"Local epoch : {client.localepoch}")
         first_batch = next(iter(clientdataloader))
-        _, labels = first_batch
+        _inp, labels = first_batch
         clientlogger.info(f"labels from the first batch :{[i.item() for i in labels]}")
         clientlogger.info("")
 
