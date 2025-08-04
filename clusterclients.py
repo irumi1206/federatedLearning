@@ -19,11 +19,10 @@ def cluster_clients(centralserver, clientlist, args):
     if args.clusteringtype == "clusterbyclientorder":
 
         # prepare for clustering
-        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
         k = args.clusternum
-        num_clients = len(clientlist)
-        # Pre-calculate all client training times
         client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)[:3]
+        num_clients = len(clientlist)
         
         # clustering, same cluster size
         cluster_assignments = np.zeros(num_clients, dtype=int)
@@ -37,12 +36,11 @@ def cluster_clients(centralserver, clientlist, args):
 
     elif args.clusteringtype == "clusterbyrandomshuffle":
        
-        # prepare for clustering
-        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
+        # --- PREPARATION ---
         k = args.clusternum
-        num_clients = len(clientlist)
-        # Pre-calculate all client training times
         client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)[:3]
+        num_clients = len(clientlist)
         
         # clustering, same cluster size
         cluster_assignments = []
@@ -59,14 +57,12 @@ def cluster_clients(centralserver, clientlist, args):
         evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
 
 
-
     elif args.clusteringtype == "clusterbygradientsimilarity":
 
-        # prepare for clustering
-        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
+        # --- PREPARATION ---
         k = args.clusternum
-        # Pre-calculate all client training times
         client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)[:3]
         
         # clustering, kmeans on pca vectors
         kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
@@ -77,12 +73,11 @@ def cluster_clients(centralserver, clientlist, args):
 
     elif args.clusteringtype == "clusterbygradientbetween":
         
-        # perpare for clustering
-        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
+        # --- PREPARATION ---
         k = args.clusternum
-        level = args.roundrobinlevel
-        # Pre-calculate all client training times
         client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)[:3]
+        level = args.roundrobinlevel
        
         # clustering, kmeans on pca vectors, then round-robin assigning different cluster to same groups in kmeans
         kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
@@ -105,51 +100,39 @@ def cluster_clients(centralserver, clientlist, args):
         evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
 
 
-    elif args.clusteringtype == "greedy_large_grad_seed":
+    elif args.clusteringtype == "clusterbysystemsimilarity":
+
+        print("Clustering clients by system similarity (training time)...")
+        
+        # --- PREPARATION ---
+        k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)[:3]
+        
+        # The input for KMeans needs to be 2D, so reshape it
+        client_training_times_2d = client_training_times.reshape(-1, 1)
+        
+        # Clustering, kmeans based on training time
+        kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto")
+        cluster_assignments = kmeans.fit_predict(client_training_times_2d)
+        print("Cluster assignments based on training time:", cluster_assignments)
+        
+        # Evaluation by variance
+        # Pass the original 1D array of training times to the evaluation function
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+
+
+    elif args.clusteringtype == "greedygradientvariance":
+        
         print("Running Greedy Clustering (Largest Gradient Seeding)...")
 
         # --- PREPARATION ---
-        # We need to modify the standard prep to get un-normalized deltas as well
-        print("Preparing deltas and running PCA...")
-        all_deltas_normalized = []
-        all_deltas_unnormalized = []
-        client_datasizes = []
-        initial_weight_dict = centralserver.model.state_dict()
-        with torch.no_grad():
-            initial_weight_flat = torch.cat([p.view(-1) for p in initial_weight_dict.values()]).cpu()
-
-        for client_num, client in enumerate(clientlist, 1):
-            print(f"\rProcessing Client {client_num}/{len(clientlist)}...", end='')
-            datasize = len(client.dataloader)
-            client_datasizes.append(datasize)
-            client.model.load_state_dict(initial_weight_dict)
-            client.model.to(args.device)
-            q = Queue()
-            client.local_train(q)
-            with torch.no_grad():
-                client_weight = torch.cat([p.data.view(-1) for p in client.model.parameters()]).cpu()
-                delta_weight = initial_weight_flat - client_weight
-            client.model.to('cpu')
-            
-            delta_np = delta_weight.numpy()
-            all_deltas_unnormalized.append(delta_np) # Save the raw delta
-            
-            row_norm = np.linalg.norm(delta_np)
-            normalized_delta = delta_np / (row_norm if row_norm > 0 else 1.0)
-            all_deltas_normalized.append(normalized_delta)
-        print() 
-
-        original_deltas = np.array(all_deltas_unnormalized)
-        client_datasizes = np.array(client_datasizes)
-        N_COMPONENTS = 100
-        pca = PCA(n_components=N_COMPONENTS)
-        reduced_deltas = pca.fit_transform(np.array(all_deltas_normalized))
-        print(f"PCA complete, using {N_COMPONENTS} components.")
-        
         k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas, = prepare_and_run_pca(clientlist, centralserver, args)[:3]
         N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
         num_clients = len(clientlist)
-        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+
 
         # --- STEP 1: KMeans on Gradients ---
         print("STEP 1: Pre-clustering on gradients...")
@@ -235,47 +218,133 @@ def cluster_clients(centralserver, clientlist, args):
         print("Final cluster client counts:", cluster_client_counts)
         
         evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
-    
 
 
+    elif args.clusteringtype == "greecygradientvariance2":
 
-    elif args.clusteringtype == "clusterbysystemsimilarity":
+        print("Running Greedy Clustering (Cosine Distance Order, Global Variance Score)...")
 
-        print("Clustering clients by system similarity (training time)...")
-        
-        # Prepare for evaluation
-        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
+        # --- PREPARATION ---
         k = args.clusternum
-        
-        # --- FIXED: Calculate training times once ---
-        # Calculate the training time for each client and store it as a NumPy array
         client_training_times = np.array([client.calculate_training_time() for client in clientlist])
-        
-        # The input for KMeans needs to be 2D, so reshape it
-        client_training_times_2d = client_training_times.reshape(-1, 1)
-        
-        # Clustering, kmeans based on training time
-        kmeans = KMeans(n_clusters=k, random_state=args.randomseed, n_init="auto")
-        cluster_assignments = kmeans.fit_predict(client_training_times_2d)
-        print("Cluster assignments based on training time:", cluster_assignments)
-        
-        # Evaluation by variance
-        # Pass the original 1D array of training times to the evaluation function
-        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)[:3]
+        N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+        num_clients = len(clientlist)
 
+        # --- STEP 1: Pre-clustering and Pre-calculation for Sorting ---
+        print("STEP 1: Pre-clustering on gradients and calculating cosine distances...")
+        M = k 
+        kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+        initial_groups = kmeans.labels_ 
+        
+        # Calculate the global average of the ORIGINAL gradients
+        global_avg_original_delta = np.average(original_deltas, axis=0, weights=client_datasizes)
+        global_avg_norm = np.linalg.norm(global_avg_original_delta)
+
+        # Calculate the cosine distance of each client's gradient from the global average
+        client_cosine_distances = np.zeros(num_clients)
+        for i in range(num_clients):
+            client_delta = original_deltas[i]
+            client_norm = np.linalg.norm(client_delta)
+            # Cosine similarity formula
+            if client_norm > 0 and global_avg_norm > 0:
+                cos_sim = np.dot(client_delta, global_avg_original_delta) / (client_norm * global_avg_norm)
+            else:
+                cos_sim = 1.0 # Treat zero vectors as perfectly similar
+            # Convert similarity to distance (range 0-2)
+            client_cosine_distances[i] = 1.0 - cos_sim
+
+        # --- STEP 2: Organize clients for processing ---
+        # Organize clients by their KMeans group
+        organized_clients = [[] for _ in range(M)]
+        for client_idx, group_id in enumerate(initial_groups):
+            organized_clients[group_id].append(client_idx)
+            
+        # Sort clients WITHIN each group by their cosine distance (outliers first)
+        for group_id in range(M):
+            clients_in_group = organized_clients[group_id]
+            if not clients_in_group: continue
+            # Create pairs of (distance, client_id)
+            group_distances = [(client_cosine_distances[c_idx], c_idx) for c_idx in clients_in_group]
+            # Sort descending by distance
+            group_distances.sort(key=lambda x: x[0], reverse=True)
+            # Store the sorted client indices
+            organized_clients[group_id] = [c_idx for _, c_idx in group_distances]
+            
+        # Create the final processing list using a round-robin order
+        all_clients_to_assign = []
+        max_group_size = max(len(g) for g in organized_clients) if organized_clients else 0
+        for i in range(max_group_size):
+            for group_id in range(M):
+                if i < len(organized_clients[group_id]):
+                    all_clients_to_assign.append(organized_clients[group_id][i])
+
+        # --- STEP 3: Seeding and Greedy Assignment ---
+        cluster_assignments = np.full(num_clients, -1, dtype=int)
+        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
+        cluster_sum_datasizes = np.zeros(k)
+        cluster_client_counts = np.zeros(k, dtype=int)
+
+        # 4. Phase 1: Seed the first k clients into new clusters
+        print("PHASE 1: Seeding the first k clusters...")
+        for i in range(k):
+            if not all_clients_to_assign: break
+            client_idx = all_clients_to_assign.pop(0)
+            cluster_assignments[client_idx] = i
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            cluster_sum_weighted_deltas[i] += client_size * client_delta
+            cluster_sum_datasizes[i] += client_size
+            cluster_client_counts[i] += 1
+
+        # 5. Phase 2: Assign remaining clients greedily based on quality score
+        print("PHASE 2: Assigning remaining clients greedily...")
+        for client_idx in all_clients_to_assign:
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            raw_quality_scores = np.zeros(k)
+
+            for j in range(k):
+                hypothetical_counts = cluster_client_counts.copy(); hypothetical_counts[j] += 1
+                hypothetical_cluster_avgs = []
+                for cid in range(k):
+                    if hypothetical_counts[cid] > 0:
+                        sum_d, sum_s = cluster_sum_weighted_deltas[cid], cluster_sum_datasizes[cid]
+                        avg = (sum_d + (client_size*client_delta))/(sum_s + client_size) if cid == j else sum_d/sum_s
+                        hypothetical_cluster_avgs.append(avg)
+                raw_quality_scores[j] = np.var(np.array(hypothetical_cluster_avgs), axis=0).sum() if len(hypothetical_cluster_avgs) > 1 else 0
+
+            # Normalize the quality score using Min-Max
+            q_min, q_max = raw_quality_scores.min(), raw_quality_scores.max()
+            total_costs = (raw_quality_scores - q_min) / (q_max - q_min + 1e-9)
+
+            best_cluster_idx = np.argmin(total_costs)
+            cluster_assignments[client_idx] = best_cluster_idx
+            
+            # Permanently update the state
+            cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+            cluster_sum_datasizes[best_cluster_idx] += client_size
+            cluster_client_counts[best_cluster_idx] += 1
+                    
+        print("\nGreedy assignment complete.")
+        print("Final cluster client counts:", cluster_client_counts)
+        
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+    
 
 
 
 
     elif args.clusteringtype == "clusterbygradientdissimilaritysystemsimilarity":
+
         print("Running Greedy Clustering (Straggler Seeding, Global Variance)...")
 
         # --- PREPARATION ---
-        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
         k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)[:3]
         N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
         num_clients = len(clientlist)
-        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
 
         # --- STEP 1: Pre-cluster on Training Time to define groups ---
         print("STEP 1: Pre-clustering on system time...")
@@ -388,14 +457,15 @@ def cluster_clients(centralserver, clientlist, args):
 
     
     elif args.clusteringtype == "clusterbygradientdissimilaritysystemsimilarityvariance":
+
         print("Running Greedy Clustering (Straggler Seeding, Mean Time Variance)...")
 
         # --- PREPARATION ---
-        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)
         k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas = prepare_and_run_pca(clientlist, centralserver, args)[:3]
         N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
         num_clients = len(clientlist)
-        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
 
         # --- STEP 1: Pre-cluster on Training Time to define groups ---
         print("STEP 1: Pre-clustering on system time...")
@@ -509,6 +579,10 @@ def cluster_clients(centralserver, clientlist, args):
 
     else:
         raise ValueError(f"Clustering type '{args.clusteringtype}' not supported")
+    
+
+
+
 
     # actual assignment of clients and clusters
     centralserver.clusterlist = []
@@ -530,10 +604,11 @@ def cluster_clients(centralserver, clientlist, args):
 def prepare_and_run_pca(clientlist, centralserver, args):
     """
     Performs local training for all clients to get model deltas,
-    then runs PCA.
+    then runs PCA. Returns reduced, datasizes, normalized, and original deltas.
     """
     print("Preparing deltas and running PCA...")
-    all_deltas = []
+    all_deltas_normalized = []
+    all_deltas_unnormalized = [] # Added for raw gradients
     client_datasizes = []
     
     initial_weight_dict = centralserver.model.state_dict()
@@ -554,20 +629,25 @@ def prepare_and_run_pca(clientlist, centralserver, args):
             client_weight = torch.cat([p.data.view(-1) for p in client.model.parameters()]).cpu()
             delta_weight = initial_weight_flat - client_weight
         client.model.to('cpu')
+        
         delta_np = delta_weight.numpy()
+        all_deltas_unnormalized.append(delta_np) # Save the raw delta
+        
         row_norm = np.linalg.norm(delta_np)
         normalized_delta = delta_np / (row_norm if row_norm > 0 else 1.0)
-        all_deltas.append(normalized_delta)
+        all_deltas_normalized.append(normalized_delta)
     print() 
 
-    all_deltas_np = np.array(all_deltas)
+    all_deltas_normalized_np = np.array(all_deltas_normalized)
+    all_deltas_unnormalized_np = np.array(all_deltas_unnormalized)
     client_datasizes_np = np.array(client_datasizes)
     N_COMPONENTS = 100
     pca = PCA(n_components=N_COMPONENTS)
-    reduced_deltas = pca.fit_transform(all_deltas_np)
+    reduced_deltas = pca.fit_transform(all_deltas_normalized_np)
     print(f"PCA complete, using {N_COMPONENTS} components.")
     
-    return reduced_deltas, client_datasizes_np, all_deltas_np
+    # Return all four arrays
+    return reduced_deltas, client_datasizes_np, all_deltas_unnormalized_np, all_deltas_normalized_np
 
 def evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times):
     """
