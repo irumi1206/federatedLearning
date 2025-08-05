@@ -229,7 +229,7 @@ if __name__ == "__main__":
     parser.add_argument("-systemheterogeneity", type = str, choices = ["alltimesame", "communicationtimesamecomputationdifferent","realistic", "comp100200random_comm100", "assume100clients95onelabeldominance_foreachlabel100200300400500of2randomlydistributed_comm3", "uniformdistribution", "uniformdistribution2", "uniformdistribution3"], default = "realistic")
     parser.add_argument("-clustercommunicationtime", type = int, default = 800)
     # how to cluster
-    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "clusterbysystemsimilarity", "clusterbygradientbetween", "greedygradientvariance", "greedygradientvariance2", "clusterbygradientdissimilaritysystemsimilarity", "clusterbygradientdissimilaritysystemsimilarityvariance"], default = "clusterbyrandomshuffle")
+    parser.add_argument("-clusteringtype", type = str, choices = ["clusterbyclientorder", "clusterbyrandomshuffle", "clusterbygradientsimilarity", "clusterbysystemsimilarity", "clusterbygradientbetween", "greedygradientvariance1", "greedygradientvariance2", "greedygradient1", "greedygradient2", "greedygradient3", "greedygradient4", "greedygradient5", "greedygradient6", "greedygradient7", "greedygradient8", "greedygradientvariance4", "clusterbygradientdissimilaritysystemsimilarity", "clusterbygradientdissimilaritysystemsimilarityvariance"], default = "clusterbyrandomshuffle")
     parser.add_argument("-clusternum", type = int, default = 10)
     # how to choose epoch for each client, cluster, centralserver
     parser.add_argument("-centralserverepoch", type = int, default = 200)

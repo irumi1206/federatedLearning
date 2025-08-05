@@ -122,7 +122,7 @@ def cluster_clients(centralserver, clientlist, args):
         evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
 
 
-    elif args.clusteringtype == "greedygradientvariance":
+    elif args.clusteringtype == "greedygradientvariance1":
         
         print("Running Greedy Clustering (Largest Gradient Seeding)...")
 
@@ -220,7 +220,7 @@ def cluster_clients(centralserver, clientlist, args):
         evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
 
 
-    elif args.clusteringtype == "greecygradientvariance2":
+    elif args.clusteringtype == "greedygradientvariance2":
 
         print("Running Greedy Clustering (Cosine Distance Order, Global Variance Score)...")
 
@@ -330,6 +330,703 @@ def cluster_clients(centralserver, clientlist, args):
         print("Final cluster client counts:", cluster_client_counts)
         
         evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+
+    
+
+
+
+
+
+
+
+
+    elif args.clusteringtype == "greedygradient1":
+        # 1. Sorting: Gradient Norm
+        # 2. Iteration: Sequential
+        # 3. Score: Global Variance of Gradients
+        print("Running Greedy 1: Sort by Norm, Iterate Sequentially, Score by Variance...")
+
+        # --- PREPARATION ---
+        k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas, _ = prepare_and_run_pca(clientlist, centralserver, args)
+        N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+        num_clients = len(clientlist)
+
+        # --- STEP 1: Pre-clustering and Sorting ---
+        M = k 
+        kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+        initial_groups = kmeans.labels_ 
+        client_gradient_norms = np.linalg.norm(original_deltas, axis=1)
+
+        organized_clients = [[] for _ in range(M)]
+        for client_idx, group_id in enumerate(initial_groups):
+            organized_clients[group_id].append(client_idx)
+        for group_id in range(M):
+            clients_in_group = organized_clients[group_id]
+            if not clients_in_group: continue
+            group_norms = [(client_gradient_norms[c_idx], c_idx) for c_idx in clients_in_group]
+            group_norms.sort(key=lambda x: x[0], reverse=True)
+            organized_clients[group_id] = [c_idx for _, c_idx in group_norms]
+            
+        # --- STEP 2: Seeding and Greedy Assignment ---
+        cluster_assignments = np.full(num_clients, -1, dtype=int)
+        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
+        cluster_sum_datasizes = np.zeros(k)
+        cluster_client_counts = np.zeros(k, dtype=int)
+        
+        # Create the full processing list based on the sequential order
+        all_clients_to_assign = [client_idx for group in organized_clients for client_idx in group]
+
+        # Phase 1: Seed the first k clients
+        print("PHASE 1: Seeding the first k clusters...")
+        for i in range(k):
+            if not all_clients_to_assign: break
+            client_idx = all_clients_to_assign.pop(0)
+            cluster_assignments[client_idx] = i
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            cluster_sum_weighted_deltas[i] += client_size * client_delta
+            cluster_sum_datasizes[i] += client_size
+            cluster_client_counts[i] += 1
+            
+        # Phase 2: Assign remaining clients greedily
+        print("PHASE 2: Assigning remaining clients greedily...")
+        for client_idx in all_clients_to_assign:
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            raw_quality_scores = np.zeros(k)
+
+            for j in range(k):
+                hypothetical_counts = cluster_client_counts.copy(); hypothetical_counts[j] += 1
+                hypothetical_cluster_avgs = []
+                for cid in range(k):
+                    if hypothetical_counts[cid] > 0:
+                        sum_d, sum_s = cluster_sum_weighted_deltas[cid], cluster_sum_datasizes[cid]
+                        avg = (sum_d + (client_size*client_delta))/(sum_s + client_size) if cid == j else sum_d/sum_s
+                        hypothetical_cluster_avgs.append(avg)
+                raw_quality_scores[j] = np.var(np.array(hypothetical_cluster_avgs), axis=0).sum() if len(hypothetical_cluster_avgs) > 1 else 0
+
+            best_cluster_idx = np.argmin(raw_quality_scores)
+            cluster_assignments[client_idx] = best_cluster_idx
+            
+            cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+            cluster_sum_datasizes[best_cluster_idx] += client_size
+            cluster_client_counts[best_cluster_idx] += 1
+                
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+
+
+    elif args.clusteringtype == "greedygradient2":
+        # 1. Sorting: Gradient Norm
+        # 2. Iteration: Sequential
+        # 3. Score: Mean Cosine Distance
+        print("Running Greedy 2: Sort by Norm, Iterate Sequentially, Score by Cosine Distance...")
+
+        # --- PREPARATION ---
+        k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas, _ = prepare_and_run_pca(clientlist, centralserver, args)
+        N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+        num_clients = len(clientlist)
+
+        # --- STEP 1: Pre-clustering and Sorting ---
+        M = k 
+        kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+        initial_groups = kmeans.labels_ 
+        client_gradient_norms = np.linalg.norm(original_deltas, axis=1)
+
+        organized_clients = [[] for _ in range(M)]
+        for client_idx, group_id in enumerate(initial_groups):
+            organized_clients[group_id].append(client_idx)
+        for group_id in range(M):
+            clients_in_group = organized_clients[group_id]
+            if not clients_in_group: continue
+            group_norms = [(client_gradient_norms[c_idx], c_idx) for c_idx in clients_in_group]
+            group_norms.sort(key=lambda x: x[0], reverse=True)
+            organized_clients[group_id] = [c_idx for _, c_idx in group_norms]
+            
+        # --- STEP 2: Seeding and Greedy Assignment ---
+        global_avg_original_delta = np.average(original_deltas, axis=0, weights=client_datasizes)
+        global_avg_norm = np.linalg.norm(global_avg_original_delta)
+        cluster_assignments = np.full(num_clients, -1, dtype=int)
+        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
+        cluster_sum_datasizes = np.zeros(k)
+        cluster_client_counts = np.zeros(k, dtype=int)
+
+        all_clients_to_assign = [client_idx for group in organized_clients for client_idx in group]
+
+        # Phase 1: Seed the first k clients
+        print("PHASE 1: Seeding the first k clusters...")
+        for i in range(k):
+            if not all_clients_to_assign: break
+            client_idx = all_clients_to_assign.pop(0)
+            cluster_assignments[client_idx] = i
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            cluster_sum_weighted_deltas[i] += client_size * client_delta
+            cluster_sum_datasizes[i] += client_size
+            cluster_client_counts[i] += 1
+
+        # Phase 2: Assign remaining clients greedily
+        print("PHASE 2: Assigning remaining clients greedily...")
+        for client_idx in all_clients_to_assign:
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            raw_quality_scores = np.zeros(k)
+
+            for j in range(k):
+                hypothetical_counts = cluster_client_counts.copy(); hypothetical_counts[j] += 1
+                cos_distances = []
+                for cid in range(k):
+                    if hypothetical_counts[cid] > 0:
+                        sum_d, sum_s = cluster_sum_weighted_deltas[cid], cluster_sum_datasizes[cid]
+                        avg = (sum_d + (client_size*client_delta))/(sum_s + client_size) if cid == j else sum_d/sum_s
+                        avg_norm = np.linalg.norm(avg)
+                        if avg_norm > 0 and global_avg_norm > 0:
+                            cos_sim = np.dot(avg, global_avg_original_delta) / (avg_norm * global_avg_norm)
+                            cos_distances.append(1.0 - cos_sim)
+                raw_quality_scores[j] = np.mean(cos_distances) if cos_distances else 0
+
+            best_cluster_idx = np.argmin(raw_quality_scores)
+            cluster_assignments[client_idx] = best_cluster_idx
+            
+            cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+            cluster_sum_datasizes[best_cluster_idx] += client_size
+            cluster_client_counts[best_cluster_idx] += 1
+                
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+
+
+    elif args.clusteringtype == "greedygradient3":
+        # 1. Sorting: Gradient Norm
+        # 2. Iteration: Round-Robin
+        # 3. Score: Global Variance of Gradients
+        print("Running Greedy 3: Sort by Norm, Iterate Round-Robin, Score by Variance...")
+        
+        # --- PREPARATION ---
+        k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas, _ = prepare_and_run_pca(clientlist, centralserver, args)
+        N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+        num_clients = len(clientlist)
+
+        # --- STEP 1: Pre-clustering and Sorting ---
+        M = k 
+        kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+        initial_groups = kmeans.labels_ 
+        client_gradient_norms = np.linalg.norm(original_deltas, axis=1)
+
+        organized_clients = [[] for _ in range(M)]
+        for client_idx, group_id in enumerate(initial_groups):
+            organized_clients[group_id].append(client_idx)
+        for group_id in range(M):
+            clients_in_group = organized_clients[group_id]
+            if not clients_in_group: continue
+            group_norms = [(client_gradient_norms[c_idx], c_idx) for c_idx in clients_in_group]
+            group_norms.sort(key=lambda x: x[0], reverse=True)
+            organized_clients[group_id] = [c_idx for _, c_idx in group_norms]
+            
+        # --- STEP 2: Seeding and Greedy Assignment ---
+        cluster_assignments = np.full(num_clients, -1, dtype=int)
+        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
+        cluster_sum_datasizes = np.zeros(k)
+        cluster_client_counts = np.zeros(k, dtype=int)
+
+        all_clients_to_assign = []
+        max_group_size = max(len(g) for g in organized_clients) if organized_clients else 0
+        for i in range(max_group_size):
+            for group_id in range(M):
+                if i < len(organized_clients[group_id]):
+                    all_clients_to_assign.append(organized_clients[group_id][i])
+
+        # Phase 1: Seed the first k clients
+        print("PHASE 1: Seeding the first k clusters...")
+        for i in range(k):
+            if not all_clients_to_assign: break
+            client_idx = all_clients_to_assign.pop(0)
+            cluster_assignments[client_idx] = i
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            cluster_sum_weighted_deltas[i] += client_size * client_delta
+            cluster_sum_datasizes[i] += client_size
+            cluster_client_counts[i] += 1
+            
+        # Phase 2: Assign remaining clients greedily
+        print("PHASE 2: Assigning remaining clients greedily...")
+        for client_idx in all_clients_to_assign:
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            raw_quality_scores = np.zeros(k)
+
+            for j in range(k):
+                hypothetical_counts = cluster_client_counts.copy(); hypothetical_counts[j] += 1
+                hypothetical_cluster_avgs = []
+                for cid in range(k):
+                    if hypothetical_counts[cid] > 0:
+                        sum_d, sum_s = cluster_sum_weighted_deltas[cid], cluster_sum_datasizes[cid]
+                        avg = (sum_d + (client_size*client_delta))/(sum_s + client_size) if cid == j else sum_d/sum_s
+                        hypothetical_cluster_avgs.append(avg)
+                raw_quality_scores[j] = np.var(np.array(hypothetical_cluster_avgs), axis=0).sum() if len(hypothetical_cluster_avgs) > 1 else 0
+
+            best_cluster_idx = np.argmin(raw_quality_scores)
+            cluster_assignments[client_idx] = best_cluster_idx
+            
+            cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+            cluster_sum_datasizes[best_cluster_idx] += client_size
+            cluster_client_counts[best_cluster_idx] += 1
+                    
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+
+
+    elif args.clusteringtype == "greedygradient4":
+        # 1. Sorting: Gradient Norm
+        # 2. Iteration: Round-Robin
+        # 3. Score: Mean Cosine Distance
+        print("Running Greedy 4: Sort by Norm, Iterate Round-Robin, Score by Cosine Distance...")
+
+        # --- PREPARATION ---
+        k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas, _ = prepare_and_run_pca(clientlist, centralserver, args)
+        N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+        num_clients = len(clientlist)
+
+        # --- STEP 1: Pre-clustering and Sorting ---
+        M = k 
+        kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+        initial_groups = kmeans.labels_ 
+        client_gradient_norms = np.linalg.norm(original_deltas, axis=1)
+
+        organized_clients = [[] for _ in range(M)]
+        for client_idx, group_id in enumerate(initial_groups):
+            organized_clients[group_id].append(client_idx)
+        for group_id in range(M):
+            clients_in_group = organized_clients[group_id]
+            if not clients_in_group: continue
+            group_norms = [(client_gradient_norms[c_idx], c_idx) for c_idx in clients_in_group]
+            group_norms.sort(key=lambda x: x[0], reverse=True)
+            organized_clients[group_id] = [c_idx for _, c_idx in group_norms]
+            
+        # --- STEP 2: Seeding and Greedy Assignment ---
+        global_avg_original_delta = np.average(original_deltas, axis=0, weights=client_datasizes)
+        global_avg_norm = np.linalg.norm(global_avg_original_delta)
+        cluster_assignments = np.full(num_clients, -1, dtype=int)
+        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
+        cluster_sum_datasizes = np.zeros(k)
+        cluster_client_counts = np.zeros(k, dtype=int)
+
+        all_clients_to_assign = []
+        max_group_size = max(len(g) for g in organized_clients) if organized_clients else 0
+        for i in range(max_group_size):
+            for group_id in range(M):
+                if i < len(organized_clients[group_id]):
+                    all_clients_to_assign.append(organized_clients[group_id][i])
+
+        # Phase 1: Seed the first k clients
+        print("PHASE 1: Seeding the first k clusters...")
+        for i in range(k):
+            if not all_clients_to_assign: break
+            client_idx = all_clients_to_assign.pop(0)
+            cluster_assignments[client_idx] = i
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            cluster_sum_weighted_deltas[i] += client_size * client_delta
+            cluster_sum_datasizes[i] += client_size
+            cluster_client_counts[i] += 1
+            
+        # Phase 2: Assign remaining clients greedily
+        print("PHASE 2: Assigning remaining clients greedily...")
+        for client_idx in all_clients_to_assign:
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            raw_quality_scores = np.zeros(k)
+
+            for j in range(k):
+                hypothetical_counts = cluster_client_counts.copy(); hypothetical_counts[j] += 1
+                cos_distances = []
+                for cid in range(k):
+                    if hypothetical_counts[cid] > 0:
+                        sum_d, sum_s = cluster_sum_weighted_deltas[cid], cluster_sum_datasizes[cid]
+                        avg = (sum_d + (client_size*client_delta))/(sum_s + client_size) if cid == j else sum_d/sum_s
+                        avg_norm = np.linalg.norm(avg)
+                        if avg_norm > 0 and global_avg_norm > 0:
+                            cos_sim = np.dot(avg, global_avg_original_delta) / (avg_norm * global_avg_norm)
+                            cos_distances.append(1.0 - cos_sim)
+                raw_quality_scores[j] = np.mean(cos_distances) if cos_distances else 0
+
+            best_cluster_idx = np.argmin(raw_quality_scores)
+            cluster_assignments[client_idx] = best_cluster_idx
+            
+            cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+            cluster_sum_datasizes[best_cluster_idx] += client_size
+            cluster_client_counts[best_cluster_idx] += 1
+                
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+
+
+    elif args.clusteringtype == "greedygradient5":
+        # 1. Sorting: Cosine Distance
+        # 2. Iteration: Sequential
+        # 3. Score: Global Variance of Gradients
+        print("Running Greedy 5: Sort by Cosine Dist, Iterate Sequentially, Score by Variance...")
+
+        # --- PREPARATION ---
+        k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas, _ = prepare_and_run_pca(clientlist, centralserver, args)
+        N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+        num_clients = len(clientlist)
+
+        # --- STEP 1: Pre-clustering and Sorting ---
+        M = k 
+        kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+        initial_groups = kmeans.labels_ 
+        
+        global_avg_original_delta = np.average(original_deltas, axis=0, weights=client_datasizes)
+        global_avg_norm = np.linalg.norm(global_avg_original_delta)
+        client_cosine_distances = np.zeros(num_clients)
+        for i in range(num_clients):
+            client_delta = original_deltas[i]
+            client_norm = np.linalg.norm(client_delta)
+            if client_norm > 0 and global_avg_norm > 0:
+                cos_sim = np.dot(client_delta, global_avg_original_delta) / (client_norm * global_avg_norm)
+                client_cosine_distances[i] = 1.0 - cos_sim
+
+        organized_clients = [[] for _ in range(M)]
+        for client_idx, group_id in enumerate(initial_groups):
+            organized_clients[group_id].append(client_idx)
+        for group_id in range(M):
+            clients_in_group = organized_clients[group_id]
+            if not clients_in_group: continue
+            group_distances = [(client_cosine_distances[c_idx], c_idx) for c_idx in clients_in_group]
+            group_distances.sort(key=lambda x: x[0], reverse=True)
+            organized_clients[group_id] = [c_idx for _, c_idx in group_distances]
+            
+        # --- STEP 2: Seeding and Greedy Assignment ---
+        cluster_assignments = np.full(num_clients, -1, dtype=int)
+        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
+        cluster_sum_datasizes = np.zeros(k)
+        cluster_client_counts = np.zeros(k, dtype=int)
+
+        all_clients_to_assign = [client_idx for group in organized_clients for client_idx in group]
+
+        # Phase 1: Seed the first k clients
+        print("PHASE 1: Seeding the first k clusters...")
+        for i in range(k):
+            if not all_clients_to_assign: break
+            client_idx = all_clients_to_assign.pop(0)
+            cluster_assignments[client_idx] = i
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            cluster_sum_weighted_deltas[i] += client_size * client_delta
+            cluster_sum_datasizes[i] += client_size
+            cluster_client_counts[i] += 1
+            
+        # Phase 2: Assign remaining clients greedily
+        print("PHASE 2: Assigning remaining clients greedily...")
+        for client_idx in all_clients_to_assign:
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            raw_quality_scores = np.zeros(k)
+
+            for j in range(k):
+                hypothetical_counts = cluster_client_counts.copy(); hypothetical_counts[j] += 1
+                hypothetical_cluster_avgs = []
+                for cid in range(k):
+                    if hypothetical_counts[cid] > 0:
+                        sum_d, sum_s = cluster_sum_weighted_deltas[cid], cluster_sum_datasizes[cid]
+                        avg = (sum_d + (client_size*client_delta))/(sum_s + client_size) if cid == j else sum_d/sum_s
+                        hypothetical_cluster_avgs.append(avg)
+                raw_quality_scores[j] = np.var(np.array(hypothetical_cluster_avgs), axis=0).sum() if len(hypothetical_cluster_avgs) > 1 else 0
+
+            best_cluster_idx = np.argmin(raw_quality_scores)
+            cluster_assignments[client_idx] = best_cluster_idx
+            
+            cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+            cluster_sum_datasizes[best_cluster_idx] += client_size
+            cluster_client_counts[best_cluster_idx] += 1
+
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+
+
+    elif args.clusteringtype == "greedygradient6":
+        # 1. Sorting: Cosine Distance
+        # 2. Iteration: Sequential
+        # 3. Score: Mean Cosine Distance
+        print("Running Greedy 6: Sort by Cosine Dist, Iterate Sequentially, Score by Cosine Distance...")
+        
+        # --- PREPARATION ---
+        k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas, _ = prepare_and_run_pca(clientlist, centralserver, args)
+        N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+        num_clients = len(clientlist)
+
+        # --- STEP 1: Pre-clustering and Sorting ---
+        M = k 
+        kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+        initial_groups = kmeans.labels_ 
+        
+        global_avg_original_delta = np.average(original_deltas, axis=0, weights=client_datasizes)
+        global_avg_norm = np.linalg.norm(global_avg_original_delta)
+        client_cosine_distances = np.zeros(num_clients)
+        for i in range(num_clients):
+            client_delta = original_deltas[i]
+            client_norm = np.linalg.norm(client_delta)
+            if client_norm > 0 and global_avg_norm > 0:
+                cos_sim = np.dot(client_delta, global_avg_original_delta) / (client_norm * global_avg_norm)
+                client_cosine_distances[i] = 1.0 - cos_sim
+
+        organized_clients = [[] for _ in range(M)]
+        for client_idx, group_id in enumerate(initial_groups):
+            organized_clients[group_id].append(client_idx)
+        for group_id in range(M):
+            clients_in_group = organized_clients[group_id]
+            if not clients_in_group: continue
+            group_distances = [(client_cosine_distances[c_idx], c_idx) for c_idx in clients_in_group]
+            group_distances.sort(key=lambda x: x[0], reverse=True)
+            organized_clients[group_id] = [c_idx for _, c_idx in group_distances]
+            
+        # --- STEP 2: Seeding and Greedy Assignment ---
+        cluster_assignments = np.full(num_clients, -1, dtype=int)
+        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
+        cluster_sum_datasizes = np.zeros(k)
+        cluster_client_counts = np.zeros(k, dtype=int)
+
+        all_clients_to_assign = [client_idx for group in organized_clients for client_idx in group]
+
+        # Phase 1: Seed the first k clients
+        print("PHASE 1: Seeding the first k clusters...")
+        for i in range(k):
+            if not all_clients_to_assign: break
+            client_idx = all_clients_to_assign.pop(0)
+            cluster_assignments[client_idx] = i
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            cluster_sum_weighted_deltas[i] += client_size * client_delta
+            cluster_sum_datasizes[i] += client_size
+            cluster_client_counts[i] += 1
+            
+        # Phase 2: Assign remaining clients greedily
+        print("PHASE 2: Assigning remaining clients greedily...")
+        for client_idx in all_clients_to_assign:
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            raw_quality_scores = np.zeros(k)
+
+            for j in range(k):
+                hypothetical_counts = cluster_client_counts.copy(); hypothetical_counts[j] += 1
+                cos_distances = []
+                for cid in range(k):
+                    if hypothetical_counts[cid] > 0:
+                        sum_d, sum_s = cluster_sum_weighted_deltas[cid], cluster_sum_datasizes[cid]
+                        avg = (sum_d + (client_size*client_delta))/(sum_s + client_size) if cid == j else sum_d/sum_s
+                        avg_norm = np.linalg.norm(avg)
+                        if avg_norm > 0 and global_avg_norm > 0:
+                            cos_sim = np.dot(avg, global_avg_original_delta) / (avg_norm * global_avg_norm)
+                            cos_distances.append(1.0 - cos_sim)
+                raw_quality_scores[j] = np.mean(cos_distances) if cos_distances else 0
+
+            best_cluster_idx = np.argmin(raw_quality_scores)
+            cluster_assignments[client_idx] = best_cluster_idx
+            
+            cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+            cluster_sum_datasizes[best_cluster_idx] += client_size
+            cluster_client_counts[best_cluster_idx] += 1
+
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+
+
+    elif args.clusteringtype == "greedygradient7":
+        # 1. Sorting: Cosine Distance
+        # 2. Iteration: Round-Robin
+        # 3. Score: Global Variance of Gradients
+        print("Running Greedy 7: Sort by Cosine Dist, Iterate Round-Robin, Score by Variance...")
+
+        # --- PREPARATION ---
+        k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas, _ = prepare_and_run_pca(clientlist, centralserver, args)
+        N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+        num_clients = len(clientlist)
+
+        # --- STEP 1: Pre-clustering and Sorting ---
+        M = k 
+        kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+        initial_groups = kmeans.labels_ 
+        
+        global_avg_original_delta = np.average(original_deltas, axis=0, weights=client_datasizes)
+        global_avg_norm = np.linalg.norm(global_avg_original_delta)
+        client_cosine_distances = np.zeros(num_clients)
+        for i in range(num_clients):
+            client_delta = original_deltas[i]
+            client_norm = np.linalg.norm(client_delta)
+            if client_norm > 0 and global_avg_norm > 0:
+                cos_sim = np.dot(client_delta, global_avg_original_delta) / (client_norm * global_avg_norm)
+                client_cosine_distances[i] = 1.0 - cos_sim
+
+        organized_clients = [[] for _ in range(M)]
+        for client_idx, group_id in enumerate(initial_groups):
+            organized_clients[group_id].append(client_idx)
+        for group_id in range(M):
+            clients_in_group = organized_clients[group_id]
+            if not clients_in_group: continue
+            group_distances = [(client_cosine_distances[c_idx], c_idx) for c_idx in clients_in_group]
+            group_distances.sort(key=lambda x: x[0], reverse=True)
+            organized_clients[group_id] = [c_idx for _, c_idx in group_distances]
+            
+        # --- STEP 2: Seeding and Greedy Assignment ---
+        cluster_assignments = np.full(num_clients, -1, dtype=int)
+        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
+        cluster_sum_datasizes = np.zeros(k)
+        cluster_client_counts = np.zeros(k, dtype=int)
+
+        all_clients_to_assign = []
+        max_group_size = max(len(g) for g in organized_clients) if organized_clients else 0
+        for i in range(max_group_size):
+            for group_id in range(M):
+                if i < len(organized_clients[group_id]):
+                    all_clients_to_assign.append(organized_clients[group_id][i])
+
+        # Phase 1: Seed the first k clients
+        print("PHASE 1: Seeding the first k clusters...")
+        for i in range(k):
+            if not all_clients_to_assign: break
+            client_idx = all_clients_to_assign.pop(0)
+            cluster_assignments[client_idx] = i
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            cluster_sum_weighted_deltas[i] += client_size * client_delta
+            cluster_sum_datasizes[i] += client_size
+            cluster_client_counts[i] += 1
+            
+        # Phase 2: Assign remaining clients greedily
+        print("PHASE 2: Assigning remaining clients greedily...")
+        for client_idx in all_clients_to_assign:
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            raw_quality_scores = np.zeros(k)
+
+            for j in range(k):
+                hypothetical_counts = cluster_client_counts.copy(); hypothetical_counts[j] += 1
+                hypothetical_cluster_avgs = []
+                for cid in range(k):
+                    if hypothetical_counts[cid] > 0:
+                        sum_d, sum_s = cluster_sum_weighted_deltas[cid], cluster_sum_datasizes[cid]
+                        avg = (sum_d + (client_size*client_delta))/(sum_s + client_size) if cid == j else sum_d/sum_s
+                        hypothetical_cluster_avgs.append(avg)
+                raw_quality_scores[j] = np.var(np.array(hypothetical_cluster_avgs), axis=0).sum() if len(hypothetical_cluster_avgs) > 1 else 0
+
+            best_cluster_idx = np.argmin(raw_quality_scores)
+            cluster_assignments[client_idx] = best_cluster_idx
+            
+            cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+            cluster_sum_datasizes[best_cluster_idx] += client_size
+            cluster_client_counts[best_cluster_idx] += 1
+
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+
+
+    elif args.clusteringtype == "greedygradient8":
+        # 1. Sorting: Cosine Distance
+        # 2. Iteration: Round-Robin
+        # 3. Score: Mean Cosine Distance
+        print("Running Greedy 8: Sort by Cosine Dist, Iterate Round-Robin, Score by Cosine Distance...")
+        
+        # --- PREPARATION ---
+        k = args.clusternum
+        client_training_times = np.array([client.calculate_training_time() for client in clientlist])
+        reduced_deltas, client_datasizes, original_deltas, _ = prepare_and_run_pca(clientlist, centralserver, args)
+        N_COMPONENTS_ORIGINAL = original_deltas.shape[1]
+        num_clients = len(clientlist)
+
+        # --- STEP 1: Pre-clustering and Sorting ---
+        M = k 
+        kmeans = KMeans(n_clusters=M, random_state=args.randomseed, n_init="auto").fit(reduced_deltas)
+        initial_groups = kmeans.labels_ 
+        
+        global_avg_original_delta = np.average(original_deltas, axis=0, weights=client_datasizes)
+        global_avg_norm = np.linalg.norm(global_avg_original_delta)
+        client_cosine_distances = np.zeros(num_clients)
+        for i in range(num_clients):
+            client_delta = original_deltas[i]
+            client_norm = np.linalg.norm(client_delta)
+            if client_norm > 0 and global_avg_norm > 0:
+                cos_sim = np.dot(client_delta, global_avg_original_delta) / (client_norm * global_avg_norm)
+                client_cosine_distances[i] = 1.0 - cos_sim
+
+        organized_clients = [[] for _ in range(M)]
+        for client_idx, group_id in enumerate(initial_groups):
+            organized_clients[group_id].append(client_idx)
+        for group_id in range(M):
+            clients_in_group = organized_clients[group_id]
+            if not clients_in_group: continue
+            group_distances = [(client_cosine_distances[c_idx], c_idx) for c_idx in clients_in_group]
+            group_distances.sort(key=lambda x: x[0], reverse=True)
+            organized_clients[group_id] = [c_idx for _, c_idx in group_distances]
+            
+        # --- STEP 2: Seeding and Greedy Assignment ---
+        cluster_assignments = np.full(num_clients, -1, dtype=int)
+        cluster_sum_weighted_deltas = np.zeros((k, N_COMPONENTS_ORIGINAL))
+        cluster_sum_datasizes = np.zeros(k)
+        cluster_client_counts = np.zeros(k, dtype=int)
+
+        all_clients_to_assign = []
+        max_group_size = max(len(g) for g in organized_clients) if organized_clients else 0
+        for i in range(max_group_size):
+            for group_id in range(M):
+                if i < len(organized_clients[group_id]):
+                    all_clients_to_assign.append(organized_clients[group_id][i])
+
+        # Phase 1: Seed the first k clients
+        print("PHASE 1: Seeding the first k clusters...")
+        for i in range(k):
+            if not all_clients_to_assign: break
+            client_idx = all_clients_to_assign.pop(0)
+            cluster_assignments[client_idx] = i
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            cluster_sum_weighted_deltas[i] += client_size * client_delta
+            cluster_sum_datasizes[i] += client_size
+            cluster_client_counts[i] += 1
+            
+        # Phase 2: Assign remaining clients greedily
+        print("PHASE 2: Assigning remaining clients greedily...")
+        for client_idx in all_clients_to_assign:
+            client_delta = original_deltas[client_idx]
+            client_size = client_datasizes[client_idx]
+            raw_quality_scores = np.zeros(k)
+
+            for j in range(k):
+                hypothetical_counts = cluster_client_counts.copy(); hypothetical_counts[j] += 1
+                cos_distances = []
+                for cid in range(k):
+                    if hypothetical_counts[cid] > 0:
+                        sum_d, sum_s = cluster_sum_weighted_deltas[cid], cluster_sum_datasizes[cid]
+                        avg = (sum_d + (client_size*client_delta))/(sum_s + client_size) if cid == j else sum_d/sum_s
+                        avg_norm = np.linalg.norm(avg)
+                        if avg_norm > 0 and global_avg_norm > 0:
+                            cos_sim = np.dot(avg, global_avg_original_delta) / (avg_norm * global_avg_norm)
+                            cos_distances.append(1.0 - cos_sim)
+                raw_quality_scores[j] = np.mean(cos_distances) if cos_distances else 0
+
+            best_cluster_idx = np.argmin(raw_quality_scores)
+            cluster_assignments[client_idx] = best_cluster_idx
+            
+            cluster_sum_weighted_deltas[best_cluster_idx] += client_size * client_delta
+            cluster_sum_datasizes[best_cluster_idx] += client_size
+            cluster_client_counts[best_cluster_idx] += 1
+
+        evaluate_clustering(k, cluster_assignments, original_deltas, client_datasizes, client_training_times)
+
+
+
+
+
+
+
+        
     
 
 
