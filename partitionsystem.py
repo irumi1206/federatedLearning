@@ -94,6 +94,16 @@ def partition_system(args):
         for i in range(args.clientnum):
             clientcommunicationtimelist.append(clientcomputationtimelist[i]*2)
 
+    elif args.systemheterogeneity == "uniformdistribution1":
+
+        clientcomputationtimelist = []
+        clientcommunicationtimelist = []
+        
+        for i in range(args.clientnum):
+            clientcomputationtimelist.append(int(rng.uniform(low=100.0, high=1000.0)))
+        for i in range(args.clientnum):
+            clientcommunicationtimelist.append(clientcomputationtimelist[i]*2)
+
     elif args.systemheterogeneity == "uniformdistribution2":
 
         computationvariance = 0.2

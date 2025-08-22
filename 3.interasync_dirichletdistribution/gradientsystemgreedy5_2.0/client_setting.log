@@ -1,0 +1,700 @@
+Unique id : 0, dataset size : 505
+Communication time : 964, Fixed computation time : 482, Training time : 2410
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.20%', '6:0.00%', '7:10.10%', '8:0.00%', '9:89.70%']
+Divergence : jsd 0.6582, tvd 0.7980
+Local epoch : 2
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 7, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 7, 9, 9, 9, 9, 9, 7, 9, 9]
+
+Unique id : 1, dataset size : 399
+Communication time : 366, Fixed computation time : 183, Training time : 915
+['0:0.00%', '1:0.00%', '2:100.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Unique id : 2, dataset size : 498
+Communication time : 862, Fixed computation time : 431, Training time : 2155
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:100.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Unique id : 3, dataset size : 579
+Communication time : 318, Fixed computation time : 159, Training time : 795
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:100.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+Unique id : 4, dataset size : 399
+Communication time : 610, Fixed computation time : 305, Training time : 1525
+['0:0.00%', '1:0.00%', '2:97.74%', '3:2.26%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7176, tvd 0.8774
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Unique id : 5, dataset size : 379
+Communication time : 308, Fixed computation time : 154, Training time : 770
+['0:0.00%', '1:100.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 6, dataset size : 442
+Communication time : 750, Fixed computation time : 375, Training time : 1875
+['0:35.29%', '1:0.00%', '2:0.00%', '3:0.00%', '4:59.95%', '5:0.00%', '6:4.75%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.5536, tvd 0.7525
+Local epoch : 2
+labels from the first batch :[0, 4, 0, 0, 4, 4, 0, 4, 0, 4, 4, 0, 0, 4, 4, 4, 6, 4, 4, 4, 0, 4, 4, 6, 4, 0, 4, 4, 4, 0, 0, 0]
+
+Unique id : 7, dataset size : 380
+Communication time : 872, Fixed computation time : 436, Training time : 2180
+['0:0.00%', '1:100.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 8, dataset size : 698
+Communication time : 540, Fixed computation time : 270, Training time : 1350
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:99.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:1.00%']
+Divergence : jsd 0.7347, tvd 0.8900
+Local epoch : 2
+labels from the first batch :[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+
+Unique id : 9, dataset size : 799
+Communication time : 964, Fixed computation time : 482, Training time : 2410
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:100.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+
+Unique id : 10, dataset size : 379
+Communication time : 860, Fixed computation time : 430, Training time : 2150
+['0:0.00%', '1:100.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 11, dataset size : 758
+Communication time : 470, Fixed computation time : 235, Training time : 1175
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:100.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+
+Unique id : 12, dataset size : 709
+Communication time : 660, Fixed computation time : 330, Training time : 1650
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:100.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+
+Unique id : 13, dataset size : 417
+Communication time : 802, Fixed computation time : 401, Training time : 2005
+['0:0.00%', '1:0.00%', '2:0.00%', '3:100.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 14, dataset size : 498
+Communication time : 860, Fixed computation time : 430, Training time : 2150
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:100.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Unique id : 15, dataset size : 392
+Communication time : 946, Fixed computation time : 473, Training time : 2365
+['0:0.00%', '1:92.86%', '2:0.00%', '3:0.00%', '4:0.00%', '5:7.14%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.6794, tvd 0.8286
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 5, 1, 1, 1, 5, 1, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 16, dataset size : 416
+Communication time : 314, Fixed computation time : 157, Training time : 785
+['0:0.00%', '1:0.00%', '2:0.00%', '3:100.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 17, dataset size : 423
+Communication time : 796, Fixed computation time : 398, Training time : 1990
+['0:0.00%', '1:0.00%', '2:0.00%', '3:100.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 18, dataset size : 717
+Communication time : 310, Fixed computation time : 155, Training time : 775
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:66.53%', '6:32.64%', '7:0.00%', '8:0.84%', '9:0.00%']
+Divergence : jsd 0.5972, tvd 0.7916
+Local epoch : 2
+labels from the first batch :[6, 6, 5, 6, 6, 5, 5, 5, 5, 5, 5, 6, 5, 5, 6, 5, 5, 5, 6, 5, 6, 5, 5, 6, 5, 5, 5, 6, 5, 5, 6, 5]
+
+Unique id : 19, dataset size : 579
+Communication time : 924, Fixed computation time : 462, Training time : 2310
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:100.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+Unique id : 20, dataset size : 470
+Communication time : 380, Fixed computation time : 190, Training time : 950
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:100.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Unique id : 21, dataset size : 380
+Communication time : 882, Fixed computation time : 441, Training time : 2205
+['0:0.00%', '1:100.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 22, dataset size : 385
+Communication time : 444, Fixed computation time : 222, Training time : 1110
+['0:100.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Unique id : 23, dataset size : 523
+Communication time : 974, Fixed computation time : 487, Training time : 2435
+['0:0.00%', '1:0.00%', '2:1.34%', '3:2.87%', '4:0.38%', '5:0.00%', '6:0.00%', '7:0.00%', '8:16.63%', '9:78.78%']
+Divergence : jsd 0.5567, tvd 0.7541
+Local epoch : 2
+labels from the first batch :[9, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 9, 9, 9, 9, 8, 9, 9]
+
+Unique id : 24, dataset size : 418
+Communication time : 614, Fixed computation time : 307, Training time : 1535
+['0:83.97%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:16.03%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.6452, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 6, 6, 0, 0]
+
+Unique id : 25, dataset size : 701
+Communication time : 456, Fixed computation time : 228, Training time : 1140
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:99.86%', '6:0.14%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7530, tvd 0.8986
+Local epoch : 2
+labels from the first batch :[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+
+Unique id : 26, dataset size : 417
+Communication time : 424, Fixed computation time : 212, Training time : 1060
+['0:0.00%', '1:0.00%', '2:0.00%', '3:100.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 27, dataset size : 384
+Communication time : 684, Fixed computation time : 342, Training time : 1710
+['0:98.96%', '1:1.04%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7341, tvd 0.8896
+Local epoch : 2
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Unique id : 28, dataset size : 700
+Communication time : 466, Fixed computation time : 233, Training time : 1165
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:100.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+
+Unique id : 29, dataset size : 417
+Communication time : 742, Fixed computation time : 371, Training time : 1855
+['0:0.00%', '1:0.00%', '2:0.00%', '3:100.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 30, dataset size : 586
+Communication time : 322, Fixed computation time : 161, Training time : 805
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:100.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+Unique id : 31, dataset size : 775
+Communication time : 398, Fixed computation time : 199, Training time : 995
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:2.45%', '6:29.94%', '7:0.00%', '8:67.61%', '9:0.00%']
+Divergence : jsd 0.5782, tvd 0.7755
+Local epoch : 2
+labels from the first batch :[8, 8, 6, 8, 6, 6, 8, 6, 8, 8, 8, 8, 8, 8, 8, 6, 8, 8, 8, 8, 5, 8, 8, 8, 6, 8, 6, 6, 8, 6, 8, 5]
+
+Unique id : 32, dataset size : 575
+Communication time : 894, Fixed computation time : 447, Training time : 2235
+['0:0.00%', '1:1.22%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:98.78%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7313, tvd 0.8878
+Local epoch : 2
+labels from the first batch :[7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+Unique id : 33, dataset size : 497
+Communication time : 680, Fixed computation time : 340, Training time : 1700
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:100.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Unique id : 34, dataset size : 498
+Communication time : 408, Fixed computation time : 204, Training time : 1020
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:100.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Unique id : 35, dataset size : 616
+Communication time : 318, Fixed computation time : 159, Training time : 795
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:36.69%', '5:0.00%', '6:63.31%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.6144, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[4, 4, 4, 6, 4, 4, 6, 6, 4, 4, 6, 6, 6, 4, 4, 6, 6, 6, 4, 6, 6, 6, 4, 6, 6, 6, 4, 4, 6, 4, 6, 6]
+
+Unique id : 36, dataset size : 498
+Communication time : 308, Fixed computation time : 154, Training time : 770
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:100.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Unique id : 37, dataset size : 416
+Communication time : 398, Fixed computation time : 199, Training time : 995
+['0:0.00%', '1:0.00%', '2:0.00%', '3:100.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 38, dataset size : 385
+Communication time : 506, Fixed computation time : 253, Training time : 1265
+['0:100.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Unique id : 39, dataset size : 399
+Communication time : 718, Fixed computation time : 359, Training time : 1795
+['0:0.00%', '1:0.00%', '2:100.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Unique id : 40, dataset size : 525
+Communication time : 870, Fixed computation time : 435, Training time : 2175
+['0:0.00%', '1:0.00%', '2:0.00%', '3:56.19%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:43.81%', '9:0.00%']
+Divergence : jsd 0.6109, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[8, 3, 3, 8, 3, 3, 8, 8, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 8, 8, 8, 8, 8, 3, 3, 8, 8, 3, 8, 3, 3, 3]
+
+Unique id : 41, dataset size : 752
+Communication time : 820, Fixed computation time : 410, Training time : 2050
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:100.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+
+Unique id : 42, dataset size : 470
+Communication time : 470, Fixed computation time : 235, Training time : 1175
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:100.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Unique id : 43, dataset size : 478
+Communication time : 318, Fixed computation time : 159, Training time : 795
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:100.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Unique id : 44, dataset size : 399
+Communication time : 564, Fixed computation time : 282, Training time : 1410
+['0:0.00%', '1:0.00%', '2:100.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Unique id : 45, dataset size : 471
+Communication time : 550, Fixed computation time : 275, Training time : 1375
+['0:5.73%', '1:51.38%', '2:0.00%', '3:0.00%', '4:0.00%', '5:42.25%', '6:0.64%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.5274, tvd 0.7363
+Local epoch : 2
+labels from the first batch :[1, 5, 1, 5, 1, 1, 1, 5, 1, 5, 5, 1, 1, 1, 5, 1, 1, 1, 5, 5, 5, 1, 1, 5, 1, 0, 5, 1, 1, 1, 5, 5]
+
+Unique id : 46, dataset size : 424
+Communication time : 658, Fixed computation time : 329, Training time : 1645
+['0:81.13%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:18.87%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.6382, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6]
+
+Unique id : 47, dataset size : 470
+Communication time : 498, Fixed computation time : 249, Training time : 1245
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:99.79%', '5:0.00%', '6:0.00%', '7:0.21%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7510, tvd 0.8979
+Local epoch : 2
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Unique id : 48, dataset size : 416
+Communication time : 706, Fixed computation time : 353, Training time : 1765
+['0:0.96%', '1:0.00%', '2:0.00%', '3:99.04%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7354, tvd 0.8904
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 49, dataset size : 744
+Communication time : 290, Fixed computation time : 145, Training time : 725
+['0:1.08%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:98.92%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7336, tvd 0.8892
+Local epoch : 2
+labels from the first batch :[6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+
+Unique id : 50, dataset size : 416
+Communication time : 386, Fixed computation time : 193, Training time : 965
+['0:0.00%', '1:0.00%', '2:0.00%', '3:100.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 51, dataset size : 789
+Communication time : 812, Fixed computation time : 406, Training time : 2030
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:100.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+
+Unique id : 52, dataset size : 385
+Communication time : 988, Fixed computation time : 494, Training time : 2470
+['0:100.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Unique id : 53, dataset size : 395
+Communication time : 846, Fixed computation time : 423, Training time : 2115
+['0:68.35%', '1:0.00%', '2:0.00%', '3:31.65%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.6186, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 3, 0, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0]
+
+Unique id : 54, dataset size : 522
+Communication time : 874, Fixed computation time : 437, Training time : 2185
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:45.40%', '5:0.00%', '6:0.00%', '7:54.60%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.6105, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[7, 4, 7, 7, 7, 7, 4, 7, 7, 4, 7, 7, 4, 4, 7, 4, 7, 7, 7, 7, 4, 7, 4, 4, 7, 4, 7, 7, 4, 4, 4, 7]
+
+Unique id : 55, dataset size : 469
+Communication time : 836, Fixed computation time : 418, Training time : 2090
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:100.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Unique id : 56, dataset size : 380
+Communication time : 564, Fixed computation time : 282, Training time : 1410
+['0:0.00%', '1:100.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 57, dataset size : 385
+Communication time : 790, Fixed computation time : 395, Training time : 1975
+['0:100.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Unique id : 58, dataset size : 494
+Communication time : 662, Fixed computation time : 331, Training time : 1655
+['0:0.00%', '1:0.00%', '2:2.02%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:97.98%']
+Divergence : jsd 0.7204, tvd 0.8798
+Local epoch : 2
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Unique id : 59, dataset size : 415
+Communication time : 560, Fixed computation time : 280, Training time : 1400
+['0:0.00%', '1:83.37%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:16.63%', '9:0.00%']
+Divergence : jsd 0.6436, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 8, 1, 1, 1, 1, 1, 8, 1, 1, 1, 8, 1, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 60, dataset size : 737
+Communication time : 416, Fixed computation time : 208, Training time : 1040
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:88.60%', '9:11.40%']
+Divergence : jsd 0.6599, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[8, 8, 9, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+
+Unique id : 61, dataset size : 469
+Communication time : 890, Fixed computation time : 445, Training time : 2225
+['0:0.00%', '1:0.00%', '2:1.71%', '3:0.00%', '4:94.88%', '5:0.00%', '6:0.00%', '7:1.28%', '8:0.00%', '9:2.13%']
+Divergence : jsd 0.6574, tvd 0.8488
+Local epoch : 2
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 9, 4]
+
+Unique id : 62, dataset size : 470
+Communication time : 254, Fixed computation time : 127, Training time : 635
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:100.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Unique id : 63, dataset size : 385
+Communication time : 852, Fixed computation time : 426, Training time : 2130
+['0:100.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Unique id : 64, dataset size : 385
+Communication time : 904, Fixed computation time : 452, Training time : 2260
+['0:100.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Unique id : 65, dataset size : 380
+Communication time : 538, Fixed computation time : 269, Training time : 1345
+['0:0.00%', '1:98.95%', '2:0.00%', '3:0.00%', '4:1.05%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7339, tvd 0.8895
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 66, dataset size : 418
+Communication time : 866, Fixed computation time : 433, Training time : 2165
+['0:3.59%', '1:70.81%', '2:0.00%', '3:0.00%', '4:8.85%', '5:16.75%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.5037, tvd 0.6756
+Local epoch : 2
+labels from the first batch :[1, 5, 1, 0, 1, 1, 5, 1, 1, 1, 5, 1, 1, 1, 1, 0, 0, 1, 1, 5, 1, 4, 1, 1, 5, 1, 1, 1, 1, 5, 4, 1]
+
+Unique id : 67, dataset size : 509
+Communication time : 472, Fixed computation time : 236, Training time : 1180
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:81.14%', '5:0.00%', '6:0.00%', '7:0.00%', '8:18.86%', '9:0.00%']
+Divergence : jsd 0.6382, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[8, 8, 4, 8, 8, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Unique id : 68, dataset size : 399
+Communication time : 614, Fixed computation time : 307, Training time : 1535
+['0:0.00%', '1:0.00%', '2:100.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Unique id : 69, dataset size : 752
+Communication time : 638, Fixed computation time : 319, Training time : 1595
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:100.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+
+Unique id : 70, dataset size : 406
+Communication time : 354, Fixed computation time : 177, Training time : 885
+['0:0.00%', '1:0.00%', '2:95.32%', '3:0.00%', '4:0.00%', '5:4.68%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.6953, tvd 0.8532
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Unique id : 71, dataset size : 399
+Communication time : 466, Fixed computation time : 233, Training time : 1165
+['0:0.00%', '1:0.00%', '2:100.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Unique id : 72, dataset size : 403
+Communication time : 422, Fixed computation time : 211, Training time : 1055
+['0:0.00%', '1:0.00%', '2:94.79%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:5.21%']
+Divergence : jsd 0.6914, tvd 0.8479
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 9, 2, 2, 2, 2, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 2, 2]
+
+Unique id : 73, dataset size : 788
+Communication time : 566, Fixed computation time : 283, Training time : 1415
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:100.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+
+Unique id : 74, dataset size : 702
+Communication time : 738, Fixed computation time : 369, Training time : 1845
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:97.72%', '6:0.00%', '7:0.00%', '8:2.28%', '9:0.00%']
+Divergence : jsd 0.7174, tvd 0.8772
+Local epoch : 2
+labels from the first batch :[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 5]
+
+Unique id : 75, dataset size : 579
+Communication time : 746, Fixed computation time : 373, Training time : 1865
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:100.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+Unique id : 76, dataset size : 394
+Communication time : 618, Fixed computation time : 309, Training time : 1545
+['0:0.00%', '1:80.96%', '2:0.00%', '3:0.00%', '4:19.04%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.6379, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1, 4, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 77, dataset size : 579
+Communication time : 570, Fixed computation time : 285, Training time : 1425
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:100.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+Unique id : 78, dataset size : 701
+Communication time : 606, Fixed computation time : 303, Training time : 1515
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:100.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+
+Unique id : 79, dataset size : 389
+Communication time : 458, Fixed computation time : 229, Training time : 1145
+['0:0.00%', '1:100.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 80, dataset size : 395
+Communication time : 338, Fixed computation time : 169, Training time : 845
+['0:92.41%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:7.34%', '8:0.25%', '9:0.00%']
+Divergence : jsd 0.6699, tvd 0.8241
+Local epoch : 2
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Unique id : 81, dataset size : 416
+Communication time : 438, Fixed computation time : 219, Training time : 1095
+['0:0.00%', '1:0.00%', '2:0.00%', '3:100.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 82, dataset size : 396
+Communication time : 718, Fixed computation time : 359, Training time : 1795
+['0:93.69%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:5.05%', '7:0.00%', '8:1.01%', '9:0.25%']
+Divergence : jsd 0.6606, tvd 0.8369
+Local epoch : 2
+labels from the first batch :[0, 0, 8, 0, 0, 0, 0, 6, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Unique id : 83, dataset size : 422
+Communication time : 250, Fixed computation time : 125, Training time : 625
+['0:0.00%', '1:0.00%', '2:0.00%', '3:92.18%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:7.82%']
+Divergence : jsd 0.6757, tvd 0.8218
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 3, 3, 3, 3, 3, 3]
+
+Unique id : 84, dataset size : 786
+Communication time : 706, Fixed computation time : 353, Training time : 1765
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:99.75%', '9:0.25%']
+Divergence : jsd 0.7499, tvd 0.8975
+Local epoch : 2
+labels from the first batch :[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+
+Unique id : 85, dataset size : 417
+Communication time : 422, Fixed computation time : 211, Training time : 1055
+['0:0.00%', '1:0.00%', '2:0.00%', '3:100.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+Unique id : 86, dataset size : 380
+Communication time : 348, Fixed computation time : 174, Training time : 870
+['0:0.00%', '1:100.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 87, dataset size : 399
+Communication time : 590, Fixed computation time : 295, Training time : 1475
+['0:0.00%', '1:0.00%', '2:100.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Unique id : 88, dataset size : 506
+Communication time : 482, Fixed computation time : 241, Training time : 1205
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:100.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Unique id : 89, dataset size : 470
+Communication time : 276, Fixed computation time : 138, Training time : 690
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:100.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+Unique id : 90, dataset size : 379
+Communication time : 766, Fixed computation time : 383, Training time : 1915
+['0:0.00%', '1:100.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+Unique id : 91, dataset size : 410
+Communication time : 832, Fixed computation time : 416, Training time : 2080
+['0:0.00%', '1:0.00%', '2:100.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Unique id : 92, dataset size : 475
+Communication time : 234, Fixed computation time : 117, Training time : 585
+['0:0.00%', '1:0.00%', '2:67.58%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:32.42%', '9:0.00%']
+Divergence : jsd 0.6178, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, 2, 2, 2, 8, 8, 2, 2, 2, 8, 2, 2, 8, 2, 8, 8, 2, 8, 2, 8, 2]
+
+Unique id : 93, dataset size : 494
+Communication time : 700, Fixed computation time : 350, Training time : 1750
+['0:0.00%', '1:0.00%', '2:59.11%', '3:0.00%', '4:0.00%', '5:0.00%', '6:40.89%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.6120, tvd 0.8000
+Local epoch : 2
+labels from the first batch :[2, 2, 6, 6, 2, 2, 2, 6, 2, 2, 2, 6, 2, 6, 2, 6, 2, 2, 2, 6, 6, 2, 2, 6, 2, 2, 2, 2, 6, 2, 2, 2]
+
+Unique id : 94, dataset size : 399
+Communication time : 398, Fixed computation time : 199, Training time : 995
+['0:0.00%', '1:0.00%', '2:100.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+Unique id : 95, dataset size : 579
+Communication time : 540, Fixed computation time : 270, Training time : 1350
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:100.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+Unique id : 96, dataset size : 579
+Communication time : 832, Fixed computation time : 416, Training time : 2080
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:100.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+
+Unique id : 97, dataset size : 399
+Communication time : 624, Fixed computation time : 312, Training time : 1560
+['0:100.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+Unique id : 98, dataset size : 498
+Communication time : 210, Fixed computation time : 105, Training time : 525
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:0.00%', '7:0.00%', '8:0.00%', '9:100.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+
+Unique id : 99, dataset size : 752
+Communication time : 214, Fixed computation time : 107, Training time : 535
+['0:0.00%', '1:0.00%', '2:0.00%', '3:0.00%', '4:0.00%', '5:0.00%', '6:100.00%', '7:0.00%', '8:0.00%', '9:0.00%']
+Divergence : jsd 0.7583, tvd 0.9000
+Local epoch : 2
+labels from the first batch :[6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+

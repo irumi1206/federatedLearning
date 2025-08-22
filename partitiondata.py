@@ -2,7 +2,7 @@ import numpy as np
 from torch.utils.data import DataLoader, Subset
 from collections import defaultdict
 
-from dataset.FEMNISTClientDataset import FEMNISTClientDataset
+#from dataset.FEMNISTClientDataset import FEMNISTClientDataset
 
 
 # Return list of dataloader splited based on the setting also save data distribution for each client and global data distribution(args.labelpercentageperclient, args.labelpercentageforglobaldistribution)

@@ -11,8 +11,8 @@ from scipy.spatial.distance import jensenshannon
 from collections import defaultdict
 from datasets import load_dataset
 from random import seed,shuffle
-from dataset.FEMNISTClientDataset import FEMNISTClientDataset
-from torch.utils.data import Subset
+# from dataset.FEMNISTClientDataset import FEMNISTClientDataset
+# from torch.utils.data import Subset
 import random
 
 # Return model object based on the model name
